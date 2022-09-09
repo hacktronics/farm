@@ -1,0 +1,7 @@
+canvas {
+  background-color: transparent;
+  position: absolute;
+  left: 39vw;
+  top: 17vh;
+  z-index: 100;
+}

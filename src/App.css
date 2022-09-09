@@ -1,5 +1,10 @@
 .App {
+  min-height: calc(100vh);
   text-align: center;
+  background-image: url("/public/images/background.png");
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
 }
 
 .App-logo {
@@ -14,8 +19,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +38,58 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#blocklyDiv {
+  position: absolute;
+  top: 65px;
+  left: 0px;
+  height: calc(100vh - 65px);
+  width: 666px;
+}
+
+#ace_editor {
+  position: absolute;
+  top: 50px;
+  left: 160px;
+  height: calc(100vh - 65px);
+  width: 506px;
+}
+
+.texteditor {
+  position: absolute;
+  top: 65px;
+  left: 0px;
+  height: calc(100vh - 65px);
+  width: 666px;
+}
+
+.blocklySvg {
+  background-color: transparent;
+}
+
+.blocklyMainBackground {
+  fill: transparent;
+  stroke: #92B129 !important;
+}
+
+.blocklyScrollbarHandle {
+  fill: #92B129 !important;
+}
+
+html {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.MuiToggleButton-root.Mui-selected {
+  color: #FFF !important;
+}
+
+.blocklyTreeRow {
+  padding-bottom: 4px;
+}
+
+.ace_custom_token {
+  color: #66D9EF;
 }
