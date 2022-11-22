@@ -1,18 +1,11 @@
 import React, {useState} from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Pagination from '@mui/material/Pagination';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -24,53 +17,17 @@ import TranslateIcon from '@mui/icons-material/Translate';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import LanguageMenu from '../LanguageMenu';
+import AccountMenu from '../AccountMenu';
+import { useTranslation } from 'react-i18next';
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
-    width: 'auto',
-  },
-}));
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
-    },
-  },
-}));
-
-export default function HeaderAppBar({programMode, setProgramMode, gameLevel, onGameLevelChange}) {
-  const [anchorEl, setAnchorEl] = useState(null);
+export default function HeaderAppBar({programMode, setProgramMode, gameLevel, onGameLevelChange, onLanguageChange}) {
+  const { t } = useTranslation();
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const [languageAnchorEl, setLanguageAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
   const [volumeMute, setVolumeMute] = useState(false);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProgramModeChange = (event, newProgramMode) => {
@@ -78,15 +35,24 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
   };
 
   const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    setProfileAnchorEl(event.currentTarget);
+  };
+
+  const handleLanguageMenuOpen = (event) => {
+    setLanguageAnchorEl(event.currentTarget);
   };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
+  const handleAccountMenuClose = () => {
+    setProfileAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const handleLanguageMenuClose = () => {
+    setLanguageAnchorEl(null);
     handleMobileMenuClose();
   };
 
@@ -103,27 +69,8 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
   }
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-    </Menu>
-  );
-
   const mobileMenuId = 'primary-search-account-menu-mobile';
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -180,19 +127,11 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
       <AppBar position="static" sx={{backgroundColor:'transparent'}}>
         <Toolbar>
           <img src="/images/logo.png" alt="logo" height={32}/>
-          {/* <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            Code Skool
-          </Typography> */}
           <Box sx={{ flexGrow: 1 }} />
           <ToggleButtonGroup color="primary" exclusive value={programMode} onChange={handleProgramModeChange} sx={{color: "#FFF"}}>
-            <ToggleButton value="blocks" sx={{color: "#2e7d32"}}>Blocks</ToggleButton>
-            <ToggleButton value="python" sx={{color: "#2e7d32"}}>Python</ToggleButton>
-            <ToggleButton value="javascript" sx={{color: "#2e7d32"}}>JavaScript</ToggleButton>
+            <ToggleButton value="blocks" sx={{color: "#2e7d32"}}>{t("Blocks")}</ToggleButton>
+            <ToggleButton value="python" sx={{color: "#2e7d32"}}>{t("Python")}</ToggleButton>
+            <ToggleButton value="javascript" sx={{color: "#2e7d32"}}>{t("JavaScript")}</ToggleButton>
           </ToggleButtonGroup>
           <Box sx={{ flexGrow: 1 }} />
           <Pagination color="primary" page={gameLevel} onChange={onGameLevelChange} count={10}/>
@@ -202,9 +141,9 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
               <IconButton size="large" aria-label="stars" color="inherit">
                 <img src="/images/gold_star.svg" alt="star" width="36px"/>
               </IconButton>
-              <Box sx={{fontSize:"2rem", fontWeight:700, fontFamily: "'Caveat', cursive"}}>0 / 300</Box>
+              <Box sx={{fontSize:"2rem", fontWeight:700, fontFamily: "'Caveat', cursive"}}>0 / 100</Box>
             </Box>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{my:"auto"}}>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{my:"auto"}} onClick={handleLanguageMenuOpen}>
               <TranslateIcon />
             </IconButton>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={e => setVolumeMute(!volumeMute)}>
@@ -246,8 +185,9 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
           </Box>
         </Toolbar>
       </AppBar>
+      <LanguageMenu anchorEl={languageAnchorEl} onClose={handleLanguageMenuClose} onLanguageChange={onLanguageChange}/>
+      <AccountMenu anchorEl={profileAnchorEl} onClose={handleAccountMenuClose} />
       {renderMobileMenu}
-      {renderMenu}
     </Box>
   );
 }

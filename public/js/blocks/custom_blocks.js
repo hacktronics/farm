@@ -1,6 +1,7 @@
 let START = "start";
 let WALK = "walk";
 let TURN = "turn";
+let TURN_BACK = "turn";
 let RIGHT = "right";
 let LEFT = "left";
 let BACKWARD = "backward";
@@ -12,6 +13,29 @@ let COLLECT = "collect";
 let WATER_PLANT = "water plant";
 let HOLES = "holes";
 let STONES = "stones";
+
+let gameLanguage = "en";
+if (window.localStorage) {
+  gameLanguage = localStorage.getItem("lang") || "en";
+}
+
+if(gameLanguage === "hi") {
+  START = "शुरू";
+  WALK = "चलो";
+  TURN = "घुमो";
+  TURN_BACK = "पीछे";
+  RIGHT = "दाएँ";
+  LEFT = "बाएं";
+  BACKWARD = "घुमो";
+  REPEAT = "दोहराएं";
+  STEP = "कदम";
+  FILL = "गड्ढे";
+  REMOVE = "पत्थर";
+  COLLECT = "इकट्ठा करें";
+  WATER_PLANT = "पौधों को पानी दें";
+  HOLES = "भरे";
+  STONES = "हटाएं";
+}
 
 Blockly.Blocks["start"] = {
   init: function () {
@@ -63,7 +87,7 @@ Blockly.Blocks["turn"] = {
 Blockly.Blocks["turn_back"] = {
   init: function () {
     this.appendDummyInput()
-      .appendField(TURN).setAlign(Blockly.ALIGN_CENTRE)
+      .appendField(TURN_BACK).setAlign(Blockly.ALIGN_CENTRE)
       .appendField(new Blockly.FieldImage("images/u-turn.svg", 30, 30, "u-turn"))
       .appendField(BACKWARD).setAlign(Blockly.ALIGN_CENTRE);
     this.setPreviousStatement(true, null);
