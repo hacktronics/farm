@@ -134,9 +134,10 @@ function GameMaze({level}) {
   };
 
   const walkSteps = (steps) => {
-    let newPlayerPos = {...playerPos};
+    const pos = playerPosRef.current;
+    let newPlayerPos = {...pos};
     // eslint-disable-next-line default-case
-    switch (playerPos.dir) {
+    switch (pos.dir) {
       case 'north':
         newPlayerPos.row -= steps;
         if (newPlayerPos.row < 0) {
@@ -166,9 +167,10 @@ function GameMaze({level}) {
   }
 
   const turnLeft = () => {
-    let newPlayerPos = {...playerPos};
+    const pos = playerPosRef.current;
+    let newPlayerPos = {...pos};
     // eslint-disable-next-line default-case
-    switch (playerPos.dir) {
+    switch (pos.dir) {
       case 'north':
         newPlayerPos.dir = 'west';
         break;
@@ -186,9 +188,10 @@ function GameMaze({level}) {
   };
 
   const turnRight = () => {
-    let newPlayerPos = {...playerPos};
+    const pos = playerPosRef.current;
+    let newPlayerPos = {...pos};
     // eslint-disable-next-line default-case
-    switch (playerPos.dir) {
+    switch (pos.dir) {
       case 'north':
         newPlayerPos.dir = 'east';
         break;
@@ -206,9 +209,10 @@ function GameMaze({level}) {
   };
 
   const turnBackward = () => {
-    let newPlayerPos = {...playerPos};
+    const pos = playerPosRef.current;
+    let newPlayerPos = {...pos};
     // eslint-disable-next-line default-case
-    switch (playerPos.dir) {
+    switch (pos.dir) {
       case 'north':
         newPlayerPos.dir = 'south';
         break;

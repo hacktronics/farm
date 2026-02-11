@@ -20,13 +20,14 @@ var jsInterpreter = null;
 var workspace = null;
 var setResultDialog = null;
 var setGameResultFn = null;
+var gameSpeedDelay = 1000;
 
 const start = () => {
   console.log('start()');
   highlightPause = true;
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const walkSteps = (step) => {
@@ -42,7 +43,7 @@ const walkSteps = (step) => {
     setTimeout(function() {
       stepCode();
       resolve();
-    }, 1000);
+    }, gameSpeedDelay);
   });
 };
 
@@ -53,7 +54,7 @@ const turnLeft = () => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const turnRight = () => {
@@ -63,7 +64,7 @@ const turnRight = () => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const turnBackward = () => {
@@ -73,7 +74,7 @@ const turnBackward = () => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const removeStones = () => {
@@ -83,7 +84,7 @@ const removeStones = () => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const fillHoles = () => {
@@ -93,7 +94,7 @@ const fillHoles = () => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const collectCorn = (num) => {
@@ -106,7 +107,7 @@ const collectCorn = (num) => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const collectTomato = (num) => {
@@ -119,7 +120,7 @@ const collectTomato = (num) => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const waterPlant = () => {
@@ -129,15 +130,16 @@ const waterPlant = () => {
   }
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const checkGameResult = () => {
   setTimeout(() => {
     const result = window.isLevelComplete && window.isLevelComplete() ? 'correct' : 'incorrect';
+    new Audio(result === 'correct' ? '/sounds/victory.mp3' : '/sounds/lose.mp3').play().catch(() => {});
     if (setGameResultFn) setGameResultFn(result);
     if (setResultDialog) setResultDialog(true);
-  }, 1000);
+  }, gameSpeedDelay);
 };
 
 const resetStepUi = (clearOutput) => {
@@ -153,7 +155,7 @@ const highlightBlock = (id) => {
   highlightPause = true;
   setTimeout(function() {
     stepCode();
-  }, 1000);
+  }, gameSpeedDelay);
 }
 
 const initApi = (interpreter, scope) => {
@@ -262,6 +264,15 @@ function App() {
   const [gameResult, setGameResult] = useState('correct');
   const [gameLevel, setGameLevel] = useState(1);
   const [volumeMute, setVolumeMute] = useState(false);
+  const [gameSpeed, setGameSpeed] = useState('medium');
+
+  const handleSpeedChange = () => {
+    setGameSpeed(prev => {
+      const next = prev === 'slow' ? 'medium' : prev === 'medium' ? 'fast' : 'slow';
+      gameSpeedDelay = next === 'slow' ? 1500 : next === 'fast' ? 300 : 900;
+      return next;
+    });
+  };
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -540,6 +551,13 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <div className="App">
+          <div className="bg-container">
+            <div className="bg-scaled">
+              <img className="bg-img" src="/images/background.png" alt="" />
+              <img className="bg-overlay" src="/images/animations/chickens.gif" alt=""
+                style={{left:'76%', top:'73%', width:'20%'}} />
+            </div>
+          </div>
           <HeaderAppBar
             programMode={programMode}
             setProgramMode={handleProgramModeChange}
@@ -548,6 +566,8 @@ function App() {
             onLanguageChange={handleLanguageChange}
             volumeMute={volumeMute}
             onVolumeToggle={() => setVolumeMute(m => !m)}
+            gameSpeed={gameSpeed}
+            onSpeedChange={handleSpeedChange}
           />
           <GameMaze level={gameLevel - 1}/>
           <div id="blocklyDiv" style={{visibility: (programMode === 'blocks') ? 'visible' : 'hidden'}}></div>
@@ -585,7 +605,7 @@ function App() {
             </Fab>
           </Zoom>
           <InfoDialog open={openInfoDialog} onClose={() => setOpenInfoDialog(false)} />
-          <ResultDialog open={openResultDialog} onClose={() => setOpenResultDialog(false)} result={gameResult}/>
+          <ResultDialog open={openResultDialog} onClose={() => { setOpenResultDialog(false); setIsRunning(false); if(window.resetGame) window.resetGame(); }} result={gameResult}/>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

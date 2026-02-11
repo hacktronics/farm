@@ -11,6 +11,9 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
+import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
+import BoltIcon from '@mui/icons-material/Bolt';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import TranslateIcon from '@mui/icons-material/Translate';
@@ -21,7 +24,7 @@ import LanguageMenu from '../LanguageMenu';
 import AccountMenu from '../AccountMenu';
 import { useTranslation } from 'react-i18next';
 
-export default function HeaderAppBar({programMode, setProgramMode, gameLevel, onGameLevelChange, onLanguageChange, volumeMute, onVolumeToggle}) {
+export default function HeaderAppBar({programMode, setProgramMode, gameLevel, onGameLevelChange, onLanguageChange, volumeMute, onVolumeToggle, gameSpeed, onSpeedChange}) {
   const { t } = useTranslation();
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [languageAnchorEl, setLanguageAnchorEl] = useState(null);
@@ -142,7 +145,12 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
               </IconButton>
               <Box sx={{fontSize:"2rem", fontWeight:700, fontFamily: "'Caveat', cursive"}}>0 / 100</Box>
             </Box>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{my:"auto"}} onClick={handleLanguageMenuOpen}>
+            <IconButton size="large" aria-label="game speed" color="inherit" sx={{my:"auto"}} onClick={onSpeedChange}>
+              {gameSpeed === 'slow' && <DirectionsWalkIcon />}
+              {gameSpeed === 'medium' && <DirectionsRunIcon />}
+              {gameSpeed === 'fast' && <BoltIcon />}
+            </IconButton>
+            <IconButton size="large" aria-label="change language" color="inherit" sx={{my:"auto"}} onClick={handleLanguageMenuOpen}>
               <TranslateIcon />
             </IconButton>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={onVolumeToggle}>

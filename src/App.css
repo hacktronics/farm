@@ -1,10 +1,33 @@
 .App {
   min-height: calc(100vh);
   text-align: center;
-  background-image: url("/images/background.png");
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.bg-container {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.bg-scaled {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Replicate background-size:cover for 3439×1973 image */
+  width: max(100vw, calc(100vh * 3439 / 1973));
+  height: max(100vh, calc(100vw * 1973 / 3439));
+}
+
+.bg-scaled img.bg-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.bg-scaled img.bg-overlay {
+  position: absolute;
 }
 
 .App-logo {
