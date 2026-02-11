@@ -76,16 +76,20 @@ const turnBackward = () => {
 };
 
 const removeStones = () => {
-  console.log('removeStones()');
   highlightPause = true;
+  if(window.removeStones) {
+    window.removeStones();
+  }
   setTimeout(function() {
     stepCode();
   }, 1000);
 };
 
 const fillHoles = () => {
-  console.log('fillHoles()');
   highlightPause = true;
+  if(window.fillHoles) {
+    window.fillHoles();
+  }
   setTimeout(function() {
     stepCode();
   }, 1000);
@@ -95,8 +99,10 @@ const collectCorn = (num) => {
   if(typeof num !== 'number') {
     num = parseInt(num, 10) || 0;
   }
-  console.log('collectCorn(' + num + ')');
   highlightPause = true;
+  if(window.collectCorn) {
+    window.collectCorn(num);
+  }
   setTimeout(function() {
     stepCode();
   }, 1000);
@@ -106,16 +112,20 @@ const collectTomato = (num) => {
   if(typeof num !== 'number') {
     num = parseInt(num, 10) || 0;
   }
-  console.log('collectTomato(' + num + ')');
   highlightPause = true;
+  if(window.collectTomato) {
+    window.collectTomato(num);
+  }
   setTimeout(function() {
     stepCode();
   }, 1000);
 };
 
 const waterPlant = () => {
-  console.log('waterPlant()');
   highlightPause = true;
+  if(window.waterPlant) {
+    window.waterPlant();
+  }
   setTimeout(function() {
     stepCode();
   }, 1000);
@@ -183,12 +193,12 @@ const initApi = (interpreter, scope) => {
   interpreter.setProperty(scope, 'fillHoles', interpreter.createNativeFunction(wrapper));
 
   wrapper = function(num) {
-    return interpreter.createPrimitive(collectCorn(num));
+    return interpreter.createPrimitive(collectCorn(parseInt(num, 10) || 0));
   };
   interpreter.setProperty(scope, 'collectCorn', interpreter.createNativeFunction(wrapper));
 
   wrapper = function(num) {
-    return interpreter.createPrimitive(collectTomato(num));
+    return interpreter.createPrimitive(collectTomato(parseInt(num, 10) || 0));
   };
   interpreter.setProperty(scope, 'collectTomato', interpreter.createNativeFunction(wrapper));
 

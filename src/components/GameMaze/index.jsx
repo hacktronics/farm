@@ -42,7 +42,7 @@ const gameLevels = [
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
@@ -61,9 +61,9 @@ const gameLevels = [
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3]
@@ -98,10 +98,10 @@ const gameLevels = [
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 5, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
+      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
       [2, 2, 2, 0, 0, 0, 0, 3, 3, 3]
@@ -111,6 +111,12 @@ const gameLevels = [
 
 function GameMaze({level}) {
   const [playerPos, setPlayerPos] = React.useState(gameLevels[level].player);
+  const [mazeData, setMazeData] = React.useState(() => gameLevels[level].maze.map(row => [...row]));
+  const imagesRef = React.useRef(null);
+  const playerPosRef = React.useRef(playerPos);
+  playerPosRef.current = playerPos;
+  const mazeDataRef = React.useRef(mazeData);
+  mazeDataRef.current = mazeData;
 
   const onResizeWindow = () => {
     const canvas = document.getElementById('canvas');
@@ -123,6 +129,7 @@ function GameMaze({level}) {
 
   const resetGame = () => {
     setPlayerPos(gameLevels[level].player);
+    setMazeData(gameLevels[level].maze.map(row => [...row]));
   };
 
   const walkSteps = (steps) => {
@@ -217,20 +224,45 @@ function GameMaze({level}) {
     setPlayerPos(newPlayerPos);
   };
 
+  const updateTile = (row, col, newType) => {
+    setMazeData(prev => {
+      const next = prev.map(r => [...r]);
+      next[row][col] = newType;
+      return next;
+    });
+  };
+
+  const collectTomato = (num) => {
+    const pos = playerPosRef.current;
+    const data = mazeDataRef.current;
+    const tile = data[pos.row][pos.col];
+    console.log('collectTomato', { num, row: pos.row, col: pos.col, tile, newTile: Math.max(0, tile - num) });
+    updateTile(pos.row, pos.col, Math.max(0, tile - num));
+  };
+
+  const collectCorn = (num) => {
+    const pos = playerPosRef.current;
+    const data = mazeDataRef.current;
+    const tile = data[pos.row][pos.col];
+    console.log('collectCorn', { num, row: pos.row, col: pos.col, tile, newTile: Math.max(0, tile - num) });
+    updateTile(pos.row, pos.col, Math.max(0, tile - num));
+  };
+
   window.resetGame = resetGame;
   window.walkSteps = walkSteps;
   window.turnLeft = turnLeft;
   window.turnRight = turnRight;
   window.turnBackward = turnBackward;
+  window.updateTile = updateTile;
+  window.collectTomato = collectTomato;
+  window.collectCorn = collectCorn;
 
   const mazeTile = useCallback((counter) => {
     const index = mazeIndex[counter];
     const row = Math.floor(index / 10);
     const col = index % 10;
-    return gameLevels[level].maze[row][col];
-    // maze[level][i][j+0.5*i];
-    // maze[level][19 - i][j+0.5*i-0.5];
-  }, [level]);
+    return mazeData[row][col];
+  }, [mazeData]);
 
   useEffect(() => {
     window.addEventListener('resize', onResizeWindow);
@@ -241,65 +273,93 @@ function GameMaze({level}) {
 
   useEffect(() => {
     setPlayerPos(gameLevels[level].player);
+    setMazeData(gameLevels[level].maze.map(row => [...row]));
   }, [level]);
 
   useEffect(() => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const width = canvas.width;
-    const cellSize = width/12;
-    //draw image on canvas
-    const drawImage = (img, x, y) => {
-      ctx.drawImage(img, x, y, cellSize, cellSize);
-    }
-    //create image with world tile image
-    const tile = [];
-    tile.push(new Image());
-    tile.push(new Image());
-    tile.push(new Image());
-    tile.push(new Image());
-    tile.push(new Image());
-    tile.push(new Image());
-    tile.push(new Image());
-    const player = [];
-    player.push(new Image());
+    const dpr = window.devicePixelRatio || 1;
+    const logicalW = 1000;
+    const logicalH = 800;
+    canvas.width = logicalW * dpr;
+    canvas.height = logicalH * dpr;
+    canvas.style.width = logicalW + 'px';
+    canvas.style.height = logicalH + 'px';
+    ctx.scale(dpr, dpr);
+    // Grid: halfCell = horizontal half-step
+    // Tile diamond in 1500×1500 image: width=1310, half-height=376, top vertex at y=620
+    const halfCell = 44;
+    const vStep = halfCell * 376 / 655;
+    // Render size derived so rendered diamond width = 2*halfCell exactly
+    const tileW = 2 * halfCell * 1500 / 1310;
+    const tileH = tileW;
+    // Offsets align diamond within tile to grid positions:
+    // xOff centers diamond horizontally, yOff places diamond top at grid y
+    const xOff = tileW / 2 - halfCell;
+    const yOff = tileH * 620 / 1500;
+    // Center diamond field vertically (field spans 20*vStep top-to-bottom)
+    const yStart = Math.round((logicalH - 20 * vStep) / 2) - 19;
 
-    //draw maze on canvas
-    const drawMaze = () => {
+    const drawTile = (img, x, y) => {
+      ctx.drawImage(img, x - xOff, y - yOff, tileW, tileH);
+    }
+    const drawPlayer = (img, x, y) => {
+      ctx.drawImage(img, x, y, halfCell * 2, halfCell * 2);
+    }
+    const cx = Math.round(logicalW / 2);
+    const drawMaze = (tile) => {
       let counter = 0;
       for(let i = 0; i < 10; i++) {
-        for(let j = -0.5*i; j <= 0.5*i; j++) {
-          drawImage(tile[mazeTile(counter++)], width/2 + j*cellSize, (0.40*i)*cellSize + 40);
+        for(let jh = -i; jh <= i; jh += 2) {
+          drawTile(tile[mazeTile(counter++)], cx + jh * halfCell, i * vStep + yStart);
         }
       }
       for(let i = 9; i > 0; i--) {
-        for(let j = -0.5*i+0.5; j <= 0.5*i; j++) {
-          drawImage(tile[mazeTile(counter++)], width/2 + j*cellSize, (7.6-(0.40*i))*cellSize + 40);
+        for(let jh = -i + 1; jh <= i; jh += 2) {
+          drawTile(tile[mazeTile(counter++)], cx + jh * halfCell, (19 - i) * vStep + yStart);
         }
       }
     }
-    tile[0].onload=function(){
-      setTimeout(() => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawMaze();
-        const pos = playerXY[playerIndex[playerPos.row][playerPos.col]];
-        //drawImage(player[0], width/2 - 0.5*(2-step)*cellSize - 35, (0.40*(5+step))*cellSize - 10);
-        if(pos[0] < 10) {
-          drawImage(player[0], width/2 + pos[1]*cellSize + 5, (0.40*pos[0])*cellSize);
-        } else {
-          pos[0] = 19 - pos[0];
-          drawImage(player[0], width/2 + pos[1]*cellSize, (7.6-(0.40*pos[0]))*cellSize);
-        }
-      }, 500);
+    // Player sprite anchor: feet at (0.424 * width, bottom) in source image
+    const playerFootX = Math.round(halfCell * 2 * 284 / 670) + 20;
+    const drawScene = (tile, player) => {
+      ctx.clearRect(0, 0, logicalW, logicalH);
+      drawMaze(tile);
+      const pos = playerXY[playerIndex[playerPos.row][playerPos.col]];
+      const ph = Math.round(pos[1] * 2);
+      const gridY = pos[0] < 10
+        ? pos[0] * vStep + yStart
+        : (19 - pos[0]) * vStep + yStart;
+      // Place farmer feet on tile
+      drawPlayer(player[0], cx + ph * halfCell - playerFootX, gridY - halfCell * 2 - 2);
     };
-    player[0].src = '/images/player/farmer1.png';
-    tile[6].src = '/images/maze/tile0.png';
-    tile[5].src = '/images/maze/tile5.png';
-    tile[4].src = '/images/maze/tile0.png';
-    tile[3].src = '/images/maze/tile3.png';
-    tile[2].src = '/images/maze/tile2.png';
-    tile[1].src = '/images/maze/tile1.png';
-    tile[0].src = '/images/maze/tile0.png';
+
+    if (imagesRef.current) {
+      // Images already loaded — draw immediately
+      const { tile, player } = imagesRef.current;
+      drawScene(tile, player);
+    } else {
+      // First render — load all tile images (0-9) and player
+      const tile = [];
+      for (let i = 0; i < 10; i++) tile.push(new Image());
+      const player = [new Image()];
+      let loaded = 0;
+      const totalImages = tile.length + player.length;
+      const onLoad = () => {
+        loaded++;
+        if (loaded >= totalImages) {
+          imagesRef.current = { tile, player };
+          drawScene(tile, player);
+        }
+      };
+      tile.forEach(img => { img.onload = onLoad; });
+      player[0].onload = onLoad;
+      player[0].src = '/images/player/farmer1.png';
+      for (let i = 0; i < 10; i++) {
+        tile[i].src = `/images/maze/tile${i}.png`;
+      }
+    }
   }, [level, mazeTile, playerPos.col, playerPos.row]);
 
   return (
