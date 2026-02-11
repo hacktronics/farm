@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import GameMaze from './components/GameMaze';
 import HeaderAppBar from './components/AppBar';
@@ -19,6 +19,7 @@ var highlightPause = false;
 var jsInterpreter = null;
 var workspace = null;
 var setResultDialog = null;
+var setGameResultFn = null;
 
 const start = () => {
   console.log('start()');
@@ -132,6 +133,11 @@ const waterPlant = () => {
 };
 
 const checkGameResult = () => {
+  setTimeout(() => {
+    const result = window.isLevelComplete && window.isLevelComplete() ? 'correct' : 'incorrect';
+    if (setGameResultFn) setGameResultFn(result);
+    if (setResultDialog) setResultDialog(true);
+  }, 1000);
 };
 
 const resetStepUi = (clearOutput) => {
@@ -253,7 +259,45 @@ function App() {
   const [pyCode, setPYCode] = useState('');
   const [openInfoDialog, setOpenInfoDialog] = useState(false);
   const [openResultDialog, setOpenResultDialog] = useState(false);
+  const [gameResult, setGameResult] = useState('correct');
   const [gameLevel, setGameLevel] = useState(1);
+  const [volumeMute, setVolumeMute] = useState(false);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = new Audio('/sounds/farm-ambience.mp3');
+    audio.loop = true;
+    audio.volume = 0.1;
+    audioRef.current = audio;
+
+    const tryPlay = () => {
+      audio.play().catch(() => {});
+    };
+
+    // Try to play immediately; if blocked by autoplay policy, play on first user interaction
+    tryPlay();
+    const handleInteraction = () => {
+      if (audio.paused) {
+        tryPlay();
+      }
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+    };
+    document.addEventListener('click', handleInteraction);
+    document.addEventListener('keydown', handleInteraction);
+
+    return () => {
+      audio.pause();
+      document.removeEventListener('click', handleInteraction);
+      document.removeEventListener('keydown', handleInteraction);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.muted = volumeMute;
+    }
+  }, [volumeMute]);
 
   const onGameLevelChange = (event, level) => {
     setIsRunning(false);
@@ -314,6 +358,7 @@ function App() {
           drag: true,
           wheel: true,
         },
+        theme: window.Blockly.Themes.Modern,
         toolbox: toolbox,
         toolboxPosition: 'start',
         renderer: 'pxt',
@@ -377,6 +422,7 @@ function App() {
   useEffect(() => {
     loadBlocklyWorkspace();
     setResultDialog = setOpenResultDialog;
+    setGameResultFn = setGameResult;
   }, [loadBlocklyWorkspace]);
 
   const transitionDuration = {
@@ -500,6 +546,8 @@ function App() {
             gameLevel={gameLevel}
             onGameLevelChange={onGameLevelChange}
             onLanguageChange={handleLanguageChange}
+            volumeMute={volumeMute}
+            onVolumeToggle={() => setVolumeMute(m => !m)}
           />
           <GameMaze level={gameLevel - 1}/>
           <div id="blocklyDiv" style={{visibility: (programMode === 'blocks') ? 'visible' : 'hidden'}}></div>
@@ -537,7 +585,7 @@ function App() {
             </Fab>
           </Zoom>
           <InfoDialog open={openInfoDialog} onClose={() => setOpenInfoDialog(false)} />
-          <ResultDialog open={openResultDialog} onClose={() => setOpenResultDialog(false)} result={"correct"}/>
+          <ResultDialog open={openResultDialog} onClose={() => setOpenResultDialog(false)} result={gameResult}/>
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

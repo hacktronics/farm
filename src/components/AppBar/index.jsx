@@ -21,12 +21,11 @@ import LanguageMenu from '../LanguageMenu';
 import AccountMenu from '../AccountMenu';
 import { useTranslation } from 'react-i18next';
 
-export default function HeaderAppBar({programMode, setProgramMode, gameLevel, onGameLevelChange, onLanguageChange}) {
+export default function HeaderAppBar({programMode, setProgramMode, gameLevel, onGameLevelChange, onLanguageChange, volumeMute, onVolumeToggle}) {
   const { t } = useTranslation();
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const [languageAnchorEl, setLanguageAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
-  const [volumeMute, setVolumeMute] = useState(false);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -146,7 +145,7 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
             <IconButton size="large" aria-label="show 4 new mails" color="inherit" sx={{my:"auto"}} onClick={handleLanguageMenuOpen}>
               <TranslateIcon />
             </IconButton>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={e => setVolumeMute(!volumeMute)}>
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={onVolumeToggle}>
               {volumeMute ? <VolumeOffIcon /> : <VolumeUpIcon />}
             </IconButton>
             <IconButton

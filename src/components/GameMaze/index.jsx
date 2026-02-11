@@ -112,6 +112,7 @@ const gameLevels = [
 function GameMaze({level}) {
   const [playerPos, setPlayerPos] = React.useState(gameLevels[level].player);
   const [mazeData, setMazeData] = React.useState(() => gameLevels[level].maze.map(row => [...row]));
+  const [farmerSprite, setFarmerSprite] = React.useState(0);
   const imagesRef = React.useRef(null);
   const playerPosRef = React.useRef(playerPos);
   playerPosRef.current = playerPos;
@@ -232,20 +233,30 @@ function GameMaze({level}) {
     });
   };
 
+  const playCollectAnimation = () => {
+    setFarmerSprite(1);
+    setTimeout(() => setFarmerSprite(0), 500);
+  };
+
   const collectTomato = (num) => {
     const pos = playerPosRef.current;
     const data = mazeDataRef.current;
-    const tile = data[pos.row][pos.col];
-    console.log('collectTomato', { num, row: pos.row, col: pos.col, tile, newTile: Math.max(0, tile - num) });
-    updateTile(pos.row, pos.col, Math.max(0, tile - num));
+    const visualRow = Math.max(0, pos.row - 1);
+    updateTile(visualRow, pos.col, Math.max(0, data[visualRow][pos.col] - num));
+    playCollectAnimation();
   };
 
   const collectCorn = (num) => {
     const pos = playerPosRef.current;
     const data = mazeDataRef.current;
-    const tile = data[pos.row][pos.col];
-    console.log('collectCorn', { num, row: pos.row, col: pos.col, tile, newTile: Math.max(0, tile - num) });
-    updateTile(pos.row, pos.col, Math.max(0, tile - num));
+    const visualRow = Math.max(0, pos.row - 1);
+    updateTile(visualRow, pos.col, Math.max(0, data[visualRow][pos.col] - num));
+    playCollectAnimation();
+  };
+
+  const isLevelComplete = () => {
+    const data = mazeDataRef.current;
+    return !data.some(row => row.some(tile => tile >= 7));
   };
 
   window.resetGame = resetGame;
@@ -256,6 +267,7 @@ function GameMaze({level}) {
   window.updateTile = updateTile;
   window.collectTomato = collectTomato;
   window.collectCorn = collectCorn;
+  window.isLevelComplete = isLevelComplete;
 
   const mazeTile = useCallback((counter) => {
     const index = mazeIndex[counter];
@@ -332,7 +344,7 @@ function GameMaze({level}) {
         ? pos[0] * vStep + yStart
         : (19 - pos[0]) * vStep + yStart;
       // Place farmer feet on tile
-      drawPlayer(player[0], cx + ph * halfCell - playerFootX, gridY - halfCell * 2 - 2);
+      drawPlayer(player[farmerSprite], cx + ph * halfCell - playerFootX, gridY - halfCell * 2 - 2);
     };
 
     if (imagesRef.current) {
@@ -343,7 +355,7 @@ function GameMaze({level}) {
       // First render — load all tile images (0-9) and player
       const tile = [];
       for (let i = 0; i < 10; i++) tile.push(new Image());
-      const player = [new Image()];
+      const player = [new Image(), new Image()];
       let loaded = 0;
       const totalImages = tile.length + player.length;
       const onLoad = () => {
@@ -355,12 +367,14 @@ function GameMaze({level}) {
       };
       tile.forEach(img => { img.onload = onLoad; });
       player[0].onload = onLoad;
+      player[1].onload = onLoad;
       player[0].src = '/images/player/farmer1.png';
+      player[1].src = '/images/player/farmer2.png';
       for (let i = 0; i < 10; i++) {
         tile[i].src = `/images/maze/tile${i}.png`;
       }
     }
-  }, [level, mazeTile, playerPos.col, playerPos.row]);
+  }, [level, mazeTile, playerPos.col, playerPos.row, farmerSprite]);
 
   return (
     <div className="GameMaze">
