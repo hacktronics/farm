@@ -329,9 +329,7 @@ function GameMaze({level, scale}) {
       drawMaze(tile);
       const pos = playerXY[playerIndex[playerPos.row][playerPos.col]];
       const ph = Math.round(pos[1] * 2);
-      const gridY = pos[0] < 10
-        ? pos[0] * vStep + yStart
-        : (19 - pos[0]) * vStep + yStart;
+      const gridY = pos[0] * vStep + yStart;
       // Place farmer feet on tile
       drawPlayer(player[farmerSprite], cx + ph * halfCell - playerFootX, gridY - halfCell * 2 - 2);
     };
