@@ -2,6 +2,33 @@ import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './GameMaze.css';
 
+const T = Object.freeze({
+  SOIL:       '/images/maze/soil.png',
+  CORN:       '/images/maze/corn.png',
+  CABBAGE:    '/images/maze/cabbage.png',
+  SEEDLING:   '/images/maze/seedling.png',
+  SAPLING:    '/images/maze/sapling.png',
+  EMPTY:      '/images/maze/empty.png',
+  TOMATO_0:   '/images/maze/tomato_0.png',
+  TOMATO_1:   '/images/maze/tomato_1.png',
+  TOMATO_2:   '/images/maze/tomato_2.png',
+  TOMATO_3:   '/images/maze/tomato_3.png',
+});
+const TILE_PATHS = Object.values(T);
+
+const P = Object.freeze({
+  FARMER_IDLE:    '/images/player/farmer1.png',
+  FARMER_COLLECT: '/images/player/farmer2.png',
+  FARMER_ALT:     '/images/player/farmer3.png',
+});
+
+const COLLECT_NEXT = {
+  [T.TOMATO_3]: T.TOMATO_2,
+  [T.TOMATO_2]: T.TOMATO_1,
+  [T.TOMATO_1]: T.TOMATO_0,
+  [T.TOMATO_0]: T.EMPTY,
+};
+
 const mazeIndex = [
    9,  8, 19,  7, 18, 29,  6, 17, 28, 39,
    5, 16, 27, 38, 49,  4, 15, 26, 37, 48,
@@ -32,87 +59,95 @@ const playerXY = [[0, -0], [1, -0.5], [1, 0.5], [2, -1], [2, 0], [2, 1], [3, -1.
 
 const gameLevels = [
   {
-    player: {
-      row: 2,
-      col: 5,
-      dir: 'south'
-    },
+    player: { row: 2, col: 5, dir: 'south' },
+    sprite: P.FARMER_IDLE,
+    target: { row: 5, col: 5 },
+    collect: [{ row: 4, col: 5, tile: T.TOMATO_0 }],
     maze: [
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3]
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING]
     ]
   },
   {
-    player: {
-      row: 2,
-      col: 5,
-      dir: 'south'
-    },
+    player: { row: 3, col: 5, dir: 'south' },
+    sprite: P.FARMER_IDLE,
+    target: { row: 7, col: 5 },
+    collect: [
+      { row: 4, col: 5, tile: T.TOMATO_0 },
+      { row: 6, col: 5, tile: T.TOMATO_0 },
+    ],
     maze: [
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3]
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING]
     ]
   },
   {
-    player: {
-      row: 2,
-      col: 5,
-      dir: 'south'
-    },
+    player: { row: 2, col: 5, dir: 'south' },
+    sprite: P.FARMER_IDLE,
+    target: { row: 7, col: 5 },
+    collect: [
+      { row: 4, col: 5, tile: T.EMPTY },
+      { row: 6, col: 5, tile: T.EMPTY },
+    ],
     maze: [
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 6, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 6, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3]
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_0, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_0, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING]
     ]
   },
   {
-    player: {
-      row: 2,
-      col: 5,
-      dir: 'south'
-    },
+    player: { row: 2, col: 5, dir: 'south' },
+    sprite: P.FARMER_IDLE,
+    target: { row: 7, col: 5 },
+    collect: [
+      { row: 3, col: 5, tile: T.TOMATO_0 },
+      { row: 4, col: 5, tile: T.TOMATO_0 },
+      { row: 5, col: 5, tile: T.TOMATO_0 },
+      { row: 6, col: 5, tile: T.TOMATO_0 },
+    ],
     maze: [
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 9, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3],
-      [2, 2, 2, 0, 0, 0, 0, 3, 3, 3]
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.TOMATO_3, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
+      [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING]
     ]
   }
 ];
 
 function GameMaze({level, scale}) {
-  const [playerPos, setPlayerPos] = React.useState(gameLevels[level].player);
-  const [mazeData, setMazeData] = React.useState(() => gameLevels[level].maze.map(row => [...row]));
-  const [farmerSprite, setFarmerSprite] = React.useState(0);
+  const safeLevel = level < gameLevels.length ? level : 0;
+  const [playerPos, setPlayerPos] = React.useState(gameLevels[safeLevel].player);
+  const [mazeData, setMazeData] = React.useState(() => gameLevels[safeLevel].maze.map(row => [...row]));
+  const [farmerSprite, setFarmerSprite] = React.useState(gameLevels[safeLevel].sprite);
   const imagesRef = React.useRef(null);
   const playerPosRef = React.useRef(playerPos);
   playerPosRef.current = playerPos;
@@ -120,8 +155,9 @@ function GameMaze({level, scale}) {
   mazeDataRef.current = mazeData;
 
   const resetGame = () => {
-    setPlayerPos(gameLevels[level].player);
-    setMazeData(gameLevels[level].maze.map(row => [...row]));
+    setPlayerPos(gameLevels[safeLevel].player);
+    setMazeData(gameLevels[safeLevel].maze.map(row => [...row]));
+    setFarmerSprite(gameLevels[safeLevel].sprite);
   };
 
   const walkSteps = (steps) => {
@@ -229,15 +265,17 @@ function GameMaze({level, scale}) {
   };
 
   const playCollectAnimation = () => {
-    setFarmerSprite(1);
-    setTimeout(() => setFarmerSprite(0), 500);
+    setFarmerSprite(P.FARMER_COLLECT);
+    setTimeout(() => setFarmerSprite(gameLevels[safeLevel].sprite), 500);
   };
 
   const collectTomato = (num) => {
     const pos = playerPosRef.current;
     const data = mazeDataRef.current;
     const visualRow = Math.max(0, pos.row - 1);
-    updateTile(visualRow, pos.col, Math.max(0, data[visualRow][pos.col] - num));
+    let tile = data[visualRow][pos.col];
+    for (let i = 0; i < num && COLLECT_NEXT[tile]; i++) tile = COLLECT_NEXT[tile];
+    updateTile(visualRow, pos.col, tile);
     playCollectAnimation();
   };
 
@@ -245,13 +283,21 @@ function GameMaze({level, scale}) {
     const pos = playerPosRef.current;
     const data = mazeDataRef.current;
     const visualRow = Math.max(0, pos.row - 1);
-    updateTile(visualRow, pos.col, Math.max(0, data[visualRow][pos.col] - num));
+    let tile = data[visualRow][pos.col];
+    for (let i = 0; i < num && COLLECT_NEXT[tile]; i++) tile = COLLECT_NEXT[tile];
+    updateTile(visualRow, pos.col, tile);
     playCollectAnimation();
   };
 
   const isLevelComplete = () => {
-    const data = mazeDataRef.current;
-    return !data.some(row => row.some(tile => tile >= 7));
+    const pos = playerPosRef.current;
+    const { target, collect } = gameLevels[safeLevel];
+    if (pos.row !== target.row || pos.col !== target.col) return false;
+    const curr = mazeDataRef.current;
+    for (const { row, col, tile } of collect) {
+      if (curr[row][col] !== tile) return false;
+    }
+    return true;
   };
 
   window.resetGame = resetGame;
@@ -272,9 +318,10 @@ function GameMaze({level, scale}) {
   }, [mazeData]);
 
   useEffect(() => {
-    setPlayerPos(gameLevels[level].player);
-    setMazeData(gameLevels[level].maze.map(row => [...row]));
-  }, [level]);
+    setPlayerPos(gameLevels[safeLevel].player);
+    setMazeData(gameLevels[safeLevel].maze.map(row => [...row]));
+    setFarmerSprite(gameLevels[safeLevel].sprite);
+  }, [safeLevel]);
 
   useEffect(() => {
     const canvas = document.getElementById('canvas');
@@ -335,16 +382,14 @@ function GameMaze({level, scale}) {
     };
 
     if (imagesRef.current) {
-      // Images already loaded — draw immediately
       const { tile, player } = imagesRef.current;
       drawScene(tile, player);
     } else {
-      // First render — load all tile images (0-9) and player
-      const tile = [];
-      for (let i = 0; i < 10; i++) tile.push(new Image());
-      const player = [new Image(), new Image()];
+      const tile = {};
+      const player = {};
+      const playerPaths = Object.values(P);
       let loaded = 0;
-      const totalImages = tile.length + player.length;
+      const totalImages = TILE_PATHS.length + playerPaths.length;
       const onLoad = () => {
         loaded++;
         if (loaded >= totalImages) {
@@ -352,14 +397,16 @@ function GameMaze({level, scale}) {
           drawScene(tile, player);
         }
       };
-      tile.forEach(img => { img.onload = onLoad; });
-      player[0].onload = onLoad;
-      player[1].onload = onLoad;
-      player[0].src = '/images/player/farmer1.png';
-      player[1].src = '/images/player/farmer2.png';
-      for (let i = 0; i < 10; i++) {
-        tile[i].src = `/images/maze/tile${i}.png`;
-      }
+      TILE_PATHS.forEach(path => {
+        tile[path] = new Image();
+        tile[path].onload = onLoad;
+        tile[path].src = path;
+      });
+      playerPaths.forEach(path => {
+        player[path] = new Image();
+        player[path].onload = onLoad;
+        player[path].src = path;
+      });
     }
   }, [level, mazeTile, playerPos.col, playerPos.row, farmerSprite, scale]);
 

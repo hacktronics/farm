@@ -341,7 +341,7 @@ function AceTextEditor({mode, programMode, code, onCodeChange, editorWidth, side
           style={{width: `${ew}px`, height:'100%', visibility:(programMode === mode) ? 'visible' : 'hidden'}}
           setOptions={{
             useWorker: false,
-            enableEmmet: true,
+            enableSnippets: false,
             enableBasicAutocompletion: true,
             // enableSnippets: true,
             enableLiveAutocompletion: true

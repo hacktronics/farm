@@ -96,11 +96,7 @@
     <script src="/js/blocks/toolbox_label.js"></script>
     <script src="/js/generators/javascript/custom_blocks.js"></script>
     <script src="/js/generators/python/custom_blocks.js"></script>
-    <script src="/js/compile/test_blocks.js"></script>
-    <script src="/js/compile/pxt_test_blocks.js"></script>
-    <script src="/js/themes/test_themes.js"></script>
-    <script src="/js/playgrounds/screenshot.js"></script>
-    <script src="/js/@blockly/block-test/dist/index.js"></script>
+    <!-- Blockly test/dev scripts removed to suppress warnings -->
     <script src="/js/python/skulpt.min.js"></script>
     <script src="/js/python/skulpt-stdlib.js"></script>
     <script>
@@ -113,7 +109,7 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
-      <category name="Motion" iconclass="customIcon fa fa-shoe-prints fa-2x" categorystyle="motion_category">
+      <category name="Motion" iconclass="customIcon fa fa-shoe-prints fa-2x">
         <block type="start"></block>
         <block type="walk_steps">
           <value name="Steps">
@@ -125,14 +121,14 @@
         <block type="turn"></block>
         <block type="turn_back"></block>
       </category>
-      <category name="Tilling" iconclass="customIcon fa fa-seedling fa-2x" categorystyle="motion_category">
+      <category name="Tilling" iconclass="customIcon fa fa-seedling fa-2x">
         <block type="remove_stones">
         </block>
         <block type="fill_holes">
         </block>
         <block type="water_plant"></block>
       </category>
-      <category name="Harvest" iconclass="customIcon fa fa-seedling fa-2x" categorystyle="motion_category">
+      <category name="Harvest" iconclass="customIcon fa fa-seedling fa-2x">
         <block type="collect_corn">
           <value name="Corn">
             <shadow type="math_number">
@@ -148,7 +144,7 @@
           </value>
         </block>
       </category>
-      <category name="Control" iconclass="customIcon fa fa-repeat fa-2x" categorystyle="control_category">
+      <category name="Control" iconclass="customIcon fa fa-repeat fa-2x">
         <block type="for_loop">
           <value name="Times">
             <shadow type="math_number">
