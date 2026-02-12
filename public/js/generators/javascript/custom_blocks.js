@@ -66,11 +66,11 @@ window.Blockly.JavaScript["for_loop"] = function (block) {
   }
   let branch = window.Blockly.JavaScript.statementToCode(block, "DO");
   branch = window.Blockly.JavaScript.addLoopTrap(branch, block);
-  const loopVar = window.Blockly.JavaScript.variableDB_.getDistinctName("count", window.Blockly.Variables.NAME_TYPE);
+  const loopVar = window.Blockly.JavaScript.nameDB_.getDistinctName("count", window.Blockly.Variables.NAME_TYPE);
   let endVar = repeats;
   let code = "";
   if (!repeats.match(/^\w+$/) && !window.Blockly.isNumber(repeats)) {
-    endVar = window.Blockly.JavaScript.variableDB_.getDistinctName("repeat_end", window.Blockly.Variables.NAME_TYPE);
+    endVar = window.Blockly.JavaScript.nameDB_.getDistinctName("repeat_end", window.Blockly.Variables.NAME_TYPE);
     code += `const ${endVar} = ${repeats};`;
   }
   code += `for (var ${loopVar} = 0; ${loopVar} < ${endVar}; ${loopVar}++) {\n${branch}}\n`;

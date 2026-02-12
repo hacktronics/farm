@@ -14,7 +14,6 @@ export default function ResultDialog({open, onClose, result }) {
       <Dialog
         open={open}
         TransitionComponent={Transition}
-        keepMounted
         onClose={onClose}
         aria-describedby="alert-dialog-slide-description"
         slotProps={{

@@ -24,7 +24,6 @@ var setGameResultFn = null;
 var gameSpeedDelay = 1000;
 
 const start = () => {
-  console.log('start()');
   highlightPause = true;
   setTimeout(function() {
     stepCode();
@@ -35,7 +34,6 @@ const walkSteps = (step) => {
   if(typeof step !== 'number') {
     step = parseInt(step, 10) || 0;
   }
-  console.log('walkSteps(' + step + ')');
   highlightPause = true;
   if(window.walkSteps) {
     window.walkSteps(step);
@@ -139,6 +137,7 @@ const checkGameResult = () => {
     const result = window.isLevelComplete && window.isLevelComplete() ? 'correct' : 'incorrect';
     new Audio(result === 'correct' ? '/sounds/victory.mp3' : '/sounds/lose.mp3').play().catch(() => {});
     if (setGameResultFn) setGameResultFn(result);
+    if (document.activeElement) document.activeElement.blur();
     if (setResultDialog) setResultDialog(true);
   }, gameSpeedDelay);
 };
@@ -404,8 +403,8 @@ function App() {
   const handleProgramModeChange = (mode) => {
     if(blocklyWorkspace && programMode === 'blocks' && programMode !== mode) {
       window.Blockly.JavaScript.STATEMENT_PREFIX = "";
-      const jsCode = window.Blockly.JavaScript.workspaceToCode(blocklyWorkspace.current);
-      const pyCode = window.Blockly.Python.workspaceToCode(blocklyWorkspace.current);
+      const jsCode = window.Blockly.JavaScript.workspaceToCode(blocklyWorkspace);
+      const pyCode = window.Blockly.Python.workspaceToCode(blocklyWorkspace);
       setJSCode(jsCode);
       setPYCode(pyCode);
     }
@@ -610,7 +609,7 @@ function App() {
             }}
             unmountOnExit
           >
-            <Fab sx={fabHelpStyle} aria-label={"Hint"} color={'success'} size="large" onClick={() => setOpenInfoDialog(true)}>
+            <Fab sx={fabHelpStyle} aria-label={"Hint"} color={'success'} size="large" onClick={(e) => { e.currentTarget.blur(); setOpenInfoDialog(true); }}>
               <HelpIcon size="large" sx={{width:'48px', height:'48px'}} />
             </Fab>
           </Zoom>

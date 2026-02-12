@@ -66,7 +66,7 @@ window.Blockly.Python["for_loop"] = function (block) {
   }
   let branch = window.Blockly.Python.statementToCode(block, "DO");
   branch = window.Blockly.Python.addLoopTrap(branch, block) || window.Blockly.Python.PASS;
-  const loopVar = window.Blockly.Python.variableDB_.getDistinctName("count", window.Blockly.Variables.NAME_TYPE);
+  const loopVar = window.Blockly.Python.nameDB_.getDistinctName("count", window.Blockly.Variables.NAME_TYPE);
   if (window.Blockly.isNumber(repeats)) {
     repeats = parseInt(repeats, 10);
   } else {
