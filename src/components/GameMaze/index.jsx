@@ -22,6 +22,9 @@ const P = Object.freeze({
   FARMER_ALT:     '/images/player/farmer3.png',
 });
 
+const posKey = (r, c) => r * 10 + c;
+const makePath = (...coords) => new Set(coords.map(([r, c]) => posKey(r, c)));
+
 const COLLECT_NEXT = {
   [T.TOMATO_3]: T.TOMATO_2,
   [T.TOMATO_2]: T.TOMATO_1,
@@ -63,6 +66,7 @@ const gameLevels = [
     sprite: P.FARMER_IDLE,
     target: { row: 5, col: 5 },
     collect: [{ row: 4, col: 5, tile: T.TOMATO_0 }],
+    path: makePath([2,5],[3,5],[4,5],[5,5]),
     maze: [
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
@@ -84,6 +88,7 @@ const gameLevels = [
       { row: 4, col: 5, tile: T.TOMATO_0 },
       { row: 6, col: 5, tile: T.TOMATO_0 },
     ],
+    path: makePath([3,5],[4,5],[5,5],[6,5],[7,5]),
     maze: [
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
@@ -105,6 +110,7 @@ const gameLevels = [
       { row: 4, col: 5, tile: T.EMPTY },
       { row: 6, col: 5, tile: T.EMPTY },
     ],
+    path: makePath([2,5],[3,5],[4,5],[5,5],[6,5],[7,5]),
     maze: [
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
@@ -128,6 +134,7 @@ const gameLevels = [
       { row: 5, col: 5, tile: T.TOMATO_0 },
       { row: 6, col: 5, tile: T.TOMATO_0 },
     ],
+    path: makePath([2,5],[3,5],[4,5],[5,5],[6,5],[7,5]),
     maze: [
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
       [T.CABBAGE, T.CABBAGE, T.CABBAGE, T.SOIL, T.SOIL, T.SOIL, T.SOIL, T.SEEDLING, T.SEEDLING, T.SEEDLING],
@@ -162,35 +169,22 @@ function GameMaze({level, scale}) {
 
   const walkSteps = (steps) => {
     const pos = playerPosRef.current;
-    let newPlayerPos = {...pos};
-    // eslint-disable-next-line default-case
-    switch (pos.dir) {
-      case 'north':
-        newPlayerPos.row -= steps;
-        if (newPlayerPos.row < 0) {
-          newPlayerPos.row = 0;
-        }
-        break;
-      case 'south':
-        newPlayerPos.row += steps;
-        if (newPlayerPos.row > 9) {
-          newPlayerPos.row = 9;
-        }
-        break;
-      case 'east':
-        newPlayerPos.col += steps;
-        if (newPlayerPos.col > 9) {
-          newPlayerPos.col = 9;
-        }
-        break;
-      case 'west':
-        newPlayerPos.col -= steps;
-        if (newPlayerPos.col < 0) {
-          newPlayerPos.col = 0;
-        }
-        break;
+    const levelPath = gameLevels[safeLevel].path;
+    let cur = {...pos};
+    const delta = { north: [-1,0], south: [1,0], east: [0,1], west: [0,-1] };
+    const [dr, dc] = delta[cur.dir] || [0,0];
+
+    for (let i = 0; i < steps; i++) {
+      const nr = cur.row + dr;
+      const nc = cur.col + dc;
+      if (nr < 0 || nr > 9 || nc < 0 || nc > 9 || !levelPath.has(posKey(nr, nc))) {
+        setPlayerPos(cur);
+        return false;
+      }
+      cur = {...cur, row: nr, col: nc};
     }
-    setPlayerPos(newPlayerPos);
+    setPlayerPos(cur);
+    return true;
   }
 
   const turnLeft = () => {

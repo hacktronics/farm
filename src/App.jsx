@@ -35,8 +35,20 @@ const walkSteps = (step) => {
     step = parseInt(step, 10) || 0;
   }
   highlightPause = true;
+  let walkOk = true;
   if(window.walkSteps) {
-    window.walkSteps(step);
+    walkOk = window.walkSteps(step);
+  }
+  if (!walkOk) {
+    // Path blocked — trigger game over
+    resetStepUi(false);
+    setTimeout(() => {
+      new Audio('/sounds/lose.mp3').play().catch(() => {});
+      if (setGameResultFn) setGameResultFn('incorrect');
+      if (document.activeElement) document.activeElement.blur();
+      if (setResultDialog) setResultDialog(true);
+    }, gameSpeedDelay);
+    return new Promise(() => {}); // never resolves — halts execution
   }
   return new Promise((resolve, reject) => {
     setTimeout(function() {
@@ -133,6 +145,7 @@ const waterPlant = () => {
 };
 
 const checkGameResult = () => {
+  resetStepUi(false);
   setTimeout(() => {
     const result = window.isLevelComplete && window.isLevelComplete() ? 'correct' : 'incorrect';
     new Audio(result === 'correct' ? '/sounds/victory.mp3' : '/sounds/lose.mp3').play().catch(() => {});
@@ -312,6 +325,7 @@ function App() {
 
   const onGameLevelChange = (event, level) => {
     setIsRunning(false);
+    resetStepUi(false);
     setGameLevel(level);
     if(window.resetGame) {
       window.resetGame();
@@ -542,6 +556,7 @@ function App() {
   const runCode = () => {
     if(isRunning) {
       setIsRunning(false);
+      resetStepUi(false);
       if(window.resetGame) {
         window.resetGame();
       }
