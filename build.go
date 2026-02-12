@@ -19,11 +19,12 @@ import (
 
 // ========== PLACEHOLDERS - CHANGE THESE ==========
 const (
-	gitHubRepo = "https://<USERNAME>:<ACCESS_TOKEN>@github.com/<USERNAME>/<REPO>.git"
-	gitBranch  = "main"
-	cnameDomain = "example.com" // set to "" to skip CNAME creation
+	gitHubRepo   = "https://github.com/hacktronics/farm"
+	gitBranch    = "main"
+	cnameDomain  = "farm.skool.cc"    // set to "" to skip CNAME creation
 	webDeployDir = "..\\farmgame-web" // relative to project root, where final files go for git push
 )
+
 // ==================================================
 
 type ObfuscatorCommand struct {
@@ -38,7 +39,7 @@ var (
 	mu                 sync.Mutex
 	npmPath            string
 	obfuscatorCommands []ObfuscatorCommand
-	ignoreFiles        = []string{"favicon.svg", "favicon.ico"}
+	ignoreFiles        = []string{"favicon.svg", "favicon.ico", "hsv-sprite-sm.png", "hsva-sprite.png", "hsva-sprite-sm.png", "hsv-sprite.png"}
 )
 
 const currentWorkingDirMsg = "Current working directory: "
@@ -180,7 +181,11 @@ func processFile(fPath string, fileName string, cwd string) {
 	case ".js":
 		// Minify with terser
 		cmdPath := filepath.Join(npmPath, "terser")
-		runCommand(cmdPath, "-c", "ecma=2015,computed_props=false", "-m", "-o", outPath, fPath)
+		success := runCommand(cmdPath, "-c", "ecma=2015,computed_props=false", "-m", "-o", outPath, fPath)
+		if !success {
+			fmt.Printf("\n  terser failed, copying original: %s", fPath)
+			copyFile(fPath, outPath)
+		}
 		// Queue obfuscation
 		obfCmdPath := filepath.Join(npmPath, "javascript-obfuscator")
 		tmp := replaceFileExtension(outPath, ".js", ".obfuscated.js")
@@ -195,7 +200,11 @@ func processFile(fPath string, fileName string, cwd string) {
 	case ".mjs":
 		cmdPath := filepath.Join(npmPath, "terser")
 		jsOutPath := replaceFileExtension(outPath, ".mjs", ".js")
-		runCommand(cmdPath, "-c", "ecma=2015,computed_props=false", "-m", "-o", jsOutPath, fPath)
+		success := runCommand(cmdPath, "-c", "ecma=2015,computed_props=false", "-m", "-o", jsOutPath, fPath)
+		if !success {
+			fmt.Printf("\n  terser failed, copying original: %s", fPath)
+			copyFile(fPath, jsOutPath)
+		}
 		obfCmdPath := filepath.Join(npmPath, "javascript-obfuscator")
 		tmp := replaceFileExtension(jsOutPath, ".js", ".obfuscated.js")
 		mu.Lock()
@@ -258,10 +267,14 @@ func runObfuscatorCommands() {
 	}
 	fmt.Println("\nRunning obfuscator on", len(obfuscatorCommands), "files...")
 	wg = sync.WaitGroup{}
+	// Limit concurrent obfuscation to reduce memory usage
+	obfGuard := make(chan struct{}, 4) // Reduced from unlimited to 4 concurrent
 	for _, cmd := range obfuscatorCommands {
 		wg.Add(1)
+		obfGuard <- struct{}{}
 		go func(c ObfuscatorCommand) {
 			defer wg.Done()
+			defer func() { <-obfGuard }()
 			processObfuscatorCommand(c)
 		}(cmd)
 	}
@@ -270,26 +283,44 @@ func runObfuscatorCommands() {
 }
 
 func processObfuscatorCommand(cmd ObfuscatorCommand) {
-	runCommand(cmd.cmdPath, cmd.args[0], cmd.args[1], cmd.args[2], "", "", "")
+	success := runCommand(cmd.cmdPath, cmd.args[0], cmd.args[1], cmd.args[2], "", "", "")
 
-	inInfo, err := os.Stat(cmd.args[0])
-	if err != nil {
-		fmt.Println("Error stat input:", err)
+	// If obfuscation failed (e.g., out of memory), keep the original
+	if !success {
+		if cmd.args[0] != cmd.outFile {
+			copyFile(cmd.args[0], cmd.outFile)
+		}
+		os.Remove(cmd.args[2]) // clean up temp file if any
+		fmt.Printf("\nx skipped (failed): %s\n  cmd: %s %s", cmd.outFile, cmd.cmdPath, strings.Join(cmd.args, " "))
 		return
 	}
-	outInfo, err := os.Stat(cmd.args[2])
-	if err != nil {
-		fmt.Println("Error stat output:", err)
+
+	if _, err := os.Stat(cmd.args[0]); err != nil {
+		// Original file missing, skip
+		return
+	}
+	if _, err := os.Stat(cmd.args[2]); err != nil {
+		// Obfuscation output missing, keep original
+		if cmd.args[0] != cmd.outFile {
+			copyFile(cmd.args[0], cmd.outFile)
+		}
+		fmt.Printf("\nx skipped (no output): %s\n  cmd: %s %s", cmd.outFile, cmd.cmdPath, strings.Join(cmd.args, " "))
 		return
 	}
 
-	if inInfo.Size() != outInfo.Size() {
+	if filesEqual(cmd.args[0], cmd.args[2]) {
+		// Obfuscation didn't change the file, use original
+		if cmd.args[0] != cmd.outFile {
+			copyFile(cmd.args[0], cmd.outFile)
+			os.Remove(cmd.args[0])
+		}
+		os.Remove(cmd.args[2]) // clean up temp file
+		fmt.Printf("\nx skipped (unchanged): %s\n  cmd: %s %s\r\n", cmd.outFile, cmd.cmdPath, strings.Join(cmd.args, " "))
+	} else {
 		os.Remove(cmd.args[0])
 		copyFile(cmd.args[2], cmd.outFile)
 		os.Remove(cmd.args[2])
 		fmt.Print(".")
-	} else {
-		fmt.Println("\nObfuscation failed for:", cmd.args[0])
 	}
 }
 
@@ -361,6 +392,7 @@ func runCommand(app, arg0, arg1, arg2, arg3, arg4, arg5 string) bool {
 	}
 	output, err := cmd.CombinedOutput()
 	if err != nil {
+		// Check if this file should be ignored BEFORE printing anything
 		ignored := false
 		for _, el := range ignoreFiles {
 			for _, a := range args {
@@ -368,6 +400,9 @@ func runCommand(app, arg0, arg1, arg2, arg3, arg4, arg5 string) bool {
 					ignored = true
 					break
 				}
+			}
+			if ignored {
+				break
 			}
 		}
 		if !ignored {
@@ -403,6 +438,26 @@ func copyFile(src, dst string) (int64, error) {
 	return io.Copy(dest, source)
 }
 
+func filesEqual(path1, path2 string) bool {
+	f1, err := os.ReadFile(path1)
+	if err != nil {
+		return false
+	}
+	f2, err := os.ReadFile(path2)
+	if err != nil {
+		return false
+	}
+	if len(f1) != len(f2) {
+		return false
+	}
+	for i := range f1 {
+		if f1[i] != f2[i] {
+			return false
+		}
+	}
+	return true
+}
+
 func delOutputFile(in string, out string) {
 	outExists, _ := exists(out)
 	if outExists {
@@ -415,6 +470,7 @@ func delOutputFile(in string, out string) {
 			return
 		}
 		if inInfo.Size() < outInfo.Size() {
+			fmt.Printf("\n  output larger than original (%d > %d), using original: %s\r\n", outInfo.Size(), inInfo.Size(), out)
 			os.Remove(out)
 			copyFile(in, out)
 		}

@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 /web
 /nul
+/farmgame-web
+/build.exe
