@@ -125,7 +125,7 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexShrink: 0 }}>
       <AppBar position="static" sx={{backgroundColor:'transparent'}}>
         <Toolbar>
           <img src="/images/logo.png" alt="logo" height={32}/>
@@ -139,7 +139,7 @@ export default function HeaderAppBar({programMode, setProgramMode, gameLevel, on
           <Pagination color="primary" page={gameLevel} onChange={onGameLevelChange} count={10}/>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <Box sx={{mr:'6rem', ml: "4rem", display:"inline-flex", alignItems:"center"}}>
+            <Box sx={{mr: {xs:'1rem', md:'3rem', lg:'6rem'}, ml: {xs:'1rem', md:'2rem', lg:'4rem'}, display:"inline-flex", alignItems:"center"}}>
               <IconButton size="large" aria-label="stars" color="inherit">
                 <img src="/images/gold_star.svg" alt="star" width="36px"/>
               </IconButton>

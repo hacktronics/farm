@@ -1,7 +1,12 @@
+.GameMaze {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 canvas {
   background-color: transparent;
-  position: absolute;
-  left: 39vw;
-  top: 10vh;
-  z-index: 100;
+  position: relative;
+  top: 5vh;
+  transition: width 0.25s ease, height 0.25s ease;
 }

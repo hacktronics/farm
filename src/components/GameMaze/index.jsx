@@ -109,7 +109,7 @@ const gameLevels = [
   }
 ];
 
-function GameMaze({level}) {
+function GameMaze({level, scale}) {
   const [playerPos, setPlayerPos] = React.useState(gameLevels[level].player);
   const [mazeData, setMazeData] = React.useState(() => gameLevels[level].maze.map(row => [...row]));
   const [farmerSprite, setFarmerSprite] = React.useState(0);
@@ -118,15 +118,6 @@ function GameMaze({level}) {
   playerPosRef.current = playerPos;
   const mazeDataRef = React.useRef(mazeData);
   mazeDataRef.current = mazeData;
-
-  const onResizeWindow = () => {
-    const canvas = document.getElementById('canvas');
-    //get window height
-    const height = window.innerHeight;
-    //set canvas top as height percentage
-    const top = 200 - (1973*(window.innerWidth/3439) - window.innerHeight)/2;
-    canvas.style.top = `${top}px`;
-  };
 
   const resetGame = () => {
     setPlayerPos(gameLevels[level].player);
@@ -281,13 +272,6 @@ function GameMaze({level}) {
   }, [mazeData]);
 
   useEffect(() => {
-    window.addEventListener('resize', onResizeWindow);
-    return () => {
-      window.removeEventListener('resize', onResizeWindow);
-    };
-  }, []);
-
-  useEffect(() => {
     setPlayerPos(gameLevels[level].player);
     setMazeData(gameLevels[level].maze.map(row => [...row]));
   }, [level]);
@@ -300,8 +284,9 @@ function GameMaze({level}) {
     const logicalH = 800;
     canvas.width = logicalW * dpr;
     canvas.height = logicalH * dpr;
-    canvas.style.width = logicalW + 'px';
-    canvas.style.height = logicalH + 'px';
+    const s = scale || 1;
+    canvas.style.width = (logicalW * s) + 'px';
+    canvas.style.height = (logicalH * s) + 'px';
     ctx.scale(dpr, dpr);
     // Grid: halfCell = horizontal half-step
     // Tile diamond in 1500×1500 image: width=1310, half-height=376, top vertex at y=620
@@ -378,17 +363,18 @@ function GameMaze({level}) {
         tile[i].src = `/images/maze/tile${i}.png`;
       }
     }
-  }, [level, mazeTile, playerPos.col, playerPos.row, farmerSprite]);
+  }, [level, mazeTile, playerPos.col, playerPos.row, farmerSprite, scale]);
 
   return (
     <div className="GameMaze">
-      <canvas id="canvas" width="900" height="800" />
+      <canvas id="canvas" />
     </div>
   )
 }
 
 GameMaze.propTypes = {
-  level: PropTypes.number.isRequired
+  level: PropTypes.number.isRequired,
+  scale: PropTypes.number,
 }
 
 export default GameMaze

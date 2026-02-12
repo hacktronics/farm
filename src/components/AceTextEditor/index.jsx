@@ -116,8 +116,10 @@ var codeCompleter = {
 
 langTools.addCompleter(codeCompleter);
 
-function AceTextEditor({mode, programMode, code, onCodeChange}) {
+function AceTextEditor({mode, programMode, code, onCodeChange, editorWidth, sidebarWidth}) {
   const aceRef = useRef(null);
+  const ew = editorWidth || 506;
+  const sw = sidebarWidth || 160;
 
   const insertFunctionCode = (funcCode) => {
     if(!aceRef.current) return;
@@ -223,9 +225,15 @@ function AceTextEditor({mode, programMode, code, onCodeChange}) {
     }
   }, []);
 
+  useEffect(() => {
+    if (aceRef.current?.editor) {
+      aceRef.current.editor.resize();
+    }
+  }, [editorWidth]);
+
   return (
     <Box sx={{visibility: (programMode === mode) ? 'visible' : 'hidden'}} className="texteditor">
-      <Box sx={{ width: '100%', maxWidth: 160, height: `calc(100vh - 67px)`, bgcolor: 'background.paper', color: "#FFF", visibility: (programMode === mode) ? 'visible' : 'hidden'}}>
+      <Box sx={{ width: '100%', maxWidth: sw, height: '100%', bgcolor: 'background.paper', color: "#FFF", visibility: (programMode === mode) ? 'visible' : 'hidden'}}>
         <nav aria-label="secondary mailbox folders">
           <List>
             <ListItem disablePadding disabled>
@@ -304,7 +312,7 @@ function AceTextEditor({mode, programMode, code, onCodeChange}) {
         </nav>
       </Box>
       <Box sx={{display:"flex", width: "100%"}}>
-        <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", width:"506px", height:"50px", bgcolor: 'background.paper', position: "absolute", left: "160px", top:"0px"}}>
+        <Box sx={{display:"flex", justifyContent:"space-between", alignItems:"center", width: ew, height:"50px", bgcolor: 'background.paper', position: "absolute", left: sw, top:"0px"}}>
           <Box sx={{display:"flex", justifyContent:"start", alignItems:"center", mx:1}}>
             <img width="22px" height="22px" src={mode === 'python' ? '/images/python.svg' : '/images/javascript.svg'} alt="{mode === 'python' ? 'Python' : 'JavaScript'}" />
             <Typography variant="body1" color="#FFF" sx={{mx:1}}>{mode === 'python' ? 'main.py' : 'main.js'}</Typography>
@@ -330,7 +338,7 @@ function AceTextEditor({mode, programMode, code, onCodeChange}) {
           name="ace_editor"
           fontSize={20}
           editorProps={{ $blockScrolling: true }}
-          style={{width:'506px', height:`calc(100vh - 65px)`, visibility:(programMode === mode) ? 'visible' : 'hidden'}}
+          style={{width: `${ew}px`, height:'100%', visibility:(programMode === mode) ? 'visible' : 'hidden'}}
           setOptions={{
             useWorker: false,
             enableEmmet: true,
@@ -349,6 +357,8 @@ AceTextEditor.propTypes = {
   programMode: PropTypes.string.isRequired,
   code: PropTypes.string.isRequired,
   onCodeChange: PropTypes.func.isRequired,
+  editorWidth: PropTypes.number,
+  sidebarWidth: PropTypes.number,
 }
 
 export default AceTextEditor

@@ -12,6 +12,7 @@ import AceTextEditor from './components/AceTextEditor';
 import InfoDialog from './components/InfoDialog';
 import ResultDialog from './components/ResultDialog';
 import { useTranslation } from 'react-i18next';
+import useLayoutDimensions from './useLayoutDimensions';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -344,6 +345,7 @@ function App() {
     }
     const toolbox = document.getElementById('toolbox-categories');
     if(!toolbox || !window.Blockly) return;
+    window.Blockly.Scrollbar.scrollbarThickness = 8;
     const bWorkspace = window.Blockly.inject('blocklyDiv',
       {
         comments: true,
@@ -430,27 +432,31 @@ function App() {
     [mode],
   );
 
+  const dimensions = useLayoutDimensions();
+
   useEffect(() => {
     loadBlocklyWorkspace();
     setResultDialog = setOpenResultDialog;
     setGameResultFn = setGameResult;
   }, [loadBlocklyWorkspace]);
 
+  useEffect(() => {
+    if (workspace && window.Blockly) {
+      // Delay to let fullscreen transition settle before recalculating
+      const id = setTimeout(() => {
+        window.Blockly.svgResize(workspace);
+        workspace.resize();
+      }, 300);
+      return () => clearTimeout(id);
+    }
+  }, [dimensions.editorPanelWidth, dimensions.mazePanelHeight]);
+
   const transitionDuration = {
     enter: theme.transitions.duration.enteringScreen,
     exit: theme.transitions.duration.leavingScreen,
   };
-  const fabRunStyle = {
-    position: 'absolute',
-    left: 621,
-    top: '46%',
-    backgroundColor: '#92B129',
-    color: 'white',
-    width:'88px',
-    height:'88px'
-  };
   const fabHelpStyle = {
-    position: 'absolute',
+    position: 'fixed',
     bottom: 32,
     right: 32,
     backgroundColor: '#92B129',
@@ -569,28 +575,32 @@ function App() {
             gameSpeed={gameSpeed}
             onSpeedChange={handleSpeedChange}
           />
-          <GameMaze level={gameLevel - 1}/>
-          <div id="blocklyDiv" style={{visibility: (programMode === 'blocks') ? 'visible' : 'hidden'}}></div>
-          <AceTextEditor mode={'javascript'} programMode={programMode} code={jsCode} onCodeChange={handleJSCodeChange}/>
-          <AceTextEditor mode={'python'} programMode={programMode} code={pyCode} onCodeChange={handlePYCodeChange}/>
-          <Zoom
-            key={'fabRunBtn'}
-            in={true}
-            timeout={transitionDuration}
-            style={{
-              transitionDelay: `${transitionDuration.exit}ms`,
-            }}
-            unmountOnExit
-          >
-            <Fab sx={fabRunStyle} aria-label={"Run Code"} color={'success'} size="large" onClick={runCode} >
-              {
-                isRunning && <RestartAltIcon size="large" sx={{width:'96px', height:'96px'}} />
-              }
-              {
-                !isRunning && <PlayCircleIcon size="large" sx={{width:'96px', height:'96px'}} />
-              }
-            </Fab>
-          </Zoom>
+          <div className="app-content">
+            <div className="editor-panel">
+              <div id="blocklyDiv" style={{visibility: (programMode === 'blocks') ? 'visible' : 'hidden'}}></div>
+              <AceTextEditor mode={'javascript'} programMode={programMode} code={jsCode} onCodeChange={handleJSCodeChange} editorWidth={dimensions.aceEditorWidth} sidebarWidth={dimensions.sidebarWidth}/>
+              <AceTextEditor mode={'python'} programMode={programMode} code={pyCode} onCodeChange={handlePYCodeChange} editorWidth={dimensions.aceEditorWidth} sidebarWidth={dimensions.sidebarWidth}/>
+            </div>
+            <div className="maze-panel">
+              <GameMaze level={gameLevel - 1} scale={dimensions.canvasScale}/>
+            </div>
+            <div className="fab-run-container">
+              <Zoom
+                key={'fabRunBtn'}
+                in={true}
+                timeout={transitionDuration}
+                style={{
+                  transitionDelay: `${transitionDuration.exit}ms`,
+                }}
+                unmountOnExit
+              >
+                <Fab sx={{backgroundColor: '#92B129', color: 'white', width:'88px', height:'88px'}} aria-label={"Run Code"} color={'success'} size="large" onClick={runCode} >
+                  {isRunning && <RestartAltIcon size="large" sx={{width:'96px', height:'96px'}} />}
+                  {!isRunning && <PlayCircleIcon size="large" sx={{width:'96px', height:'96px'}} />}
+                </Fab>
+              </Zoom>
+            </div>
+          </div>
           <Zoom
             key={'fabHelpBtn'}
             in={true}

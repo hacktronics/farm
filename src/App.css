@@ -1,6 +1,8 @@
 .App {
-  min-height: calc(100vh);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .bg-container {
@@ -63,28 +65,61 @@
   }
 }
 
+/* ---- Main layout ---- */
+.app-content {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.editor-panel {
+  width: var(--editor-panel-width, 666px);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200;
+  overflow: hidden;
+}
+
+.maze-panel {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.fab-run-container {
+  position: absolute;
+  left: var(--editor-panel-width, 666px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 300;
+}
+
 #blocklyDiv {
   position: absolute;
-  top: 65px;
-  left: 0px;
-  height: calc(100vh - 65px);
-  width: 666px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #ace_editor {
   position: absolute;
   top: 50px;
-  left: 160px;
-  height: calc(100vh - 65px);
-  width: 506px;
+  left: var(--sidebar-width, 160px);
+  width: var(--ace-editor-width, 506px);
+  height: calc(100% - 50px);
 }
 
 .texteditor {
   position: absolute;
-  top: 65px;
-  left: 0px;
-  height: calc(100vh - 65px);
-  width: 666px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .blocklySvg {
@@ -99,6 +134,17 @@
 .blocklyScrollbarHandle {
   fill: #92B129 !important;
 }
+
+.blocklyScrollbarVertical .blocklyScrollbarHandle {
+  x: 0 !important;
+  width: 8px !important;
+}
+
+.blocklyScrollbarHorizontal .blocklyScrollbarHandle {
+  y: 0 !important;
+  height: 8px !important;
+}
+
 
 html {
   height: 100vh;
