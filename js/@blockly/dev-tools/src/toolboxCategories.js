@@ -1,1 +1,340 @@
-function a0_0x283f(_0x1c4383,_0x3063ec){var _0x28ea1e=a0_0x28ea();return a0_0x283f=function(_0x283f49,_0x4b2302){_0x283f49=_0x283f49-0x1a4;var _0x9c86f3=_0x28ea1e[_0x283f49];return _0x9c86f3;},a0_0x283f(_0x1c4383,_0x3063ec);}(function(_0xae2d17,_0x2e31d1){var _0x6e6356=a0_0x283f,_0xc36a03=_0xae2d17();while(!![]){try{var _0x4f87b0=-parseInt(_0x6e6356(0x1ad))/0x1*(-parseInt(_0x6e6356(0x1aa))/0x2)+-parseInt(_0x6e6356(0x1a7))/0x3*(parseInt(_0x6e6356(0x1a4))/0x4)+-parseInt(_0x6e6356(0x1ab))/0x5*(-parseInt(_0x6e6356(0x1ac))/0x6)+parseInt(_0x6e6356(0x1ae))/0x7+-parseInt(_0x6e6356(0x1a9))/0x8*(-parseInt(_0x6e6356(0x1a6))/0x9)+-parseInt(_0x6e6356(0x1a8))/0xa*(parseInt(_0x6e6356(0x1a5))/0xb)+-parseInt(_0x6e6356(0x1af))/0xc;if(_0x4f87b0===_0x2e31d1)break;else _0xc36a03['push'](_0xc36a03['shift']());}catch(_0x48bc52){_0xc36a03['push'](_0xc36a03['shift']());}}}(a0_0x28ea,0xe1887));export default'<xml\x20xmlns=\x22https://developers.google.com/blockly/xml\x22\x20id=\x22toolbox-categories\x22\x20style=\x22display:\x20none\x22>\x0a<category\x20name=\x22Logic\x22\x20categorystyle=\x22logic_category\x22>\x0a\x20\x20<block\x20type=\x22controls_if\x22></block>\x0a\x20\x20<block\x20type=\x22logic_compare\x22></block>\x0a\x20\x20<block\x20type=\x22logic_operation\x22></block>\x0a\x20\x20<block\x20type=\x22logic_negate\x22></block>\x0a\x20\x20<block\x20type=\x22logic_boolean\x22></block>\x0a\x20\x20<block\x20type=\x22logic_null\x22\x20disabled=\x22true\x22></block>\x0a\x20\x20<block\x20type=\x22logic_ternary\x22></block>\x0a</category>\x0a<category\x20name=\x22Loops\x22\x20categorystyle=\x22loop_category\x22>\x0a\x20\x20<block\x20type=\x22controls_repeat_ext\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TIMES\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>10</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22controls_repeat\x22\x20disabled=\x22true\x22></block>\x0a\x20\x20<block\x20type=\x22controls_whileUntil\x22></block>\x0a\x20\x20<block\x20type=\x22controls_for\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22FROM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22TO\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>10</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22BY\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22controls_forEach\x22></block>\x0a\x20\x20<block\x20type=\x22controls_flow_statements\x22></block>\x0a</category>\x0a<category\x20name=\x22Math\x22\x20categorystyle=\x22math_category\x22>\x0a\x20\x20<block\x20type=\x22math_number\x22\x20gap=\x2232\x22>\x0a\x20\x20\x20\x20<field\x20name=\x22NUM\x22>123</field>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_arithmetic\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22A\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22B\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_single\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22NUM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>9</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_trig\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22NUM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>45</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_constant\x22></block>\x0a\x20\x20<block\x20type=\x22math_number_property\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22NUMBER_TO_CHECK\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>0</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_round\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22NUM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>3.1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_on_list\x22></block>\x0a\x20\x20<block\x20type=\x22math_modulo\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22DIVIDEND\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>64</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22DIVISOR\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>10</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_constrain\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>50</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22LOW\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22HIGH\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>100</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_random_int\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22FROM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22TO\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>100</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22math_random_float\x22></block>\x0a\x20\x20<block\x20type=\x22math_atan2\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22X\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22Y\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>1</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a</category>\x0a<category\x20name=\x22Text\x22\x20categorystyle=\x22text_category\x22>\x0a\x20\x20<block\x20type=\x22text\x22></block>\x0a\x20\x20<block\x20type=\x22text_multiline\x22></block>\x0a\x20\x20<block\x20type=\x22text_join\x22></block>\x0a\x20\x20<block\x20type=\x22text_append\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_length\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>abc</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_isEmpty\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22></field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_indexOf\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>text</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22FIND\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>abc</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_charAt\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>text</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_getSubstring\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22STRING\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>text</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_changeCase\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>abc</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_trim\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>abc</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_count\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22SUB\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_replace\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22FROM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22TO\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_reverse\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22></shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<label\x20text=\x22Input/Output:\x22\x20web-class=\x22ioLabel\x22></label>\x0a\x20\x20<block\x20type=\x22text_print\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>abc</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22text_prompt_ext\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22TEXT\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>abc</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a</category>\x0a<category\x20name=\x22Lists\x22\x20categorystyle=\x22list_category\x22>\x0a\x20\x20<block\x20type=\x22lists_create_with\x22>\x0a\x20\x20\x20\x20<mutation\x20items=\x220\x22></mutation>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_create_with\x22></block>\x0a\x20\x20<block\x20type=\x22lists_repeat\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22NUM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>5</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_length\x22></block>\x0a\x20\x20<block\x20type=\x22lists_isEmpty\x22></block>\x0a\x20\x20<block\x20type=\x22lists_indexOf\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>list</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_getIndex\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22VALUE\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>list</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_setIndex\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22LIST\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>list</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_getSublist\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22LIST\x22>\x0a\x20\x20\x20\x20\x20\x20<block\x20type=\x22variables_get\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22VAR\x22>list</field>\x0a\x20\x20\x20\x20\x20\x20</block>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_split\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22DELIM\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22text\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22TEXT\x22>,</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22lists_sort\x22></block>\x0a\x20\x20<block\x20type=\x22lists_reverse\x22></block>\x0a</category>\x0a<category\x20name=\x22Colour\x22\x20categorystyle=\x22colour_category\x22>\x0a\x20\x20<block\x20type=\x22colour_picker\x22></block>\x0a\x20\x20<block\x20type=\x22colour_random\x22></block>\x0a\x20\x20<block\x20type=\x22colour_rgb\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22RED\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>100</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22GREEN\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>50</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22BLUE\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>0</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a\x20\x20<block\x20type=\x22colour_blend\x22>\x0a\x20\x20\x20\x20<value\x20name=\x22COLOUR1\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22colour_picker\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22COLOUR\x22>#ff0000</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22COLOUR2\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22colour_picker\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22COLOUR\x22>#3333ff</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20\x20\x20<value\x20name=\x22RATIO\x22>\x0a\x20\x20\x20\x20\x20\x20<shadow\x20type=\x22math_number\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20<field\x20name=\x22NUM\x22>0.5</field>\x0a\x20\x20\x20\x20\x20\x20</shadow>\x0a\x20\x20\x20\x20</value>\x0a\x20\x20</block>\x0a</category>\x0a<sep></sep>\x0a<category\x20name=\x22Variables\x22\x20categorystyle=\x22variable_category\x22\x20custom=\x22VARIABLE\x22>\x0a</category>\x0a<category\x20name=\x22Functions\x22\x20categorystyle=\x22procedure_category\x22\x0acustom=\x22PROCEDURE\x22></category>\x0a</xml>';function a0_0x28ea(){var _0x5eafa1=['40OmLYPQ','576kKpPIZ','735326fbEtLM','871645AwyPsn','30OsTZel','3NOCjtM','1982617aSOXAY','3173436SmgEOX','7013092VnPMFV','2060179CCnzpa','179100NDOScQ','3ebJtfS'];a0_0x28ea=function(){return _0x5eafa1;};return a0_0x28ea();}
+export default `<xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
+<category name="Logic" categorystyle="logic_category">
+  <block type="controls_if"></block>
+  <block type="logic_compare"></block>
+  <block type="logic_operation"></block>
+  <block type="logic_negate"></block>
+  <block type="logic_boolean"></block>
+  <block type="logic_null" disabled="true"></block>
+  <block type="logic_ternary"></block>
+</category>
+<category name="Loops" categorystyle="loop_category">
+  <block type="controls_repeat_ext">
+    <value name="TIMES">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="controls_repeat" disabled="true"></block>
+  <block type="controls_whileUntil"></block>
+  <block type="controls_for">
+    <value name="FROM">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="TO">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+    <value name="BY">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="controls_forEach"></block>
+  <block type="controls_flow_statements"></block>
+</category>
+<category name="Math" categorystyle="math_category">
+  <block type="math_number" gap="32">
+    <field name="NUM">123</field>
+  </block>
+  <block type="math_arithmetic">
+    <value name="A">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="B">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_single">
+    <value name="NUM">
+      <shadow type="math_number">
+        <field name="NUM">9</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_trig">
+    <value name="NUM">
+      <shadow type="math_number">
+        <field name="NUM">45</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_constant"></block>
+  <block type="math_number_property">
+    <value name="NUMBER_TO_CHECK">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_round">
+    <value name="NUM">
+      <shadow type="math_number">
+        <field name="NUM">3.1</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_on_list"></block>
+  <block type="math_modulo">
+    <value name="DIVIDEND">
+      <shadow type="math_number">
+        <field name="NUM">64</field>
+      </shadow>
+    </value>
+    <value name="DIVISOR">
+      <shadow type="math_number">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_constrain">
+    <value name="VALUE">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+    <value name="LOW">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="HIGH">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_random_int">
+    <value name="FROM">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="TO">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="math_random_float"></block>
+  <block type="math_atan2">
+    <value name="X">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="Y">
+      <shadow type="math_number">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+<category name="Text" categorystyle="text_category">
+  <block type="text"></block>
+  <block type="text_multiline"></block>
+  <block type="text_join"></block>
+  <block type="text_append">
+    <value name="TEXT">
+      <shadow type="text"></shadow>
+    </value>
+  </block>
+  <block type="text_length">
+    <value name="VALUE">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="text_isEmpty">
+    <value name="VALUE">
+      <shadow type="text">
+        <field name="TEXT"></field>
+      </shadow>
+    </value>
+  </block>
+  <block type="text_indexOf">
+    <value name="VALUE">
+      <block type="variables_get">
+        <field name="VAR">text</field>
+      </block>
+    </value>
+    <value name="FIND">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="text_charAt">
+    <value name="VALUE">
+      <block type="variables_get">
+        <field name="VAR">text</field>
+      </block>
+    </value>
+  </block>
+  <block type="text_getSubstring">
+    <value name="STRING">
+      <block type="variables_get">
+        <field name="VAR">text</field>
+      </block>
+    </value>
+  </block>
+  <block type="text_changeCase">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="text_trim">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="text_count">
+    <value name="SUB">
+      <shadow type="text"></shadow>
+    </value>
+    <value name="TEXT">
+      <shadow type="text"></shadow>
+    </value>
+  </block>
+  <block type="text_replace">
+    <value name="FROM">
+      <shadow type="text"></shadow>
+    </value>
+    <value name="TO">
+      <shadow type="text"></shadow>
+    </value>
+    <value name="TEXT">
+      <shadow type="text"></shadow>
+    </value>
+  </block>
+  <block type="text_reverse">
+    <value name="TEXT">
+      <shadow type="text"></shadow>
+    </value>
+  </block>
+  <label text="Input/Output:" web-class="ioLabel"></label>
+  <block type="text_print">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="text_prompt_ext">
+    <value name="TEXT">
+      <shadow type="text">
+        <field name="TEXT">abc</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+<category name="Lists" categorystyle="list_category">
+  <block type="lists_create_with">
+    <mutation items="0"></mutation>
+  </block>
+  <block type="lists_create_with"></block>
+  <block type="lists_repeat">
+    <value name="NUM">
+      <shadow type="math_number">
+        <field name="NUM">5</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="lists_length"></block>
+  <block type="lists_isEmpty"></block>
+  <block type="lists_indexOf">
+    <value name="VALUE">
+      <block type="variables_get">
+        <field name="VAR">list</field>
+      </block>
+    </value>
+  </block>
+  <block type="lists_getIndex">
+    <value name="VALUE">
+      <block type="variables_get">
+        <field name="VAR">list</field>
+      </block>
+    </value>
+  </block>
+  <block type="lists_setIndex">
+    <value name="LIST">
+      <block type="variables_get">
+        <field name="VAR">list</field>
+      </block>
+    </value>
+  </block>
+  <block type="lists_getSublist">
+    <value name="LIST">
+      <block type="variables_get">
+        <field name="VAR">list</field>
+      </block>
+    </value>
+  </block>
+  <block type="lists_split">
+    <value name="DELIM">
+      <shadow type="text">
+        <field name="TEXT">,</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="lists_sort"></block>
+  <block type="lists_reverse"></block>
+</category>
+<category name="Colour" categorystyle="colour_category">
+  <block type="colour_picker"></block>
+  <block type="colour_random"></block>
+  <block type="colour_rgb">
+    <value name="RED">
+      <shadow type="math_number">
+        <field name="NUM">100</field>
+      </shadow>
+    </value>
+    <value name="GREEN">
+      <shadow type="math_number">
+        <field name="NUM">50</field>
+      </shadow>
+    </value>
+    <value name="BLUE">
+      <shadow type="math_number">
+        <field name="NUM">0</field>
+      </shadow>
+    </value>
+  </block>
+  <block type="colour_blend">
+    <value name="COLOUR1">
+      <shadow type="colour_picker">
+        <field name="COLOUR">#ff0000</field>
+      </shadow>
+    </value>
+    <value name="COLOUR2">
+      <shadow type="colour_picker">
+        <field name="COLOUR">#3333ff</field>
+      </shadow>
+    </value>
+    <value name="RATIO">
+      <shadow type="math_number">
+        <field name="NUM">0.5</field>
+      </shadow>
+    </value>
+  </block>
+</category>
+<sep></sep>
+<category name="Variables" categorystyle="variable_category" custom="VARIABLE">
+</category>
+<category name="Functions" categorystyle="procedure_category"
+custom="PROCEDURE"></category>
+</xml>`;

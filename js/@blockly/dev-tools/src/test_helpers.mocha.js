@@ -3,4 +3,49 @@
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-(function(_0x20f812,_0x16bddc){const _0x15e3e6=a0_0x3335,_0x346268=_0x20f812();while(!![]){try{const _0x1c15a9=-parseInt(_0x15e3e6(0x1b4))/0x1+-parseInt(_0x15e3e6(0x1b5))/0x2*(-parseInt(_0x15e3e6(0x1b2))/0x3)+-parseInt(_0x15e3e6(0x1b7))/0x4+parseInt(_0x15e3e6(0x1b6))/0x5*(-parseInt(_0x15e3e6(0x1b3))/0x6)+parseInt(_0x15e3e6(0x1af))/0x7*(parseInt(_0x15e3e6(0x1ae))/0x8)+-parseInt(_0x15e3e6(0x1b0))/0x9+parseInt(_0x15e3e6(0x1ad))/0xa*(parseInt(_0x15e3e6(0x1b1))/0xb);if(_0x1c15a9===_0x16bddc)break;else _0x346268['push'](_0x346268['shift']());}catch(_0x39e0f6){_0x346268['push'](_0x346268['shift']());}}}(a0_0x35f4,0x77b10));function a0_0x3335(_0x33fd6d,_0x295b87){const _0x35f4f9=a0_0x35f4();return a0_0x3335=function(_0x3335cf,_0x49b427){_0x3335cf=_0x3335cf-0x1ad;let _0x40d538=_0x35f4f9[_0x3335cf];return _0x40d538;},a0_0x3335(_0x33fd6d,_0x295b87);}import*as a0_0x7a3762 from'./common_test_helpers.mocha';import*as a0_0x58369c from'./block_test_helpers.mocha';function a0_0x35f4(){const _0xc9ae08=['15827141HSCDVD','63muvnie','18HBBPsl','525756zySEQh','52666qiCNWj','1492525NYeBcV','1637492PrBdat','10MMFNOK','40YmdOlj','861448ddaYbx','2576196iiJGbz'];a0_0x35f4=function(){return _0xc9ae08;};return a0_0x35f4();}import*as a0_0x13201a from'./field_test_helpers.mocha';const {TestCase,TestSuite,runTestCases,captureWarnings}=a0_0x7a3762,{CodeGenerationTestCase,CodeGenerationTestSuite,runCodeGenerationTestSuites,runSerializationTestSuite,SerializationTestCase}=a0_0x58369c,{assertFieldValue,FieldCreationTestCase,FieldValueTestCase,runConstructorSuiteTests,runFromJsonSuiteTests,runSetValueTests}=a0_0x13201a;export{assertFieldValue,CodeGenerationTestCase,CodeGenerationTestSuite,FieldCreationTestCase,FieldValueTestCase,runCodeGenerationTestSuites,runConstructorSuiteTests,runFromJsonSuiteTests,runSerializationTestSuite,runSetValueTests,runTestCases,captureWarnings,SerializationTestCase,TestCase,TestSuite};
+
+import * as commonHelpers from './common_test_helpers.mocha';
+import * as blockTestHelpers from './block_test_helpers.mocha';
+import * as fieldTestHelpers from './field_test_helpers.mocha';
+
+const {
+  TestCase,
+  TestSuite,
+  runTestCases,
+  captureWarnings,
+} = commonHelpers;
+
+const {
+  CodeGenerationTestCase,
+  CodeGenerationTestSuite,
+  runCodeGenerationTestSuites,
+  runSerializationTestSuite,
+  SerializationTestCase,
+} = blockTestHelpers;
+
+const {
+  assertFieldValue,
+  FieldCreationTestCase,
+  FieldValueTestCase,
+  runConstructorSuiteTests,
+  runFromJsonSuiteTests,
+  runSetValueTests,
+} = fieldTestHelpers;
+
+export {
+  assertFieldValue,
+  CodeGenerationTestCase,
+  CodeGenerationTestSuite,
+  FieldCreationTestCase,
+  FieldValueTestCase,
+  runCodeGenerationTestSuites,
+  runConstructorSuiteTests,
+  runFromJsonSuiteTests,
+  runSerializationTestSuite,
+  runSetValueTests,
+  runTestCases,
+  captureWarnings,
+  SerializationTestCase,
+  TestCase,
+  TestSuite,
+};
