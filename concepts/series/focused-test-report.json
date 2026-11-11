@@ -1,0 +1,38 @@
+{
+  "profile": "Shared persistent Playwright browser",
+  "results": [
+    {
+      "level": 1,
+      "title": "Your first tomato",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 2,
+      "title": "A longer lane",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 3,
+      "title": "Around the herb bed",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 4,
+      "title": "Follow the boundary",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 5,
+      "title": "Open the farm walk",
+      "run": true,
+      "reset": true
+    }
+  ],
+  "errors": [],
+  "modelSolutionsVerified": 30,
+  "passed": true
+}

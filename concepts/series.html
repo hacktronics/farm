@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Meadow Farm — a season of code</title>
+    <link rel="stylesheet" href="series/series.css" />
+  </head>
+  <body>
+    <header>
+      <small>30 LEVELS / 6 CONNECTED CHAPTERS</small>
+      <h1>Meadow Farm: a season of code</h1>
+      <p>Restore the farm. Grow a harvest. Learn one new idea at a time.</p>
+      <div class="links">
+        <a href="asset-library.html">New tiles & sprite library</a
+        ><a href="rotation-lab.html">Test farmer directions</a
+        ><a href="series/curriculum.json">Full level design data</a>
+      </div>
+    </header>
+    <div id="chapters"></div>
+    <main>
+      <aside class="levels">
+        <nav id="tabs"></nav>
+        <p>Each chapter carries familiar skills into a new farm problem.</p>
+        <details>
+          <summary>What changes gradually?</summary>
+          <p id="retire"></p>
+        </details>
+      </aside>
+      <section class="board">
+        <div class="story">
+          <h2 id="chapter-title"></h2>
+          <p id="story"></p>
+        </div>
+        <canvas width="820" height="610"></canvas>
+        <div class="boardfooter">
+          <span>S · Start</span><span>F · Finish</span><span id="water-meter"></span>
+        </div>
+      </section>
+      <aside class="panel">
+        <div id="skill"></div>
+        <h2 id="title"></h2>
+        <div id="phase"></div>
+        <p id="description"></p>
+        <textarea
+          aria-label="Your program"
+          placeholder="Write your program here…"
+          spellcheck="false"
+        ></textarea>
+        <div class="buttons">
+          <button id="run">Run</button><button id="reset">Reset</button
+          ><button id="solution">Show solution</button>
+        </div>
+        <label
+          ><select id="speed" aria-label="Execution speed">
+            <option value="220">Normal speed</option>
+            <option value="35">Fast review</option>
+            <option value="0">Instant review</option>
+          </select></label
+        >
+        <p id="status">Loading new artwork…</p>
+        <details id="hint-details">
+          <summary>Hint</summary>
+          <p id="hint"></p>
+        </details>
+        <details>
+          <summary>Available commands</summary>
+          <p id="commands"></p>
+          <p>
+            Actions target the tile directly ahead. Water before harvesting dry plants. Repeat
+            syntax: repeat 3 { on its own line, then commands, then }.
+          </p>
+        </details>
+        <div class="pager">
+          <button id="previous">← Previous</button><button id="next">Next →</button>
+        </div>
+      </aside>
+    </main>
+    <p class="note">
+      Playable series prototypes. New mechanics run in this preview engine; main-game integration
+      and animated walk cycles remain separate work. Show solution is available for design review,
+      not an assumed player flow.
+    </p>
+    <script src="series/curriculum.js"></script>
+    <script src="series/assets.js"></script>
+    <script src="series/engine.js"></script>
+  </body>
+</html>

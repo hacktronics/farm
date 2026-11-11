@@ -1,0 +1,41 @@
+{
+  "mode": "built-in image_gen",
+  "newAssets": [
+    {
+      "name": "grass",
+      "file": "grass.png",
+      "prompt": "Create ONE modular isometric terrain game tile. Use the supplied tile as exact footprint and camera reference, shallow block thickness and clean straight diamond edges. New top surface: short soft meadow grass, low sparse individual tufts, muted fresh sage green surface with gently irregular natural flecks; no flowers, bushes or objects. The tile must join other tiles edge to edge. Elevated orthographic view, top face approximately 1.74 width to height. Understated cartoon materials, warm brown shallow side walls. Centered single tile on genuine transparent background, no text, no other tiles, no scenery, no shadows outside footprint.",
+      "editPrompt": null
+    },
+    {
+      "name": "wet-soil",
+      "file": "wet-soil.png",
+      "prompt": "Create ONE modular isometric terrain game tile. Use the supplied tile as exact footprint and camera reference, shallow block thickness and clean straight diamond edges. New top surface: dark damp cultivated earth with two shallow planting grooves and tiny moist glints, restrained texture, no plants or objects. The tile must join other tiles edge to edge. Elevated orthographic view, top face approximately 1.74 width to height. Understated cartoon materials, warm brown shallow side walls. Centered single tile on genuine transparent background, no text, no other tiles, no scenery, no shadows outside footprint.",
+      "editPrompt": null
+    },
+    {
+      "name": "dry-plot",
+      "file": "dry-plot.png",
+      "prompt": "Create ONE standalone object sprite for an isometric farming programming game. ONE small wilted carrot seedling: three drooping slender feathery carrot leaves on a short stem, one small dry brown root crown visible, readable dry state, no soil patch or ground. Elevated orthographic isometric view at about 30 degrees downward, visible top and two sides, front toward lower-right. Restrained clean cartoon rendering with soft simple shading, match warm friendly farmer art. Fully visible centered object, ample transparent padding. Genuine transparent background. No diamond ground tile, no soil base, no scenery, no labels, no text, no duplicates. Readable at 64 pixels.",
+      "editPrompt": "Remove surrounding glow entirely; preserve object and internal shading, crisp transparent cutout."
+    },
+    {
+      "name": "carrot",
+      "file": "carrot.png",
+      "prompt": "Create ONE standalone object sprite for an isometric farming programming game. ONE mature carrot plant, a small cluster of fresh upright feathery green leaves and one bright orange carrot root with upper shoulder exposed, clean readable silhouette, no soil patch or ground. Elevated orthographic isometric view at about 30 degrees downward, visible top and two sides, front toward lower-right. Restrained clean cartoon rendering with soft simple shading, match warm friendly farmer art. Fully visible centered object, ample transparent padding. Genuine transparent background. No diamond ground tile, no soil base, no scenery, no labels, no text, no duplicates. Readable at 64 pixels.",
+      "editPrompt": "Remove surrounding glow entirely; preserve object and internal shading, crisp transparent cutout."
+    },
+    {
+      "name": "crate",
+      "file": "crate.png",
+      "prompt": "Create ONE standalone object sprite for an isometric farming programming game. ONE wooden produce delivery crate with open top, small green leaf symbol on the front face, empty interior, warm natural wood, separate object with no ground or pedestal. Elevated orthographic isometric view at about 30 degrees downward, visible top and two sides, front toward lower-right. Restrained clean cartoon rendering with soft simple shading, match warm friendly farmer art. Fully visible centered object, ample transparent padding. Genuine transparent background. No diamond ground tile, no soil base, no scenery, no labels, no text, no duplicates. Readable at 64 pixels.",
+      "editPrompt": "Remove surrounding glow entirely; preserve object and internal shading, crisp transparent cutout."
+    },
+    {
+      "name": "gate",
+      "file": "gate.png",
+      "prompt": "Create ONE standalone object sprite for an isometric farming programming game. ONE short rustic wooden farm gate between two low wooden posts, a visible simple iron latch on front, closed position, orthographic isometric view, no fence continuation, no ground or pedestal. Elevated orthographic isometric view at about 30 degrees downward, visible top and two sides, front toward lower-right. Restrained clean cartoon rendering with soft simple shading, match warm friendly farmer art. Fully visible centered object, ample transparent padding. Genuine transparent background. No diamond ground tile, no soil base, no scenery, no labels, no text, no duplicates. Readable at 64 pixels.",
+      "editPrompt": "Remove surrounding glow entirely; preserve object and internal shading, crisp transparent cutout."
+    }
+  ]
+}

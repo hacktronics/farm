@@ -1,0 +1,3272 @@
+{
+  "title": "Meadow Farm: a season of code",
+  "version": 2,
+  "status": "Playable design prototypes; not integrated main-game levels",
+  "chapters": [
+    {
+      "title": "Back to Meadow Farm",
+      "story": "You inherit a quiet, overgrown farm. Learn the paths and find the old entrance before work begins.",
+      "newConcept": "Movement and one-step harvesting",
+      "newArt": [
+        "Meadow grass",
+        "Sandy path",
+        "Four farmer directions",
+        "Farm gate"
+      ],
+      "retire": "Direction arrows fade after level 3; the solution is no longer pre-filled after level 2."
+    },
+    {
+      "title": "The first market basket",
+      "story": "A neighbour needs the farm’s first basket of produce. Learn to stop, face a plant, and harvest it.",
+      "newConcept": "Multiple stops and crop types",
+      "newArt": [
+        "Tomato and corn beds",
+        "Delivery crate"
+      ],
+      "retire": "Step-by-step navigation prompts disappear; movement is now assumed knowledge."
+    },
+    {
+      "title": "A rhythm in the rows",
+      "story": "The market order grows. Recognise repeated work rather than writing every step again.",
+      "newConcept": "Counted loops",
+      "newArt": [
+        "Regular paired beds",
+        "Courtyard composition"
+      ],
+      "retire": "Repeated single commands give way to loop blocks; loops become a mastery goal."
+    },
+    {
+      "title": "After the storm",
+      "story": "An overnight storm leaves stones across familiar lanes. Restore access before the next collection.",
+      "newConcept": "Obstacles and state changes",
+      "newArt": [
+        "Stone blockers",
+        "Grass/path contrast"
+      ],
+      "retire": "Single-action harvest demonstrations disappear; known loop patterns remain available."
+    },
+    {
+      "title": "The dry nursery",
+      "story": "Rain stops and the new carrot beds wilt. Bring the nursery back to life in the right order.",
+      "newConcept": "Water before harvest",
+      "newArt": [
+        "Wilted carrot sprite",
+        "Mature carrot sprite",
+        "Wet soil tile"
+      ],
+      "retire": "Ready-to-harvest plants become supporting tasks; unlimited water avoids introducing two rules at once."
+    },
+    {
+      "title": "Water for everyone",
+      "story": "The village shares a limited water supply. Use the pump and plan refills to keep every bed alive.",
+      "newConcept": "Capacity and resource planning",
+      "newArt": [
+        "Hand pump",
+        "Visible water counter",
+        "Wet/dry plant states"
+      ],
+      "retire": "Unlimited watering is retired explicitly; capacity starts at two and remains consistent."
+    }
+  ],
+  "levels": [
+    {
+      "id": 1,
+      "chapter": 0,
+      "stage": 0,
+      "title": "Your first tomato",
+      "skill": "Walk + harvest",
+      "description": "Walk one tile, then collect the one tomato directly ahead. Stay on the empty standing tile.",
+      "hint": "Count tile centres, not corners.",
+      "prerequisites": [],
+      "phase": "Introduce on familiar ground",
+      "guidance": "Familiar task + one preview cue",
+      "start": [
+        4,
+        2,
+        "north"
+      ],
+      "finish": [
+        3,
+        2
+      ],
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          2,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          3,
+          "gate"
+        ]
+      ],
+      "solution": "move 1\nharvest",
+      "chapterTitle": "Back to Meadow Farm",
+      "chapterStory": "You inherit a quiet, overgrown farm. Learn the paths and find the old entrance before work begins.",
+      "story": "Your neighbour left one ripe tomato by the entrance. Pick it for your welcome supper.",
+      "sceneChanges": {
+        "introduced": [
+          "tomato"
+        ],
+        "removed": [],
+        "retained": [],
+        "objects": {
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Begin with one short walk and one harvest. Appears: ripe tomato.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Begin with one short walk and one harvest. Appears: ripe tomato.",
+      "starter": "move 1\nharvest"
+    },
+    {
+      "id": 2,
+      "chapter": 0,
+      "stage": 1,
+      "title": "A longer lane",
+      "skill": "Count steps",
+      "description": "Walk two tiles, then harvest the tomato ahead. The same two commands now cover a longer lane.",
+      "hint": "Count two path tiles, then stop to harvest.",
+      "prerequisites": [
+        1
+      ],
+      "phase": "Guided practice",
+      "guidance": "One worked interaction",
+      "start": [
+        5,
+        2,
+        "north"
+      ],
+      "finish": [
+        3,
+        2
+      ],
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          2,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          3,
+          "gate"
+        ]
+      ],
+      "solution": "move 2\nharvest",
+      "chapterTitle": "Back to Meadow Farm",
+      "chapterStory": "You inherit a quiet, overgrown farm. Learn the paths and find the old entrance before work begins.",
+      "story": "The next tomato grows farther down the same lane. Bring it back for breakfast.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Count steps.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Count steps.",
+      "starter": "move 2\nharvest"
+    },
+    {
+      "id": 3,
+      "chapter": 0,
+      "stage": 2,
+      "title": "Around the herb bed",
+      "skill": "One turn",
+      "description": "Walk to the corner, turn right, move one tile and harvest the tomato ahead.",
+      "hint": "Turning changes facing; it does not move the farmer.",
+      "prerequisites": [
+        2
+      ],
+      "phase": "Practise",
+      "guidance": "A question hint only",
+      "start": [
+        4,
+        1,
+        "north"
+      ],
+      "finish": [
+        2,
+        2
+      ],
+      "path": [
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          3,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          2,
+          "gate"
+        ]
+      ],
+      "solution": "move 2\nright\nmove 1\nharvest",
+      "chapterTitle": "Back to Meadow Farm",
+      "chapterStory": "You inherit a quiet, overgrown farm. Learn the paths and find the old entrance before work begins.",
+      "story": "A herb bed bends the lane toward the kitchen. Follow the corner to the last ripe tomato.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: One turn.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: One turn.",
+      "starter": ""
+    },
+    {
+      "id": 4,
+      "chapter": 0,
+      "stage": 3,
+      "title": "Follow the boundary",
+      "skill": "Two turns",
+      "description": "Follow two corners to the tomato bed, then harvest without stepping onto the plant.",
+      "hint": "Plan the straight segments before adding turns.",
+      "prerequisites": [
+        3
+      ],
+      "phase": "Combine",
+      "guidance": "No route arrows",
+      "start": [
+        4,
+        1,
+        "north"
+      ],
+      "finish": [
+        2,
+        4
+      ],
+      "path": [
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          4,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          5,
+          "gate"
+        ]
+      ],
+      "solution": "move 3\nright\nmove 3\nright\nmove 1\nharvest",
+      "chapterTitle": "Back to Meadow Farm",
+      "chapterStory": "You inherit a quiet, overgrown farm. Learn the paths and find the old entrance before work begins.",
+      "story": "The kitchen harvest is in. Follow the boundary to find a tomato beside the old fence.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Two turns.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Two turns.",
+      "starter": ""
+    },
+    {
+      "id": 5,
+      "chapter": 0,
+      "stage": 4,
+      "title": "Open the farm walk",
+      "skill": "Navigation checkpoint",
+      "description": "Follow the three-sided boundary path and harvest the tomato at the last stop.",
+      "hint": "Check facing at each corner.",
+      "prerequisites": [
+        4
+      ],
+      "phase": "Mastery",
+      "guidance": "No supplied program",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        4,
+        5
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "objects": [
+        [
+          5,
+          5,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          4,
+          6,
+          "gate"
+        ]
+      ],
+      "solution": "move 4\nright\nmove 4\nright\nmove 3\nharvest",
+      "chapterTitle": "Back to Meadow Farm",
+      "chapterStory": "You inherit a quiet, overgrown farm. Learn the paths and find the old entrance before work begins.",
+      "story": "Before opening the farm, check the whole boundary and collect the final tomato for your neighbour.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Navigation checkpoint.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Navigation checkpoint.",
+      "starter": ""
+    },
+    {
+      "id": 6,
+      "chapter": 1,
+      "stage": 0,
+      "title": "One ripe plant",
+      "skill": "Harvest action",
+      "description": "Harvest the tomato directly ahead, then walk to the finish.",
+      "hint": "Actions affect the tile you face.",
+      "prerequisites": [
+        5
+      ],
+      "phase": "Introduce on familiar ground",
+      "guidance": "Familiar task + one preview cue",
+      "start": [
+        4,
+        2,
+        "north"
+      ],
+      "finish": [
+        2,
+        2
+      ],
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          2,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          3,
+          "crate"
+        ]
+      ],
+      "solution": "harvest\nmove 2",
+      "chapterTitle": "The first market basket",
+      "chapterStory": "A neighbour needs the farm’s first basket of produce. Learn to stop, face a plant, and harvest it.",
+      "story": "Your neighbour lends you a market crate. Practise collecting a plant before carrying the harvest onward.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Harvest action.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Harvest action.",
+      "starter": ""
+    },
+    {
+      "id": 7,
+      "chapter": 1,
+      "stage": 1,
+      "title": "Two stops",
+      "skill": "Stop before acting",
+      "description": "Harvest both plants along the lane. Do not walk through ripe plants.",
+      "hint": "Stop one tile before each plant.",
+      "prerequisites": [
+        6
+      ],
+      "phase": "Guided practice",
+      "guidance": "One worked interaction",
+      "start": [
+        5,
+        2,
+        "north"
+      ],
+      "finish": [
+        1,
+        2
+      ],
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          2,
+          "tomato"
+        ],
+        [
+          1,
+          2,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          1,
+          3,
+          "crate"
+        ]
+      ],
+      "solution": "move 1\nharvest\nmove 2\nharvest\nmove 1",
+      "chapterTitle": "The first market basket",
+      "chapterStory": "A neighbour needs the farm’s first basket of produce. Learn to stop, face a plant, and harvest it.",
+      "story": "The first customer asks for two tomatoes. Stop at both beds along the delivery lane.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 2
+        }
+      },
+      "changeFromPrevious": "Next challenge: Stop before acting.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Stop before acting.",
+      "starter": ""
+    },
+    {
+      "id": 8,
+      "chapter": 1,
+      "stage": 2,
+      "title": "A mixed basket",
+      "skill": "Harvest after turning",
+      "description": "Collect tomatoes, turn onto the cross-lane, then collect corn.",
+      "hint": "A turn can also line you up with a plant.",
+      "prerequisites": [
+        7
+      ],
+      "phase": "Practise",
+      "guidance": "A question hint only",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        2,
+        5
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          1,
+          "tomato"
+        ],
+        [
+          2,
+          4,
+          "corn"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          6,
+          "crate"
+        ]
+      ],
+      "solution": "move 1\nharvest\nmove 2\nright\nmove 2\nharvest\nmove 2",
+      "chapterTitle": "The first market basket",
+      "chapterStory": "A neighbour needs the farm’s first basket of produce. Learn to stop, face a plant, and harvest it.",
+      "story": "A second customer adds corn to the order. Leave the tomato lane and visit the corn patch.",
+      "sceneChanges": {
+        "introduced": [
+          "corn"
+        ],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 1,
+          "corn": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Harvest after turning. Appears: corn.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Harvest after turning. Appears: corn.",
+      "starter": ""
+    },
+    {
+      "id": 9,
+      "chapter": 1,
+      "stage": 3,
+      "title": "Between the beds",
+      "skill": "Face side crops",
+      "description": "Collect alternating crops along a staircase route.",
+      "hint": "The standing tile and the plant tile are different.",
+      "prerequisites": [
+        8
+      ],
+      "phase": "Combine",
+      "guidance": "No route arrows",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        1,
+        3
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          1,
+          "tomato"
+        ],
+        [
+          3,
+          2,
+          "corn"
+        ],
+        [
+          2,
+          3,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          1,
+          4,
+          "crate"
+        ]
+      ],
+      "solution": "harvest\nmove 2\nright\nharvest\nmove 2\nleft\nharvest\nmove 2",
+      "chapterTitle": "The first market basket",
+      "chapterStory": "A neighbour needs the farm’s first basket of produce. Learn to stop, face a plant, and harvest it.",
+      "story": "The narrow beds serve different customers. Change facing to collect each part of their mixed basket.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato",
+          "corn"
+        ],
+        "objects": {
+          "tomato": 2,
+          "corn": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Face side crops.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Face side crops.",
+      "starter": ""
+    },
+    {
+      "id": 10,
+      "chapter": 1,
+      "stage": 4,
+      "title": "The first market order",
+      "skill": "Harvest checkpoint",
+      "description": "Collect four beds around the courtyard and return to the start.",
+      "hint": "Each side contains one harvest stop.",
+      "prerequisites": [
+        9
+      ],
+      "phase": "Mastery",
+      "guidance": "No supplied program",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        5,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "tomato"
+        ],
+        [
+          2,
+          2,
+          "corn"
+        ],
+        [
+          2,
+          4,
+          "tomato"
+        ],
+        [
+          4,
+          4,
+          "corn"
+        ]
+      ],
+      "decor": [
+        [
+          6,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "move 1\nright\nharvest\nleft\nmove 3\nright\nmove 1\nright\nharvest\nleft\nmove 3\nright\nmove 1\nright\nharvest\nleft\nmove 3\nright\nmove 1\nright\nharvest\nleft\nmove 3\nright",
+      "chapterTitle": "The first market basket",
+      "chapterStory": "A neighbour needs the farm’s first basket of produce. Learn to stop, face a plant, and harvest it.",
+      "story": "Market morning arrives. Gather produce from all four sides of the courtyard and bring the basket home.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato",
+          "corn"
+        ],
+        "objects": {
+          "tomato": 2,
+          "corn": 2
+        }
+      },
+      "changeFromPrevious": "Next challenge: Harvest checkpoint.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Harvest checkpoint.",
+      "starter": ""
+    },
+    {
+      "id": 11,
+      "chapter": 2,
+      "stage": 0,
+      "title": "Three equal steps",
+      "skill": "First counted loop",
+      "description": "Use a repeat block for three identical forward steps.",
+      "hint": "Only the repeated action belongs inside the loop.",
+      "prerequisites": [
+        10
+      ],
+      "phase": "Introduce on familiar ground",
+      "guidance": "Familiar task + one preview cue",
+      "start": [
+        5,
+        2,
+        "north"
+      ],
+      "finish": [
+        2,
+        2
+      ],
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "objects": [],
+      "decor": [
+        [
+          2,
+          3,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 3 {\n move 1\n}",
+      "requiresLoop": true,
+      "chapterTitle": "A rhythm in the rows",
+      "chapterStory": "The market order grows. Recognise repeated work rather than writing every step again.",
+      "story": "Orders will grow tomorrow. First practise a repeat on an empty lane, with the harvest beds removed.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [
+          "tomato",
+          "corn"
+        ],
+        "retained": [],
+        "objects": {}
+      },
+      "changeFromPrevious": "Next challenge: First counted loop. Leaves this scene: ripe tomato. Leaves this scene: corn.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: First counted loop. Leaves this scene: ripe tomato. Leaves this scene: corn.",
+      "starter": "repeat 3 {\n move 1\n}"
+    },
+    {
+      "id": 12,
+      "chapter": 2,
+      "stage": 1,
+      "title": "Corners repeat too",
+      "skill": "Movement loop",
+      "description": "Use one repeat block to travel two equal straight sections with a turn after each.",
+      "hint": "The body is move two, turn right.",
+      "prerequisites": [
+        11
+      ],
+      "phase": "Guided practice",
+      "guidance": "A question hint only",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        3,
+        3
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "objects": [],
+      "decor": [
+        [
+          3,
+          4,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 2 {\n move 2\n right\n}",
+      "requiresLoop": true,
+      "chapterTitle": "A rhythm in the rows",
+      "chapterStory": "The market order grows. Recognise repeated work rather than writing every step again.",
+      "story": "The empty practice lane bends around a corner. Repeat the same short walk and turn twice.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [],
+        "objects": {}
+      },
+      "changeFromPrevious": "Next challenge: Movement loop.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Movement loop.",
+      "starter": ""
+    },
+    {
+      "id": 13,
+      "chapter": 2,
+      "stage": 2,
+      "title": "Three identical beds",
+      "skill": "Repeat a task",
+      "description": "Repeat move, turn, harvest and restore facing for three beds.",
+      "hint": "Restore the original facing before the next repetition.",
+      "prerequisites": [
+        12
+      ],
+      "phase": "Practise",
+      "guidance": "One worked interaction",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        2,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "tomato"
+        ],
+        [
+          3,
+          2,
+          "tomato"
+        ],
+        [
+          2,
+          2,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          0,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 3 {\n move 1\n right\n harvest\n left\n}",
+      "requiresLoop": true,
+      "chapterTitle": "A rhythm in the rows",
+      "chapterStory": "The market order grows. Recognise repeated work rather than writing every step again.",
+      "story": "The beds return beside the lane. Use your walking rhythm to collect three tomatoes.",
+      "sceneChanges": {
+        "introduced": [
+          "tomato"
+        ],
+        "removed": [],
+        "retained": [],
+        "objects": {
+          "tomato": 3
+        }
+      },
+      "changeFromPrevious": "Next challenge: Repeat a task. Appears: ripe tomato.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Repeat a task. Appears: ripe tomato.",
+      "starter": ""
+    },
+    {
+      "id": 14,
+      "chapter": 2,
+      "stage": 3,
+      "title": "One routine, four sides",
+      "skill": "Rotate a routine",
+      "description": "Harvest the courtyard using the same routine four times.",
+      "hint": "The routine must end facing along the next side.",
+      "prerequisites": [
+        13
+      ],
+      "phase": "Combine",
+      "guidance": "No route arrows",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        5,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "tomato"
+        ],
+        [
+          2,
+          2,
+          "tomato"
+        ],
+        [
+          2,
+          4,
+          "tomato"
+        ],
+        [
+          4,
+          4,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          6,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 4 {\n move 1\n right\n harvest\n left\n move 3\n right\n}",
+      "requiresLoop": true,
+      "chapterTitle": "A rhythm in the rows",
+      "chapterStory": "The market order grows. Recognise repeated work rather than writing every step again.",
+      "story": "The market now needs a full courtyard basket. Repeat one familiar harvesting routine on four sides.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 4
+        }
+      },
+      "changeFromPrevious": "Next challenge: Rotate a routine.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Rotate a routine.",
+      "starter": ""
+    },
+    {
+      "id": 15,
+      "chapter": 2,
+      "stage": 4,
+      "title": "Two long beds",
+      "skill": "Loop checkpoint",
+      "description": "Harvest four beds on opposite lanes with a two-pass routine.",
+      "hint": "One repetition covers two beds and the transfer to the next lane.",
+      "prerequisites": [
+        14
+      ],
+      "phase": "Mastery",
+      "guidance": "No supplied program",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        5,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "tomato"
+        ],
+        [
+          3,
+          2,
+          "tomato"
+        ],
+        [
+          3,
+          3,
+          "tomato"
+        ],
+        [
+          4,
+          3,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          6,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 2 {\n move 1\n right\n harvest\n left\n move 1\n right\n harvest\n left\n move 1\n right\n move 3\n right\n}",
+      "requiresLoop": true,
+      "chapterTitle": "A rhythm in the rows",
+      "chapterStory": "The market order grows. Recognise repeated work rather than writing every step again.",
+      "story": "Two long growing lanes replace the square courtyard. Adapt your routine to harvest paired beds.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "tomato"
+        ],
+        "objects": {
+          "tomato": 4
+        }
+      },
+      "changeFromPrevious": "Next challenge: Loop checkpoint.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Loop checkpoint.",
+      "starter": ""
+    },
+    {
+      "id": 16,
+      "chapter": 3,
+      "stage": 0,
+      "title": "A stone in the lane",
+      "skill": "Clear before moving",
+      "description": "Remove the stone directly ahead and continue along the familiar lane.",
+      "hint": "Clear changes the tile state; it does not move the farmer.",
+      "prerequisites": [
+        15
+      ],
+      "phase": "Introduce on familiar ground",
+      "guidance": "Familiar task + one preview cue",
+      "start": [
+        4,
+        2,
+        "north"
+      ],
+      "finish": [
+        2,
+        2
+      ],
+      "path": [
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          2,
+          "stone"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          3,
+          "crate"
+        ]
+      ],
+      "solution": "clear\nmove 2",
+      "chapterTitle": "After the storm",
+      "chapterStory": "An overnight storm leaves stones across familiar lanes. Restore access before the next collection.",
+      "story": "A storm interrupts market day. Put the basket aside and clear one stone from the access lane.",
+      "sceneChanges": {
+        "introduced": [
+          "stone"
+        ],
+        "removed": [
+          "tomato"
+        ],
+        "retained": [],
+        "objects": {
+          "stone": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Clear before moving. Appears: stone. Leaves this scene: ripe tomato.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Clear before moving. Appears: stone. Leaves this scene: ripe tomato.",
+      "starter": ""
+    },
+    {
+      "id": 17,
+      "chapter": 3,
+      "stage": 1,
+      "title": "A line of rubble",
+      "skill": "Loop a new action",
+      "description": "Clear and advance twice, then reach the finish.",
+      "hint": "Pair clear with move inside the loop.",
+      "prerequisites": [
+        16
+      ],
+      "phase": "Guided practice",
+      "guidance": "One worked interaction",
+      "start": [
+        5,
+        2,
+        "north"
+      ],
+      "finish": [
+        2,
+        2
+      ],
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "stone"
+        ],
+        [
+          3,
+          2,
+          "stone"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          3,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 2 {\n clear\n move 1\n}\nmove 1",
+      "requiresLoop": true,
+      "chapterTitle": "After the storm",
+      "chapterStory": "An overnight storm leaves stones across familiar lanes. Restore access before the next collection.",
+      "story": "More rubble blocks the same lane. Repeat clearing and walking to reopen it.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "stone"
+        ],
+        "objects": {
+          "stone": 2
+        }
+      },
+      "changeFromPrevious": "Next challenge: Loop a new action.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Loop a new action.",
+      "starter": ""
+    },
+    {
+      "id": 18,
+      "chapter": 3,
+      "stage": 2,
+      "title": "Rescue the corn",
+      "skill": "Clear + harvest",
+      "description": "Clear the approach lane, then collect corn beyond the corner.",
+      "hint": "The stone and the plant need different actions.",
+      "prerequisites": [
+        17
+      ],
+      "phase": "Practise",
+      "guidance": "A question hint only",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        3,
+        4
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          1,
+          "stone"
+        ],
+        [
+          3,
+          2,
+          "corn"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          5,
+          "crate"
+        ]
+      ],
+      "solution": "clear\nmove 2\nright\nharvest\nmove 3",
+      "chapterTitle": "After the storm",
+      "chapterStory": "An overnight storm leaves stones across familiar lanes. Restore access before the next collection.",
+      "story": "The corn survived beyond the rubble. Clear a route and rescue the crop before the next delivery.",
+      "sceneChanges": {
+        "introduced": [
+          "corn"
+        ],
+        "removed": [],
+        "retained": [
+          "stone"
+        ],
+        "objects": {
+          "stone": 1,
+          "corn": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Clear + harvest. Appears: corn.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Clear + harvest. Appears: corn.",
+      "starter": ""
+    },
+    {
+      "id": 19,
+      "chapter": 3,
+      "stage": 3,
+      "title": "Two blocked corners",
+      "skill": "Repeat state changes",
+      "description": "Repeat the corner-clearing routine twice, then harvest the final crop.",
+      "hint": "A blocked tile becomes walkable only after clear.",
+      "prerequisites": [
+        18
+      ],
+      "phase": "Combine",
+      "guidance": "No route arrows",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        4,
+        3
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          1,
+          "stone"
+        ],
+        [
+          3,
+          3,
+          "stone"
+        ],
+        [
+          4,
+          3,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          4,
+          4,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 2 {\n move 1\n clear\n move 1\n right\n}\nharvest\nmove 1",
+      "requiresLoop": true,
+      "chapterTitle": "After the storm",
+      "chapterStory": "An overnight storm leaves stones across familiar lanes. Restore access before the next collection.",
+      "story": "Two corners remain blocked. Repeat the repairs, then collect the tomato waiting beyond them.",
+      "sceneChanges": {
+        "introduced": [
+          "tomato"
+        ],
+        "removed": [
+          "corn"
+        ],
+        "retained": [
+          "stone"
+        ],
+        "objects": {
+          "stone": 2,
+          "tomato": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Repeat state changes. Appears: ripe tomato. Leaves this scene: corn.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Repeat state changes. Appears: ripe tomato. Leaves this scene: corn.",
+      "starter": ""
+    },
+    {
+      "id": 20,
+      "chapter": 3,
+      "stage": 4,
+      "title": "Storm recovery round",
+      "skill": "Obstacle checkpoint",
+      "description": "Clear four approaches and harvest four inner beds in one circuit.",
+      "hint": "A routine can include movement, clearing and harvesting.",
+      "prerequisites": [
+        19
+      ],
+      "phase": "Mastery",
+      "guidance": "No supplied program",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        5,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          1,
+          "stone"
+        ],
+        [
+          3,
+          2,
+          "tomato"
+        ],
+        [
+          1,
+          3,
+          "stone"
+        ],
+        [
+          2,
+          3,
+          "tomato"
+        ],
+        [
+          3,
+          5,
+          "stone"
+        ],
+        [
+          3,
+          4,
+          "tomato"
+        ],
+        [
+          5,
+          3,
+          "stone"
+        ],
+        [
+          4,
+          3,
+          "tomato"
+        ]
+      ],
+      "decor": [
+        [
+          6,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 4 {\n move 1\n clear\n move 1\n right\n harvest\n left\n move 2\n right\n}",
+      "requiresLoop": true,
+      "chapterTitle": "After the storm",
+      "chapterStory": "An overnight storm leaves stones across familiar lanes. Restore access before the next collection.",
+      "story": "Neighbours arrive to help reopen the market. Clear and harvest every side of the courtyard.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "stone",
+          "tomato"
+        ],
+        "objects": {
+          "stone": 4,
+          "tomato": 4
+        }
+      },
+      "changeFromPrevious": "Next challenge: Obstacle checkpoint.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Obstacle checkpoint.",
+      "starter": ""
+    },
+    {
+      "id": 21,
+      "chapter": 4,
+      "stage": 0,
+      "title": "A thirsty seedling",
+      "skill": "Water dependency",
+      "description": "Water the wilted carrot, harvest it after it recovers, then step to the finish.",
+      "hint": "Water must come before harvest.",
+      "prerequisites": [
+        20
+      ],
+      "phase": "Introduce on familiar ground",
+      "guidance": "Familiar task + one preview cue",
+      "start": [
+        3,
+        2,
+        "north"
+      ],
+      "finish": [
+        2,
+        2
+      ],
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          2,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          3,
+          "crate"
+        ]
+      ],
+      "solution": "water\nharvest\nmove 1",
+      "chapterTitle": "The dry nursery",
+      "chapterStory": "Rain stops and the new carrot beds wilt. Bring the nursery back to life in the right order.",
+      "story": "The repaired farm faces a dry spell. Leave the rubble behind and revive one wilted carrot.",
+      "sceneChanges": {
+        "introduced": [
+          "dry"
+        ],
+        "removed": [
+          "stone",
+          "tomato"
+        ],
+        "retained": [],
+        "objects": {
+          "dry": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Water dependency. Appears: dry carrot. Leaves this scene: stone. Leaves this scene: ripe tomato.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Water dependency. Appears: dry carrot. Leaves this scene: stone. Leaves this scene: ripe tomato.",
+      "starter": ""
+    },
+    {
+      "id": 22,
+      "chapter": 4,
+      "stage": 1,
+      "title": "Old crop, new crop",
+      "skill": "Compare plant states",
+      "description": "Harvest the ready tomato, then water and harvest the carrot beyond the turn.",
+      "hint": "Ready plants can be harvested; dry ones need water first.",
+      "prerequisites": [
+        21
+      ],
+      "phase": "Guided practice",
+      "guidance": "One worked interaction",
+      "start": [
+        4,
+        1,
+        "north"
+      ],
+      "finish": [
+        2,
+        3
+      ],
+      "path": [
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          1,
+          "tomato"
+        ],
+        [
+          2,
+          2,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          4,
+          "crate"
+        ]
+      ],
+      "solution": "harvest\nmove 2\nright\nwater\nharvest\nmove 2",
+      "chapterTitle": "The dry nursery",
+      "chapterStory": "Rain stops and the new carrot beds wilt. Bring the nursery back to life in the right order.",
+      "story": "A ripe tomato needs no water, but the carrot does. Prepare both for the nursery basket.",
+      "sceneChanges": {
+        "introduced": [
+          "tomato"
+        ],
+        "removed": [],
+        "retained": [
+          "dry"
+        ],
+        "objects": {
+          "tomato": 1,
+          "dry": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Compare plant states. Appears: ripe tomato.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Compare plant states. Appears: ripe tomato.",
+      "starter": ""
+    },
+    {
+      "id": 23,
+      "chapter": 4,
+      "stage": 2,
+      "title": "Tend the nursery row",
+      "skill": "Repeat care",
+      "description": "Use a loop to water and harvest three dry beds from the service lane.",
+      "hint": "The care routine is water, harvest; keep facing consistent.",
+      "prerequisites": [
+        22
+      ],
+      "phase": "Practise",
+      "guidance": "A question hint only",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        2,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "dry"
+        ],
+        [
+          3,
+          2,
+          "dry"
+        ],
+        [
+          2,
+          2,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          0,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 3 {\n move 1\n right\n water\n harvest\n left\n}",
+      "requiresLoop": true,
+      "chapterTitle": "The dry nursery",
+      "chapterStory": "Rain stops and the new carrot beds wilt. Bring the nursery back to life in the right order.",
+      "story": "The nursery has three thirsty beds. Repeat the same care routine along their service lane.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [
+          "tomato"
+        ],
+        "retained": [
+          "dry"
+        ],
+        "objects": {
+          "dry": 3
+        }
+      },
+      "changeFromPrevious": "Next challenge: Repeat care. Leaves this scene: ripe tomato.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Repeat care. Leaves this scene: ripe tomato.",
+      "starter": ""
+    },
+    {
+      "id": 24,
+      "chapter": 4,
+      "stage": 3,
+      "title": "Reach the dry beds",
+      "skill": "Clear + water",
+      "description": "Clear the approach, then restore two dry carrot beds around a corner.",
+      "hint": "Clearing gives access; watering changes the plant.",
+      "prerequisites": [
+        23
+      ],
+      "phase": "Combine",
+      "guidance": "No route arrows",
+      "start": [
+        5,
+        2,
+        "north"
+      ],
+      "finish": [
+        2,
+        4
+      ],
+      "path": [
+        [
+          5,
+          2
+        ],
+        [
+          4,
+          2
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "stone"
+        ],
+        [
+          2,
+          2,
+          "dry"
+        ],
+        [
+          2,
+          3,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          2,
+          5,
+          "crate"
+        ]
+      ],
+      "solution": "clear\nmove 2\nwater\nharvest\nmove 1\nright\nwater\nharvest\nmove 2",
+      "chapterTitle": "The dry nursery",
+      "chapterStory": "Rain stops and the new carrot beds wilt. Bring the nursery back to life in the right order.",
+      "story": "An old stone still blocks the far nursery. Clear access, then care for the two beds beyond it.",
+      "sceneChanges": {
+        "introduced": [
+          "stone"
+        ],
+        "removed": [],
+        "retained": [
+          "dry"
+        ],
+        "objects": {
+          "stone": 1,
+          "dry": 2
+        }
+      },
+      "changeFromPrevious": "Next challenge: Clear + water. Appears: stone.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Clear + water. Appears: stone.",
+      "starter": ""
+    },
+    {
+      "id": 25,
+      "chapter": 4,
+      "stage": 4,
+      "title": "Bring back the courtyard",
+      "skill": "Care checkpoint",
+      "description": "Restore all four courtyard beds and return to your start.",
+      "hint": "Reuse the courtyard routine; replace harvest with water then harvest.",
+      "prerequisites": [
+        24
+      ],
+      "phase": "Mastery",
+      "guidance": "No supplied program",
+      "start": [
+        5,
+        1,
+        "north"
+      ],
+      "finish": [
+        5,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          4,
+          2,
+          "dry"
+        ],
+        [
+          2,
+          2,
+          "dry"
+        ],
+        [
+          2,
+          4,
+          "dry"
+        ],
+        [
+          4,
+          4,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          6,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 4 {\n move 1\n right\n water\n harvest\n left\n move 3\n right\n}",
+      "requiresLoop": true,
+      "chapterTitle": "The dry nursery",
+      "chapterStory": "Rain stops and the new carrot beds wilt. Bring the nursery back to life in the right order.",
+      "story": "The courtyard nursery is ready for its reopening. Revive all four beds with your familiar circuit.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [
+          "stone"
+        ],
+        "retained": [
+          "dry"
+        ],
+        "objects": {
+          "dry": 4
+        }
+      },
+      "changeFromPrevious": "Next challenge: Care checkpoint. Leaves this scene: stone.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Care checkpoint. Leaves this scene: stone.",
+      "starter": ""
+    },
+    {
+      "id": 26,
+      "chapter": 5,
+      "stage": 0,
+      "title": "Meet the pump",
+      "skill": "Refill action",
+      "description": "Fill the empty can at the pump, then water and harvest one nearby bed.",
+      "hint": "Face the pump to refill. The can holds two portions.",
+      "prerequisites": [
+        25
+      ],
+      "phase": "Introduce on familiar ground",
+      "guidance": "Familiar task + one preview cue",
+      "start": [
+        3,
+        2,
+        "north"
+      ],
+      "finish": [
+        3,
+        3
+      ],
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          2,
+          "pump"
+        ],
+        [
+          2,
+          3,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          4,
+          "crate"
+        ]
+      ],
+      "solution": "refill\nright\nmove 1\nleft\nwater\nharvest",
+      "resource": true,
+      "chapterTitle": "Water for everyone",
+      "chapterStory": "The village shares a limited water supply. Use the pump and plan refills to keep every bed alive.",
+      "story": "The shared water tank runs low. An empty two-portion can and a pump replace unlimited watering.",
+      "sceneChanges": {
+        "introduced": [
+          "pump"
+        ],
+        "removed": [],
+        "retained": [
+          "dry"
+        ],
+        "objects": {
+          "pump": 1,
+          "dry": 1
+        }
+      },
+      "changeFromPrevious": "Next challenge: Refill action. Appears: water pump. Water now has a two-portion limit.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water",
+        "refill"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Refill action. Appears: water pump. Water now has a two-portion limit.",
+      "starter": ""
+    },
+    {
+      "id": 27,
+      "chapter": 5,
+      "stage": 1,
+      "title": "One fill, two beds",
+      "skill": "Capacity of two",
+      "description": "Restore two beds using one refill. Watch the water counter fall from two to zero.",
+      "hint": "Each water action uses one portion.",
+      "prerequisites": [
+        26
+      ],
+      "phase": "Guided practice",
+      "guidance": "One worked interaction",
+      "start": [
+        3,
+        2,
+        "north"
+      ],
+      "finish": [
+        3,
+        4
+      ],
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          2,
+          "pump"
+        ],
+        [
+          2,
+          3,
+          "dry"
+        ],
+        [
+          2,
+          4,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          5,
+          "crate"
+        ]
+      ],
+      "solution": "refill\nright\nmove 1\nleft\nwater\nharvest\nright\nmove 1\nleft\nwater\nharvest",
+      "resource": true,
+      "chapterTitle": "Water for everyone",
+      "chapterStory": "The village shares a limited water supply. Use the pump and plan refills to keep every bed alive.",
+      "story": "Two nearby nursery beds share one full can. Give each exactly one portion.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "pump",
+          "dry"
+        ],
+        "objects": {
+          "pump": 1,
+          "dry": 2
+        }
+      },
+      "changeFromPrevious": "Next challenge: Capacity of two.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water",
+        "refill"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Capacity of two.",
+      "starter": ""
+    },
+    {
+      "id": 28,
+      "chapter": 5,
+      "stage": 2,
+      "title": "Two drops, three beds",
+      "skill": "Plan a return trip",
+      "description": "Three beds need water but the can holds two portions. Return to the pump before the last bed.",
+      "hint": "After the second bed, turn back toward the pump.",
+      "prerequisites": [
+        27
+      ],
+      "phase": "Practise",
+      "guidance": "A question hint only",
+      "start": [
+        2,
+        3,
+        "south"
+      ],
+      "finish": [
+        2,
+        1
+      ],
+      "path": [
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          2,
+          1
+        ]
+      ],
+      "objects": [
+        [
+          3,
+          3,
+          "pump"
+        ],
+        [
+          1,
+          5,
+          "dry"
+        ],
+        [
+          1,
+          3,
+          "dry"
+        ],
+        [
+          1,
+          1,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "refill\nleft\nmove 2\nleft\nwater\nharvest\nleft\nmove 2\nright\nwater\nharvest\nright\nright\nrefill\nright\nmove 2\nright\nwater\nharvest",
+      "resource": true,
+      "chapterTitle": "Water for everyone",
+      "chapterStory": "The village shares a limited water supply. Use the pump and plan refills to keep every bed alive.",
+      "story": "A third bed joins the delivery order. The can still holds two portions, so plan a return to the pump.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "pump",
+          "dry"
+        ],
+        "objects": {
+          "pump": 1,
+          "dry": 3
+        }
+      },
+      "changeFromPrevious": "Next challenge: Plan a return trip.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water",
+        "refill"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Plan a return trip.",
+      "starter": ""
+    },
+    {
+      "id": 29,
+      "chapter": 5,
+      "stage": 3,
+      "title": "The interrupted supply run",
+      "skill": "Clear + conserve",
+      "description": "Clear the service lane, restore two beds, return to the pump, then reach the last bed.",
+      "hint": "Clearing uses no water; watering does.",
+      "prerequisites": [
+        28
+      ],
+      "phase": "Combine",
+      "guidance": "No route arrows",
+      "start": [
+        3,
+        2,
+        "north"
+      ],
+      "finish": [
+        3,
+        5
+      ],
+      "path": [
+        [
+          3,
+          2
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          5
+        ]
+      ],
+      "objects": [
+        [
+          2,
+          2,
+          "pump"
+        ],
+        [
+          3,
+          3,
+          "stone"
+        ],
+        [
+          2,
+          3,
+          "dry"
+        ],
+        [
+          2,
+          4,
+          "dry"
+        ],
+        [
+          2,
+          5,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          3,
+          6,
+          "crate"
+        ]
+      ],
+      "solution": "refill\nright\nclear\nmove 1\nleft\nwater\nharvest\nright\nmove 1\nleft\nwater\nharvest\nleft\nmove 2\nright\nrefill\nright\nmove 3\nleft\nwater\nharvest",
+      "resource": true,
+      "chapterTitle": "Water for everyone",
+      "chapterStory": "The village shares a limited water supply. Use the pump and plan refills to keep every bed alive.",
+      "story": "A fallen stone interrupts the supply lane. Clear it and complete the three-bed watering round.",
+      "sceneChanges": {
+        "introduced": [
+          "stone"
+        ],
+        "removed": [],
+        "retained": [
+          "pump",
+          "dry"
+        ],
+        "objects": {
+          "pump": 1,
+          "stone": 1,
+          "dry": 3
+        }
+      },
+      "changeFromPrevious": "Next challenge: Clear + conserve. Appears: stone.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water",
+        "refill"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task"
+      ],
+      "retire": "Next challenge: Clear + conserve. Appears: stone.",
+      "starter": ""
+    },
+    {
+      "id": 30,
+      "chapter": 5,
+      "stage": 4,
+      "title": "Meadow Farm reopens",
+      "skill": "Season finale",
+      "description": "Clear four approaches and restore four beds around the courtyard. Two pumps and a two-portion can support one repeatable supply routine.",
+      "hint": "One repetition starts with refill, restores two beds, and ends facing the other pump.",
+      "prerequisites": [
+        29
+      ],
+      "phase": "Mastery",
+      "guidance": "No supplied program",
+      "start": [
+        5,
+        1,
+        "west"
+      ],
+      "finish": [
+        5,
+        1
+      ],
+      "path": [
+        [
+          5,
+          1
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          5,
+          2
+        ]
+      ],
+      "objects": [
+        [
+          5,
+          0,
+          "pump"
+        ],
+        [
+          4,
+          1,
+          "stone"
+        ],
+        [
+          4,
+          2,
+          "dry"
+        ],
+        [
+          1,
+          2,
+          "stone"
+        ],
+        [
+          2,
+          2,
+          "dry"
+        ],
+        [
+          1,
+          6,
+          "pump"
+        ],
+        [
+          2,
+          5,
+          "stone"
+        ],
+        [
+          2,
+          4,
+          "dry"
+        ],
+        [
+          5,
+          4,
+          "stone"
+        ],
+        [
+          4,
+          4,
+          "dry"
+        ]
+      ],
+      "decor": [
+        [
+          6,
+          1,
+          "crate"
+        ]
+      ],
+      "solution": "repeat 2 {\n refill\n right\n clear\n move 1\n right\n water\n harvest\n left\n move 3\n right\n clear\n move 1\n right\n water\n harvest\n left\n move 3\n}",
+      "resource": true,
+      "requiresLoop": true,
+      "chapterTitle": "Water for everyone",
+      "chapterStory": "The village shares a limited water supply. Use the pump and plan refills to keep every bed alive.",
+      "story": "The village celebrates the farm reopening. Two pumps support a final circuit of clearing and plant care.",
+      "sceneChanges": {
+        "introduced": [],
+        "removed": [],
+        "retained": [
+          "pump",
+          "stone",
+          "dry"
+        ],
+        "objects": {
+          "pump": 2,
+          "stone": 4,
+          "dry": 4
+        }
+      },
+      "changeFromPrevious": "Next challenge: Season finale.",
+      "availableCommands": [
+        "move",
+        "left",
+        "right",
+        "harvest",
+        "repeat",
+        "clear",
+        "water",
+        "refill"
+      ],
+      "successRules": [
+        "Reach the finish tile",
+        "Complete every task",
+        "Use at least one repeat block"
+      ],
+      "retire": "Next challenge: Season finale.",
+      "starter": ""
+    }
+  ],
+  "progressionRules": [
+    "Every fifth level is a checkpoint using only concepts taught earlier in that chapter.",
+    "A new mechanic is introduced on a familiar short route before it appears in loops or longer routes.",
+    "Previously learned controls persist. Tutorial prompts, trivial repetition and unlimited water are retired gradually.",
+    "Water is unlimited until level 26; a visible two-portion limit is introduced explicitly at the pump.",
+    "Loops are a mastery requirement on marked levels, not an assumed property of one supplied solution.",
+    "The stage labels describe support, not a promise that every second level introduces a new API."
+  ],
+  "futureExpansion": [
+    {
+      "chapter": "The orchard can wait",
+      "concept": "if ripe / else skip",
+      "bridge": "First show ripe and unripe states with a single known harvest action; introduce the condition separately."
+    },
+    {
+      "chapter": "A farmhand of your own",
+      "concept": "Named functions",
+      "bridge": "Replace a familiar long loop body with a named care routine; do not introduce functions and parameters together."
+    }
+  ]
+}

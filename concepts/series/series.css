@@ -1,0 +1,275 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #f5f3eb;
+  color: #294335;
+  font: 14px system-ui;
+}
+header {
+  padding: 22px 4vw;
+  background: #fffef9;
+  border-bottom: 1px solid #dadfce;
+}
+header small {
+  letter-spacing: 2px;
+  font-size: 10px;
+  color: #70836b;
+}
+h1 {
+  margin: 6px 0;
+  font-size: 29px;
+}
+header p {
+  margin: 0;
+  color: #74806d;
+}
+.links {
+  display: flex;
+  gap: 18px;
+  margin-top: 10px;
+}
+a {
+  color: #4c7254;
+  font-size: 12px;
+}
+#chapters {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 9px;
+  padding: 18px 3vw;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+}
+#chapters button {
+  border: 1px solid #d5ddc9;
+  border-radius: 9px;
+  padding: 12px 10px;
+  background: #fffef9;
+  color: #50624c;
+  font-size: 12px;
+  text-align: left;
+}
+#chapters button.active {
+  background: #dfe9d5;
+  border-color: #5f7f53;
+}
+main {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr) 285px;
+  gap: 16px;
+  max-width: 1500px;
+  padding: 0 3vw;
+  margin: auto;
+}
+.levels {
+  background: #fffef9;
+  border: 1px solid #dce2d2;
+  border-radius: 13px;
+  padding: 14px;
+}
+#tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+#tabs button {
+  background: #f4f5ed;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  text-align: left;
+  padding: 12px;
+  color: #425b3d;
+}
+#tabs button.active {
+  background: #dfe9d5;
+  border-color: #638356;
+}
+#tabs b,
+#tabs span {
+  display: block;
+}
+#tabs b {
+  font-size: 13px;
+}
+#tabs span {
+  font-size: 11px;
+  color: #78866f;
+  margin-top: 5px;
+}
+.levels p {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #78866f;
+}
+.story {
+  padding: 18px 22px;
+  background: #fffef9;
+  border-bottom: 1px solid #dce2d2;
+}
+.story h2 {
+  margin: 0 0 7px;
+  font-size: 20px;
+}
+.story p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #6f8068;
+}
+.board {
+  border: 1px solid #dce2d2;
+  border-radius: 13px;
+  background: #e8eddd;
+  overflow: hidden;
+}
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.boardfooter {
+  padding: 12px 20px;
+  background: #fafbf4;
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: #73866a;
+}
+.panel {
+  background: #fffef9;
+  border: 1px solid #dce2d2;
+  border-radius: 13px;
+  padding: 20px;
+}
+#skill {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #748c64;
+}
+#title {
+  font-size: 21px;
+  line-height: 1.2;
+  margin: 10px 0;
+}
+#phase {
+  color: #7b8b67;
+  font-size: 11px;
+}
+#description {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #607454;
+}
+textarea {
+  width: 100%;
+  height: 245px;
+  padding: 12px;
+  border: 1px solid #d4ddc7;
+  border-radius: 8px;
+  background: #f6f7ef;
+  color: #3a5434;
+  font: 12px/1.65 monospace;
+  resize: vertical;
+}
+.buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.buttons button {
+  background: #fffef9;
+  color: #45613a;
+  border: 1px solid #c4d2b6;
+  border-radius: 7px;
+  padding: 9px 12px;
+}
+#run {
+  background: #446e3b;
+  color: #fff;
+  border-color: #446e3b;
+}
+#status {
+  font-size: 12px;
+  line-height: 1.5;
+  min-height: 38px;
+}
+details {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #758966;
+  margin-top: 12px;
+}
+#speed {
+  margin-top: 12px;
+  padding: 6px;
+  color: #506b43;
+  border: 1px solid #d5ddc9;
+  border-radius: 5px;
+}
+#retire {
+  font-size: 11px;
+}
+.pager {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+.pager button {
+  padding: 8px;
+  border: 1px solid #d5ddc9;
+  border-radius: 6px;
+  background: #fff;
+  color: #526c44;
+}
+button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.note {
+  padding: 12px 3vw;
+  color: #7a896e;
+  font-size: 11px;
+  line-height: 1.5;
+}
+@media (max-width: 1050px) {
+  main {
+    grid-template-columns: 160px minmax(0, 1fr);
+  }
+  .panel {
+    grid-column: 1/-1;
+  }
+  #chapters {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+  .levels {
+    order: 0;
+  }
+  .board {
+    order: 1;
+  }
+  .panel {
+    order: 2;
+  }
+  #tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #chapters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  h1 {
+    font-size: 23px;
+  }
+}

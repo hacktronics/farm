@@ -7,4 +7,53 @@
  *
  * See LICENSE file for details.
  */
-"use strict";goog.provide("Blockly.PXTUtils"),goog.require("goog.ui.Menu"),goog.require("goog.ui.MenuItem"),goog.require("goog.positioning.ClientPosition"),goog.require("goog.ui.Tooltip"),goog.require("goog.ui.CustomButton"),Blockly.PXTUtils.fadeColour=function(o,g,i){(o=o.replace(/[^0-9a-f]/gi,"")).length<6&&(o=o[0]+o[0]+o[1]+o[1]+o[2]+o[2]);for(var r="#",t=0;t<3;t++){var e=parseInt(o.substr(2*t,2),16),u=(e=Math.round(Math.min(Math.max(0,i?e+e*g:e-e*g),255))).toString(16);r+=("00"+u).substr(u.length)}return r};
+
+/**
+ * @fileoverview String field.
+ * @author samelh@microsoft.com (Sam El-Husseini)
+ */
+
+'use strict';
+
+/**
+ * @name Blockly.PXTUtils
+ * @namespace
+ **/
+goog.provide('Blockly.PXTUtils');
+
+// goog ui components used by PXT field editors:
+goog.require('goog.ui.Menu');
+goog.require('goog.ui.MenuItem');
+goog.require('goog.positioning.ClientPosition');
+goog.require('goog.ui.Tooltip');
+goog.require('goog.ui.CustomButton');
+
+/**
+ * Fade hex colour.
+ * Words may not be split.  Any space after a word is included in the length.
+ * @param {string} hex Hex colour
+ * @param {number} luminosity Luminosity
+ * @param {number} lighten Lighten weight
+ * @return {number} rgb colour.
+ */
+Blockly.PXTUtils.fadeColour = function(hex, luminosity, lighten) {
+  // #ABC => ABC
+  hex = hex.replace(/[^0-9a-f]/gi, '');
+
+  // ABC => AABBCC
+  if (hex.length < 6) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
+
+  // tweak
+  var rgb = "#";
+  for (var i = 0; i < 3; i++) {
+    var c = parseInt(hex.substr(i * 2, 2), 16);
+    c = Math.round(Math.min(Math.max(0, lighten ?
+        c + (c * luminosity) : c - (c * luminosity)), 255));
+    var cStr = c.toString(16);
+    rgb += ("00" + cStr).substr(cStr.length);
+  }
+
+  return rgb;
+};

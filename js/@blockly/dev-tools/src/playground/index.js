@@ -3,4 +3,560 @@
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import{toolboxTestBlocks,toolboxTestBlocksInit}from"@blockly/block-test";import*as Blockly from"blockly/core";import*as BlocklyDart from"blockly/dart";import*as BlocklyJS from"blockly/javascript";import*as BlocklyLua from"blockly/lua";import*as BlocklyPHP from"blockly/php";import*as BlocklyPython from"blockly/python";import{downloadWorkspaceScreenshot}from"../screenshot";import toolboxCategories from"../toolboxCategories";import toolboxSimple from"../toolboxSimple";import{id}from"./id";import{addCodeEditor}from"./monaco";import{addGUIControls}from"./options";import{LocalStorageState}from"./state";import{renderCheckbox,renderCodeTab,renderPlayground}from"./ui";let CreateWorkspaceFn,PlaygroundTab,PlaygroundAPI;export function createPlayground(e,o=Blockly.inject,t={toolbox:toolboxCategories},n={},a){const{blocklyDiv:r,minimizeButton:l,monacoDiv:d,guiContainer:c,playgroundDiv:i,tabButtons:s,tabsDiv:m}=renderPlayground(e);return addCodeEditor(d,{model:null,language:"xml",minimap:{enabled:!1},theme:"vs-dark",scrollBeyondLastLine:!1,automaticLayout:!0},a).then(e=>{let a;const d=window.monaco.editor.createModel(""),u=e.createContextKey("isEditorXml",!0),p=new LocalStorageState(`playgroundState_${id}`,{activeTab:"XML",autoGenerate:!n||null==n.auto||n.auto,workspaceXml:""});function y(o,t,n,r){const l=renderCodeTab(o);l.setAttribute("data-tab",o),m.appendChild(l);const c=window.monaco.editor.createModel("",t);return{generate:function(){let o,t=c;try{o=n(a)}catch(n){console.error(n),o=n.message,t=d,e.updateOptions({wordWrap:!0})}t.pushEditOperations([],[{range:t.getFullModelRange(),text:o}],()=>null),e.setModel(t),e.setSelection(new window.monaco.Range(0,0,0,0))},state:{name:o,model:c,language:t,viewState:void 0},tabElement:l}}p.load();const k=o=>{v=o,f=o.generate;const t="XML"==o.state.name;e.setModel(v.state.model),e.updateOptions({readOnly:!t,wordWrap:!1}),Object.values(b).forEach(e=>e.tabElement.style.background=e.tabElement==o.tabElement?"#1E1E1E":"#2D2D2D"),u.set(t),p.set("activeTab",o.state.name),p.save()},g=()=>{if(p.get("autoGenerate")){if(C&&x){x=!1;try{Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(C),a)}catch(e){console.warn("Failed to auto import.",e)}}f&&f();let e="";try{e=Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(a))}catch(e){console.warn("Failed to auto save.",e)}p.set("workspaceXml",e),p.save()}},b={XML:y("XML","xml",e=>Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(e))),JavaScript:y("JavaScript","javascript",e=>(BlocklyJS||Blockly.JavaScript).workspaceToCode(e)),Python:y("Python","python",e=>(BlocklyPython||Blockly.Python).workspaceToCode(e)),Dart:y("Dart","dart",e=>(BlocklyDart||Blockly.Dart).workspaceToCode(e)),Lua:y("Lua","lua",e=>(BlocklyLua||Blockly.Lua).workspaceToCode(e)),PHP:y("PHP","php",e=>(BlocklyPHP||Blockly.PHP).workspaceToCode(e))};m.addEventListener("click",o=>{const t=o.target.getAttribute("data-tab");if(!t)return;const n=b[t];v.state.viewState=e.saveViewState(),k(n),g(),e.restoreViewState(v.state.viewState),e.focus()});const C=p.get("workspaceXml")||"",w=b.XML.state.model;let x=!0;w.setValue(C),w.onDidChangeContent(()=>{p.set("workspaceXml",w.getValue()),p.save()});const h=p.get("activeTab");let f,v=b[h];v&&k(v);const B=addGUIControls(e=>{a=o(r,e),toolboxTestBlocksInit(a);const t=a.configureContextMenu;return a.configureContextMenu=(e,o)=>{t&&t.call(null,e,o);const n={text:"Download Screenshot",enabled:a.getTopBlocks().length,callback:function(){downloadWorkspaceScreenshot(a)}};e.push(n)},g(),a.addChangeListener(e=>{"ui"!==e.type&&g()}),a},t,{disableResize:!0,toolboxes:n.toolboxes||{categories:toolboxCategories,simple:toolboxSimple,"test blocks":toolboxTestBlocks}}),E=B.domElement;E.removeChild(E.firstChild),E.style.position="relative",E.style.minWidth="100%",c.appendChild(E),l.addEventListener("click",e=>{"none"===i.style.display?(i.style.display="flex",l.textContent="Collapse"):(i.style.display="none",l.textContent="Expand"),Blockly.svgResize(a)});const T={state:p,addAction:B.addAction,addCheckboxAction:B.addCheckboxAction,addGenerator:function(e,o,t){if(!e||!o)throw Error("usage: addGenerator(label, generator, language?);");b[e]=y(e,t||"javascript",e=>o.workspaceToCode(e)),h===e&&k(b[e])},getCurrentTab:function(){return v},getGUI:function(){return B},getWorkspace:function(){return a},removeGenerator:function(e){if(!e)throw Error("usage: removeGenerator(label);");if(!(e in b))throw Error("removeGenerator called on invalid label: "+e);const o=b[e];m.removeChild(o.tabElement),delete b[e];const t=Object.keys(b);h===e&&t.length&&k(b[t[0]])}};return registerTabButtons(e,T,s,g),registerEditorCommands(e,T),T})}function registerTabButtons(e,o,t,n){const[a,r]=renderCheckbox("autoGenerate","Auto");a.checked=o.state.get("autoGenerate"),a.addEventListener("change",e=>{const t=e.target;o.state.set("autoGenerate",!!t.checked),o.state.save(),n()}),t.appendChild(a),t.appendChild(r)}function registerEditorCommands(e,o){const t=()=>{if("XML"!==o.getCurrentTab().state.name)return;const t=e.getModel().getValue(),n=o.getWorkspace();Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(t),n)},n=()=>{o.getCurrentTab().generate()};e.addAction({id:"import-xml",label:"Import from XML",keybindings:[window.monaco.KeyMod.CtrlCmd|window.monaco.KeyCode.Enter],precondition:"isEditorXml",contextMenuGroupId:"playground",contextMenuOrder:0,run:t}),e.addAction({id:"export-xml",label:"Export to XML",keybindings:[window.monaco.KeyMod.CtrlCmd|window.monaco.KeyCode.KEY_S],precondition:"isEditorXml",contextMenuGroupId:"playground",contextMenuOrder:1,run:n}),e.addAction({id:"clean-xml",label:"Clean XML",precondition:"isEditorXml",contextMenuGroupId:"playground",contextMenuOrder:2,run:()=>{const o=e.getModel(),t=o.getValue().replace(/ (x|y|id)="[^"]*"/gim,"");o.pushEditOperations([],[{range:o.getFullModelRange(),text:t}],()=>null),e.setSelection(new window.monaco.Range(0,0,0,0))}}),e.addAction({id:"generate",label:"Generate",keybindings:[window.monaco.KeyMod.CtrlCmd|window.monaco.KeyCode.KEY_S],precondition:"!isEditorXml",contextMenuGroupId:"playground",contextMenuOrder:1,run:n}),document.addEventListener("keydown",e=>{const o=e.metaKey||e.ctrlKey;o&&e.keyCode===Blockly.utils.KeyCodes.S?(n(),e.preventDefault()):o&&e.keyCode===Blockly.utils.KeyCodes.ENTER&&(t(),e.preventDefault())})}
+
+/**
+ * @fileoverview Entry point for the Blockly playground.
+ * @author samelh@google.com (Sam El-Husseini)
+ */
+
+import {toolboxTestBlocks, toolboxTestBlocksInit} from '@blockly/block-test';
+import * as Blockly from 'blockly/core';
+import * as BlocklyDart from 'blockly/dart';
+import * as BlocklyJS from 'blockly/javascript';
+import * as BlocklyLua from 'blockly/lua';
+import * as BlocklyPHP from 'blockly/php';
+import * as BlocklyPython from 'blockly/python';
+
+import {downloadWorkspaceScreenshot} from '../screenshot';
+import toolboxCategories from '../toolboxCategories';
+import toolboxSimple from '../toolboxSimple';
+
+import {id} from './id';
+import {addCodeEditor} from './monaco';
+import {addGUIControls} from './options';
+import {LocalStorageState} from './state';
+import {renderCheckbox, renderCodeTab, renderPlayground} from './ui';
+
+
+/**
+ * @typedef {function(!HTMLElement,!Blockly.BlocklyOptions):
+ *     Blockly.WorkspaceSvg}
+ */
+let CreateWorkspaceFn;
+
+/**
+ * @typedef {{
+ *     generate: function():void,
+ *     state: ?,
+ *     tabElement: !HTMLElement,
+ * }}
+ */
+let PlaygroundTab;
+
+
+/**
+ * @typedef {Blockly.utils.toolbox.ToolboxDefinition} BlocklyToolbox
+ */
+
+/**
+ * @typedef {Object} PlaygroundConfig
+ * @property {boolean} [auto] Whether or not to automatically import, and run
+ *     the XML and code generators.
+ * @property {Object<string,BlocklyToolbox>} [toolboxes] The toolbox registry.
+ */
+
+/**
+ * @typedef {{
+ *     state: ?,
+ *     addAction:function(string,function(!Blockly.Workspace):void,string=):
+ *         dat.GUI,
+ *     addCheckboxAction:function(string,
+ *         function(!Blockly.Workspace,boolean):void,string=,boolean=):dat.GUI,
+ *     addGenerator: function(string,!Blockly.Generator,string=):void,
+ *     getCurrentTab: function():!PlaygroundTab,
+ *     getGUI: function():!dat.GUI,
+ *     getWorkspace: function():!Blockly.WorkspaceSvg,
+ * }}
+ */
+let PlaygroundAPI;
+
+/**
+ * Create the Blockly playground.
+ * @param {!HTMLElement} container Container element.
+ * @param {CreateWorkspaceFn=} createWorkspace A workspace creation method
+ *     called every time the toolbox is re-configured.
+ * @param {Blockly.BlocklyOptions=} defaultOptions The default workspace options
+ *     to use.
+ * @param {PlaygroundConfig=} config Optional Playground config.
+ * @param {string=} vsEditorPath Optional editor path.
+ * @return {Promise<PlaygroundAPI>} A promise to the playground API.
+ */
+export function createPlayground(
+    container, createWorkspace = Blockly.inject, defaultOptions = {
+      toolbox: toolboxCategories,
+    },
+    config = {}, vsEditorPath) {
+  const {
+    blocklyDiv,
+    minimizeButton,
+    monacoDiv,
+    guiContainer,
+    playgroundDiv,
+    tabButtons,
+    tabsDiv,
+  } = renderPlayground(container);
+
+  const monacoOptions = {
+    model: null,
+    language: 'xml',
+    minimap: {
+      enabled: false,
+    },
+    theme: 'vs-dark',
+    scrollBeyondLastLine: false,
+    automaticLayout: true,
+  };
+
+  // Load the code editor.
+  return addCodeEditor(monacoDiv, monacoOptions, vsEditorPath)
+      .then((editor) => {
+        let workspace;
+
+        // Create a model for displaying errors.
+        const errorModel = window.monaco.editor.createModel('');
+        const editorXmlContextKey =
+            editor.createContextKey('isEditorXml', true);
+
+        // Load / Save playground state.
+        const playgroundState = new LocalStorageState(`playgroundState_${id}`, {
+          activeTab: 'XML',
+          autoGenerate: config && config.auto != undefined ? config.auto : true,
+          workspaceXml: '',
+        });
+        playgroundState.load();
+
+        /**
+         * Register a generator and create a new code tab for it.
+         * @param {string} name The generator label.
+         * @param {string} language The monaco language to use.
+         * @param {function(Blockly.WorkspaceSvg):string} generator
+         *     The Blockly generator.
+         * @param {boolean=} isReadOnly Whether the editor should be set to
+         *     read-only mode.
+         * @return {!PlaygroundTab} An object that represents the newly created
+         *     tab.
+         */
+        function registerGenerator(name, language, generator, isReadOnly) {
+          const tabElement = renderCodeTab(name);
+          tabElement.setAttribute('data-tab', name);
+          tabsDiv.appendChild(tabElement);
+
+          // Create a monaco editor model for each tab.
+          const model = window.monaco.editor.createModel('', language);
+          const state = {
+            name,
+            model,
+            language,
+            viewState: undefined,
+          };
+
+          /**
+           * Call the generator, displaying an error message if it fails.
+           */
+          function generate() {
+            let text;
+            let generateModel = model;
+            try {
+              text = generator(workspace);
+            } catch (e) {
+              console.error(e);
+              text = e.message;
+              generateModel = errorModel;
+              editor.updateOptions({
+                wordWrap: true,
+              });
+            }
+            generateModel.pushEditOperations(
+                [], [{range: generateModel.getFullModelRange(), text}],
+                () => null);
+            editor.setModel(generateModel);
+            editor.setSelection(new window.monaco.Range(0, 0, 0, 0));
+          }
+
+          const tab = {
+            generate,
+            state,
+            tabElement,
+          };
+          return tab;
+        }
+
+        /**
+         * Set the active tab.
+         * @param {!PlaygroundTab} tab The new tab.
+         */
+        const setActiveTab = (tab) => {
+          currentTab = tab;
+          currentGenerate = tab.generate;
+          const isXml = tab.state.name == 'XML';
+          editor.setModel(currentTab.state.model);
+          editor.updateOptions({
+            readOnly: !isXml,
+            wordWrap: false,
+          });
+
+          // Update tab UI.
+          Object.values(tabs).forEach(
+              (t) => t.tabElement.style.background =
+                  (t.tabElement == tab.tabElement) ? '#1E1E1E' : '#2D2D2D');
+          // Update editor state.
+          editorXmlContextKey.set(isXml);
+          playgroundState.set('activeTab', tab.state.name);
+          playgroundState.save();
+        };
+
+        /**
+         * Call the current generate method if we are in 'auto' mode. In
+         * addition, persist the current workspace xml regardless of which tab
+         * we are in.
+         */
+        const updateEditor = () => {
+          if (playgroundState.get('autoGenerate')) {
+            if (initialWorkspaceXml && isFirstLoad) {
+              isFirstLoad = false;
+              try {
+                Blockly.Xml.domToWorkspace(
+                    Blockly.Xml.textToDom(initialWorkspaceXml), workspace);
+              } catch (e) {
+                console.warn('Failed to auto import.', e);
+              }
+            }
+
+            if (currentGenerate) {
+              currentGenerate();
+            }
+
+            let code = '';
+            try {
+              code = Blockly.Xml.domToPrettyText(
+                  Blockly.Xml.workspaceToDom(workspace));
+            } catch (e) {
+              console.warn('Failed to auto save.', e);
+            }
+            playgroundState.set('workspaceXml', code);
+            playgroundState.save();
+          }
+        };
+
+        // Register default tabs.
+        const tabs = {
+          'XML': registerGenerator(
+              'XML', 'xml',
+              (ws) => {
+                return Blockly.Xml.domToPrettyText(
+                    Blockly.Xml.workspaceToDom(ws));
+              }),
+          'JavaScript': registerGenerator(
+              'JavaScript', 'javascript',
+              (ws) => (BlocklyJS || Blockly.JavaScript).workspaceToCode(ws),
+              true),
+          'Python': registerGenerator(
+              'Python', 'python',
+              (ws) => (BlocklyPython || Blockly.Python).workspaceToCode(ws),
+              true),
+          'Dart': registerGenerator(
+              'Dart', 'dart',
+              (ws) => (BlocklyDart || Blockly.Dart).workspaceToCode(ws), true),
+          'Lua': registerGenerator(
+              'Lua', 'lua',
+              (ws) => (BlocklyLua || Blockly.Lua).workspaceToCode(ws), true),
+          'PHP': registerGenerator(
+              'PHP', 'php',
+              (ws) => (BlocklyPHP || Blockly.PHP).workspaceToCode(ws), true),
+        };
+
+        // Handle tab click.
+        tabsDiv.addEventListener('click', (e) => {
+          const target = /** @type {HTMLElement} */ (e.target);
+          const tabName = target.getAttribute('data-tab');
+          if (!tabName) {
+            // Not a tab.
+            return;
+          }
+          const tab = tabs[tabName];
+
+          // Save current tab state (eg: scroll position).
+          currentTab.state.viewState = editor.saveViewState();
+
+          setActiveTab(tab);
+          updateEditor();
+
+          // Restore tab state (eg: scroll position).
+          editor.restoreViewState(currentTab.state.viewState);
+          editor.focus();
+        });
+
+        // Initialized saved XML and bind change listener.
+        const initialWorkspaceXml = playgroundState.get('workspaceXml') || '';
+        const xmlTab = tabs['XML'];
+        const xmlModel = xmlTab.state.model;
+        let isFirstLoad = true;
+        xmlModel.setValue(initialWorkspaceXml);
+        xmlModel.onDidChangeContent(() => {
+          playgroundState.set('workspaceXml', xmlModel.getValue());
+          playgroundState.save();
+        });
+
+        // Set the initial tab as active.
+        const activeTab = playgroundState.get('activeTab');
+        let currentTab = tabs[activeTab];
+        let currentGenerate;
+        if (currentTab) {
+          setActiveTab(currentTab);
+        }
+
+        // Load the GUI controls.
+        const gui = addGUIControls((options) => {
+          workspace = createWorkspace(blocklyDiv, options);
+
+          // Initialize the test toolbox.
+          toolboxTestBlocksInit(
+              /** @type {!Blockly.WorkspaceSvg} */ (workspace));
+
+          // Add download screenshot option.
+          const prevConfigureContextMenu = workspace.configureContextMenu;
+          workspace.configureContextMenu = (menuOptions, e) => {
+            prevConfigureContextMenu &&
+                prevConfigureContextMenu.call(null, menuOptions, e);
+
+            const screenshotOption = {
+              text: 'Download Screenshot',
+              enabled: workspace.getTopBlocks().length,
+              callback: function() {
+                downloadWorkspaceScreenshot(workspace);
+              },
+            };
+            menuOptions.push(screenshotOption);
+          };
+
+          updateEditor();
+          workspace.addChangeListener((e) => {
+            if (e.type !== 'ui') {
+              updateEditor();
+            }
+          });
+          return workspace;
+        }, defaultOptions, {
+          disableResize: true,
+          toolboxes: config.toolboxes || {
+            'categories': toolboxCategories,
+            'simple': toolboxSimple,
+            'test blocks': toolboxTestBlocks,
+          },
+        });
+
+        // Move the GUI Element to the gui container.
+        const guiElement = gui.domElement;
+        guiElement.removeChild(guiElement.firstChild);
+        guiElement.style.position = 'relative';
+        guiElement.style.minWidth = '100%';
+        guiContainer.appendChild(guiElement);
+
+        // Create minimize button
+        minimizeButton.addEventListener('click', (e) => {
+          if (playgroundDiv.style.display === 'none') {
+            playgroundDiv.style.display = 'flex';
+            minimizeButton.textContent = 'Collapse';
+          } else {
+            playgroundDiv.style.display = 'none';
+            minimizeButton.textContent = 'Expand';
+          }
+
+          Blockly.svgResize(workspace);
+        });
+
+        // Playground API.
+
+        /**
+         * Get the current GUI controls.
+         * @return {!dat.GUI} The GUI controls.
+         */
+        const getGUI = function() {
+          return gui;
+        };
+
+        /**
+         * Get the current workspace.
+         * @return {!Blockly.WorkspaceSvg} The Blockly workspace.
+         */
+        const getWorkspace = function() {
+          return workspace;
+        };
+
+        /**
+         * Get the current tab.
+         * @return {!PlaygroundTab} The current tab.
+         */
+        const getCurrentTab = function() {
+          return currentTab;
+        };
+
+        /**
+         * Add a generator tab.
+         * @param {string} label The label of the generator tab.
+         * @param {Blockly.Generator} generator The Blockly generator.
+         * @param {string=} language Optional editor language, defaults to
+         *     'javascript'.
+         */
+        const addGenerator = function(label, generator, language) {
+          if (!label || !generator) {
+            throw Error('usage: addGenerator(label, generator, language?);');
+          }
+          tabs[label] = registerGenerator(
+              label, language || 'javascript',
+              (ws) => generator.workspaceToCode(ws), true);
+          if (activeTab === label) {
+            // Set the new generator as the current tab if it is currently
+            // active. This occurs when a dynamically added generator is active
+            // and the page is reloaded.
+            setActiveTab(tabs[label]);
+          }
+        };
+
+        /**
+         * Removes a generator tab.
+         * @param {string} label The label of the generator tab to remove.
+         */
+        const removeGenerator = function(label) {
+          if (!label) {
+            throw Error('usage: removeGenerator(label);');
+          }
+          if (!(label in tabs)) {
+            throw Error('removeGenerator called on invalid label: ' + label);
+          }
+          const tab = tabs[label];
+          tabsDiv.removeChild(tab.tabElement);
+          delete tabs[label];
+          const tabsKeys = Object.keys(tabs);
+          if (activeTab === label && tabsKeys.length) {
+            // Set the active tab to another tab if the active tab corresponded
+            // to a removed generator.
+            setActiveTab(tabs[tabsKeys[0]]);
+          }
+        };
+
+        const playground = {
+          state: playgroundState,
+          addAction: (/** @type {?} */ (gui)).addAction,
+          addCheckboxAction: (/** @type {?} */ (gui)).addCheckboxAction,
+          addGenerator,
+          getCurrentTab,
+          getGUI,
+          getWorkspace,
+          removeGenerator,
+        };
+
+        // Add tab buttons.
+        registerTabButtons(editor, playground, tabButtons, updateEditor);
+
+        // Register editor commands.
+        registerEditorCommands(editor, playground);
+
+        return playground;
+      });
+}
+
+/**
+ * Register tab buttons.
+ * @param {monaco.editor.IStandaloneCodeEditor} editor The monaco editor.
+ * @param {PlaygroundAPI} playground The current playground.
+ * @param {!HTMLElement} tabButtons Tab buttons element wrapper.
+ * @param {function():void} updateEditor Update Editor method.
+ */
+function registerTabButtons(editor, playground, tabButtons, updateEditor) {
+  const [autoGenerateCheckbox, autoGenerateLabel] =
+      renderCheckbox('autoGenerate', 'Auto');
+  /** @type {HTMLInputElement} */ (autoGenerateCheckbox).checked =
+      playground.state.get('autoGenerate');
+  autoGenerateCheckbox.addEventListener('change', (e) => {
+    const inputTarget = /** @type {HTMLInputElement} */ (e.target);
+    playground.state.set('autoGenerate', !!inputTarget.checked);
+    playground.state.save();
+
+    updateEditor();
+  });
+  tabButtons.appendChild(autoGenerateCheckbox);
+  tabButtons.appendChild(autoGenerateLabel);
+}
+
+/**
+ * Register editor commands / shortcuts.
+ * @param {monaco.editor.IStandaloneCodeEditor} editor The monaco editor.
+ * @param {PlaygroundAPI} playground The current playground.
+ */
+function registerEditorCommands(editor, playground) {
+  const load = () => {
+    if (playground.getCurrentTab().state.name !== 'XML') {
+      return;
+    }
+    const xml = editor.getModel().getValue();
+    const workspace = playground.getWorkspace();
+    Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(xml), workspace);
+  };
+  const save = () => {
+    playground.getCurrentTab().generate();
+  };
+
+  // Add XMl Import action (only available on the XML tab).
+  editor.addAction({
+    id: 'import-xml',
+    label: 'Import from XML',
+    keybindings: [
+      window.monaco.KeyMod.CtrlCmd | window.monaco.KeyCode.Enter,
+    ],
+    precondition: 'isEditorXml',
+    contextMenuGroupId: 'playground',
+    contextMenuOrder: 0,
+    run: load,
+  });
+  // Add XMl Export action (only available on the XML tab).
+  editor.addAction({
+    id: 'export-xml',
+    label: 'Export to XML',
+    keybindings: [
+      window.monaco.KeyMod.CtrlCmd | window.monaco.KeyCode.KEY_S,
+    ],
+    precondition: 'isEditorXml',
+    contextMenuGroupId: 'playground',
+    contextMenuOrder: 1,
+    run: save,
+  });
+  editor.addAction({
+    id: 'clean-xml',
+    label: 'Clean XML',
+    precondition: 'isEditorXml',
+    contextMenuGroupId: 'playground',
+    contextMenuOrder: 2,
+    run: () => {
+      const model = editor.getModel();
+      const text = model.getValue().replace(/ (x|y|id)="[^"]*"/gmi, '');
+      model.pushEditOperations(
+          [], [{range: model.getFullModelRange(), text}], () => null);
+      editor.setSelection(new window.monaco.Range(0, 0, 0, 0));
+    },
+  });
+  // Add a Generator generate action.
+  editor.addAction({
+    id: 'generate',
+    label: 'Generate',
+    keybindings: [
+      window.monaco.KeyMod.CtrlCmd | window.monaco.KeyCode.KEY_S,
+    ],
+    precondition: '!isEditorXml',
+    contextMenuGroupId: 'playground',
+    contextMenuOrder: 1,
+    run: save,
+  });
+  document.addEventListener('keydown', (e) => {
+    const ctrlCmd = e.metaKey || e.ctrlKey;
+    if (ctrlCmd && e.keyCode === Blockly.utils.KeyCodes.S) {
+      // Save.
+      save();
+      e.preventDefault();
+    } else if (ctrlCmd && e.keyCode === Blockly.utils.KeyCodes.ENTER) {
+      // Load.
+      load();
+      e.preventDefault();
+    }
+  });
+}

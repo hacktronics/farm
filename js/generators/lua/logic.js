@@ -3,4 +3,125 @@
  * Copyright 2016 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.Lua.logic"),goog.require("Blockly.Lua"),Blockly.Lua.controls_if=function(l){var o,u,a=0,e="";Blockly.Lua.STATEMENT_PREFIX&&(e+=Blockly.Lua.injectId(Blockly.Lua.STATEMENT_PREFIX,l));do{u=Blockly.Lua.valueToCode(l,"IF"+a,Blockly.Lua.ORDER_NONE)||"false",o=Blockly.Lua.statementToCode(l,"DO"+a),Blockly.Lua.STATEMENT_SUFFIX&&(o=Blockly.Lua.prefixLines(Blockly.Lua.injectId(Blockly.Lua.STATEMENT_SUFFIX,l),Blockly.Lua.INDENT)+o),e+=(a>0?"else":"")+"if "+u+" then\n"+o,++a}while(l.getInput("IF"+a));return(l.getInput("ELSE")||Blockly.Lua.STATEMENT_SUFFIX)&&(o=Blockly.Lua.statementToCode(l,"ELSE"),Blockly.Lua.STATEMENT_SUFFIX&&(o=Blockly.Lua.prefixLines(Blockly.Lua.injectId(Blockly.Lua.STATEMENT_SUFFIX,l),Blockly.Lua.INDENT)+o),e+="else\n"+o),e+"end\n"},Blockly.Lua.controls_ifelse=Blockly.Lua.controls_if,Blockly.Lua.logic_compare=function(l){var o={EQ:"==",NEQ:"~=",LT:"<",LTE:"<=",GT:">",GTE:">="}[l.getFieldValue("OP")];return[(Blockly.Lua.valueToCode(l,"A",Blockly.Lua.ORDER_RELATIONAL)||"0")+" "+o+" "+(Blockly.Lua.valueToCode(l,"B",Blockly.Lua.ORDER_RELATIONAL)||"0"),Blockly.Lua.ORDER_RELATIONAL]},Blockly.Lua.logic_operation=function(l){var o="AND"==l.getFieldValue("OP")?"and":"or",u="and"==o?Blockly.Lua.ORDER_AND:Blockly.Lua.ORDER_OR,a=Blockly.Lua.valueToCode(l,"A",u),e=Blockly.Lua.valueToCode(l,"B",u);if(a||e){var c="and"==o?"true":"false";a||(a=c),e||(e=c)}else a="false",e="false";return[a+" "+o+" "+e,u]},Blockly.Lua.logic_negate=function(l){return["not "+(Blockly.Lua.valueToCode(l,"BOOL",Blockly.Lua.ORDER_UNARY)||"true"),Blockly.Lua.ORDER_UNARY]},Blockly.Lua.logic_boolean=function(l){return["TRUE"==l.getFieldValue("BOOL")?"true":"false",Blockly.Lua.ORDER_ATOMIC]},Blockly.Lua.logic_null=function(l){return["nil",Blockly.Lua.ORDER_ATOMIC]},Blockly.Lua.logic_ternary=function(l){return[(Blockly.Lua.valueToCode(l,"IF",Blockly.Lua.ORDER_AND)||"false")+" and "+(Blockly.Lua.valueToCode(l,"THEN",Blockly.Lua.ORDER_AND)||"nil")+" or "+(Blockly.Lua.valueToCode(l,"ELSE",Blockly.Lua.ORDER_OR)||"nil"),Blockly.Lua.ORDER_OR]};
+
+/**
+ * @fileoverview Generating Lua for logic blocks.
+ * @author rodrigoq@google.com (Rodrigo Queiro)
+ */
+'use strict';
+
+goog.provide('Blockly.Lua.logic');
+
+goog.require('Blockly.Lua');
+
+
+Blockly.Lua['controls_if'] = function(block) {
+  // If/elseif/else condition.
+  var n = 0;
+  var code = '', branchCode, conditionCode;
+  if (Blockly.Lua.STATEMENT_PREFIX) {
+    // Automatic prefix insertion is switched off for this block.  Add manually.
+    code += Blockly.Lua.injectId(Blockly.Lua.STATEMENT_PREFIX, block);
+  }
+  do {
+    conditionCode = Blockly.Lua.valueToCode(block, 'IF' + n,
+        Blockly.Lua.ORDER_NONE) || 'false';
+    branchCode = Blockly.Lua.statementToCode(block, 'DO' + n);
+    if (Blockly.Lua.STATEMENT_SUFFIX) {
+      branchCode = Blockly.Lua.prefixLines(
+          Blockly.Lua.injectId(Blockly.Lua.STATEMENT_SUFFIX, block),
+          Blockly.Lua.INDENT) + branchCode;
+    }
+    code += (n > 0 ? 'else' : '') +
+        'if ' + conditionCode + ' then\n' + branchCode;
+    ++n;
+  } while (block.getInput('IF' + n));
+
+  if (block.getInput('ELSE') || Blockly.Lua.STATEMENT_SUFFIX) {
+    branchCode = Blockly.Lua.statementToCode(block, 'ELSE');
+    if (Blockly.Lua.STATEMENT_SUFFIX) {
+      branchCode = Blockly.Lua.prefixLines(
+          Blockly.Lua.injectId(Blockly.Lua.STATEMENT_SUFFIX, block),
+          Blockly.Lua.INDENT) + branchCode;
+    }
+    code += 'else\n' + branchCode;
+  }
+  return code + 'end\n';
+};
+
+Blockly.Lua['controls_ifelse'] = Blockly.Lua['controls_if'];
+
+Blockly.Lua['logic_compare'] = function(block) {
+  // Comparison operator.
+  var OPERATORS = {
+    'EQ': '==',
+    'NEQ': '~=',
+    'LT': '<',
+    'LTE': '<=',
+    'GT': '>',
+    'GTE': '>='
+  };
+  var operator = OPERATORS[block.getFieldValue('OP')];
+  var argument0 = Blockly.Lua.valueToCode(block, 'A',
+      Blockly.Lua.ORDER_RELATIONAL) || '0';
+  var argument1 = Blockly.Lua.valueToCode(block, 'B',
+      Blockly.Lua.ORDER_RELATIONAL) || '0';
+  var code = argument0 + ' ' + operator + ' ' + argument1;
+  return [code, Blockly.Lua.ORDER_RELATIONAL];
+};
+
+Blockly.Lua['logic_operation'] = function(block) {
+  // Operations 'and', 'or'.
+  var operator = (block.getFieldValue('OP') == 'AND') ? 'and' : 'or';
+  var order = (operator == 'and') ? Blockly.Lua.ORDER_AND :
+      Blockly.Lua.ORDER_OR;
+  var argument0 = Blockly.Lua.valueToCode(block, 'A', order);
+  var argument1 = Blockly.Lua.valueToCode(block, 'B', order);
+  if (!argument0 && !argument1) {
+    // If there are no arguments, then the return value is false.
+    argument0 = 'false';
+    argument1 = 'false';
+  } else {
+    // Single missing arguments have no effect on the return value.
+    var defaultArgument = (operator == 'and') ? 'true' : 'false';
+    if (!argument0) {
+      argument0 = defaultArgument;
+    }
+    if (!argument1) {
+      argument1 = defaultArgument;
+    }
+  }
+  var code = argument0 + ' ' + operator + ' ' + argument1;
+  return [code, order];
+};
+
+Blockly.Lua['logic_negate'] = function(block) {
+  // Negation.
+  var argument0 = Blockly.Lua.valueToCode(block, 'BOOL',
+      Blockly.Lua.ORDER_UNARY) || 'true';
+  var code = 'not ' + argument0;
+  return [code, Blockly.Lua.ORDER_UNARY];
+};
+
+Blockly.Lua['logic_boolean'] = function(block) {
+  // Boolean values true and false.
+  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
+  return [code, Blockly.Lua.ORDER_ATOMIC];
+};
+
+Blockly.Lua['logic_null'] = function(block) {
+  // Null data type.
+  return ['nil', Blockly.Lua.ORDER_ATOMIC];
+};
+
+Blockly.Lua['logic_ternary'] = function(block) {
+  // Ternary operator.
+  var value_if = Blockly.Lua.valueToCode(block, 'IF',
+      Blockly.Lua.ORDER_AND) || 'false';
+  var value_then = Blockly.Lua.valueToCode(block, 'THEN',
+      Blockly.Lua.ORDER_AND) || 'nil';
+  var value_else = Blockly.Lua.valueToCode(block, 'ELSE',
+      Blockly.Lua.ORDER_OR) || 'nil';
+  var code = value_if + ' and ' + value_then + ' or ' + value_else;
+  return [code, Blockly.Lua.ORDER_OR];
+};

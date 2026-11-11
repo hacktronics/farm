@@ -1,1 +1,80 @@
-export function addCodeEditor(e,t,o){return new Promise((n,r)=>{if(!o){const e=["../node_modules/@blockly/dev-tools/node_modules/monaco-editor/min/vs","../node_modules/monaco-editor/min/vs","https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.19.2/min/vs"];for(let t=0;t<e.length;t++)if(checkFileExists(`${e[t]}/loader.js`)){o=e[t];break}}const i=()=>{const r=window.require;r.config({paths:{vs:o}}),r(["vs/editor/editor.main"],()=>{n(createEditor(e,t))})};if(window.require)i();else{const e=document.createElement("script");e.type="text/javascript",e.setAttribute("src",`${o}/loader.js`),e.addEventListener("load",i),document.body.appendChild(e)}})}function createEditor(e,t){const o=window.monaco.editor.create(e,t);return o.layout(),o}function checkFileExists(e){const t=new XMLHttpRequest;t.open("HEAD",e,!1);try{t.send()}catch(e){return!1}return 404!=t.status}
+
+
+/**
+ * Load the monaco editor.
+ * @param {!HTMLElement} container The container element.
+ * @param {Object} options Monaco editor options.
+ * @param {string=} vsEditorPath Optional VS editor path.
+ * @return {Promise} A promise that resolves with the editor.
+ */
+export function addCodeEditor(container, options, vsEditorPath) {
+  return new Promise((resolve, reject) => {
+    if (!vsEditorPath) {
+      const vsEditorPaths = [
+        // monaco-editor is a devDependency of @blockly/dev-tools, look for it
+        // there first, otherwise attempt to find it in the local node_modules
+        // and finally resort to an online version.
+        '../node_modules/@blockly/dev-tools/node_modules/monaco-editor/min/vs',
+        '../node_modules/monaco-editor/min/vs',
+        'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.19.2/min/vs',
+      ];
+      // Find the VS loader.
+      for (let i = 0; i < vsEditorPaths.length; i++) {
+        if (checkFileExists(`${vsEditorPaths[i]}/loader.js`)) {
+          vsEditorPath = vsEditorPaths[i];
+          break;
+        }
+      }
+    }
+
+    const onLoad = () => {
+      const amdRequire = /** @type {?} */ (window.require);
+      amdRequire.config({
+        paths: {'vs': vsEditorPath},
+      });
+
+      // Load the monaco editor.
+      amdRequire(['vs/editor/editor.main'], () => {
+        resolve(createEditor(container, options));
+      });
+    };
+
+    if (!window.require) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.setAttribute('src', `${vsEditorPath}/loader.js`);
+      script.addEventListener('load', onLoad);
+      document.body.appendChild(script);
+    } else {
+      onLoad();
+    }
+  });
+}
+
+/**
+ * Create the monaco editor.
+ * @param {!HTMLElement} container The container element.
+ * @param {Object} options Monaco editor options.
+ * @return {monaco.editor.IStandaloneCodeEditor} A monaco editor.
+ */
+function createEditor(container, options) {
+  const editor = window.monaco.editor.create(container, options);
+  editor.layout();
+  return editor;
+}
+
+/**
+ * Check whether or not a JS file exists at the url specified.
+ * @param {string} url The url of the file.
+ * @return {boolean} Whether or not the file exists.
+ */
+function checkFileExists(url) {
+  const http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  try {
+    http.send();
+  } catch (_e) {
+    return false;
+  }
+  return http.status != 404;
+}

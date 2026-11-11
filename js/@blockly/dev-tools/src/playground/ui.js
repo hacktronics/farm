@@ -3,4 +3,168 @@
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-export function renderPlayground(e){e.style.display="flex",e.style.overflow="hidden",e.style.height="100vh",e.style.width="100vw",e.style.userSelect="none",e.style.background="#E4E4E4";const t=document.createElement("div");t.style.flex="2 1 0",e.appendChild(t);const n=document.createElement("div");n.style.height="100%",n.style.width="100%",n.style.maxHeight="100%",t.appendChild(n);const l=document.createElement("div");l.style.width="18px",l.style.background="black",l.style.color="white",l.style.font="12px 'Lucida Grande', sans-serif",l.style.writingMode="vertical-lr",l.style.textOrientation="mixed",l.style.textAlign="center",l.textContent="Collapse",e.appendChild(l);const s=document.createElement("div");s.style.flex="1 1 1",s.style.maxWidth="40vw",s.style.width="100%",s.style.height="100%",s.style.display="flex",s.style.background="grey",s.style.flexDirection="column",s.style.color="#bbb",s.style.font="11px 'Lucida Grande', sans-serif",e.appendChild(s);const o=document.createElement("span");o.textContent="Blockly Playground",o.style.background="#3C3C3C",o.style.fontSize="12px",o.style.padding="7px",s.appendChild(o);const i=document.createElement("div");i.style.maxHeight="50%",i.style.flex="1",i.style.background="#000",i.style.overflow="auto",s.appendChild(i);const d=document.createElement("div");d.style.maxHeight="50%",d.style.background="#1E1E1E",d.style.flex="1",s.appendChild(d);const c=document.createElement("div");c.style.background="#252526",c.style.height="30px",c.style.lineHeight="30px",c.style.position="relative",d.appendChild(c);const a=document.createElement("div");a.style.overflow="auto hidden",a.style.width="calc(100% - 50px)",c.appendChild(a);const r=document.createElement("div");r.style.position="absolute",r.style.height="30px",r.style.width="50px",r.style.top="0",r.style.right="0",r.style.display="flex",r.style.justifyContent="center",r.style.alignItems="center",r.style.background="#252526",c.appendChild(r);const y=document.createElement("div");return y.style.height="calc(100% - 30px)",d.appendChild(y),{blocklyDiv:n,minimizeButton:l,monacoDiv:y,guiContainer:i,playgroundDiv:s,tabsDiv:a,tabButtons:r}}export function renderCodeTab(e){const t=document.createElement("span");return t.style.background="#2D2D2D",t.style.color="#969696",t.style.padding="10px 20px",t.style.lineHeight="30px",t.style.cursor="pointer",t.textContent=e,t}export function renderCheckbox(e,t){const n=document.createElement("input");n.setAttribute("type","checkbox"),n.setAttribute("id",e);const l=document.createElement("label");return l.textContent=t,l.setAttribute("for",e),[n,l]}
+
+/**
+ * @fileoverview Playground UI.
+ * @author samelh@google.com (Sam El-Husseini)
+ */
+
+
+/**
+ * Render the playground layout.
+ * @param {HTMLElement} container The container to render the playground in.
+ * @return {{
+ *     blocklyDiv: HTMLElement,
+ *     minimizeButton: HTMLElement,
+ *     monacoDiv: HTMLElement,
+ *     guiContainer: HTMLElement,
+ *     playgroundDiv: HTMLElement,
+ *     tabsDiv: HTMLElement,
+ *     tabButtons: HTMLElement,
+ * }} An object with the various playground components.
+ */
+export function renderPlayground(container) {
+  container.style.display = 'flex';
+  container.style.overflow = 'hidden';
+  container.style.height = '100vh';
+  container.style.width = '100vw';
+  container.style.userSelect = 'none';
+  container.style.background = '#E4E4E4';
+
+  // Blockly area.
+
+  const blocklyArea = document.createElement('div');
+  blocklyArea.style.flex = '2 1 0';
+  container.appendChild(blocklyArea);
+
+  const blocklyDiv = document.createElement('div');
+  blocklyDiv.style.height = '100%';
+  blocklyDiv.style.width = '100%';
+  blocklyDiv.style.maxHeight = '100%';
+  blocklyArea.appendChild(blocklyDiv);
+
+  // Playground area.
+
+  // Minimize button
+  const minimizeButton = document.createElement('div');
+  minimizeButton.style.width = '18px';
+  minimizeButton.style.background = 'black';
+  minimizeButton.style.color = 'white';
+  minimizeButton.style.font = `12px 'Lucida Grande', sans-serif`;
+  minimizeButton.style.writingMode = 'vertical-lr';
+  minimizeButton.style.textOrientation = 'mixed';
+  minimizeButton.style.textAlign = 'center';
+  minimizeButton.textContent = 'Collapse';
+  container.appendChild(minimizeButton);
+
+
+  const playgroundDiv = document.createElement('div');
+  playgroundDiv.style.flex = '1 1 1';
+  playgroundDiv.style.maxWidth = '40vw';
+  playgroundDiv.style.width = '100%';
+  playgroundDiv.style.height = '100%';
+  playgroundDiv.style.display = 'flex';
+  playgroundDiv.style.background = 'grey';
+  playgroundDiv.style.flexDirection = 'column';
+  playgroundDiv.style.color = '#bbb';
+  playgroundDiv.style.font = `11px 'Lucida Grande', sans-serif`;
+  container.appendChild(playgroundDiv);
+
+  const playgroundTitle = document.createElement('span');
+  playgroundTitle.textContent = 'Blockly Playground';
+  playgroundTitle.style.background = '#3C3C3C';
+  playgroundTitle.style.fontSize = '12px';
+  playgroundTitle.style.padding = '7px';
+  playgroundDiv.appendChild(playgroundTitle);
+
+  // GUI controls area.
+
+  const guiContainer = document.createElement('div');
+  guiContainer.style.maxHeight = '50%';
+  guiContainer.style.flex = '1';
+  guiContainer.style.background = '#000';
+  guiContainer.style.overflow = 'auto';
+  playgroundDiv.appendChild(guiContainer);
+
+  // Code area.
+
+  const codeWrapper = document.createElement('div');
+  codeWrapper.style.maxHeight = '50%';
+  codeWrapper.style.background = '#1E1E1E';
+  codeWrapper.style.flex = '1';
+  playgroundDiv.appendChild(codeWrapper);
+
+  // Code editor tabs.
+  const tabContainer = document.createElement('div');
+  tabContainer.style.background = '#252526';
+  tabContainer.style.height = '30px';
+  tabContainer.style.lineHeight = '30px';
+  tabContainer.style.position = 'relative';
+  codeWrapper.appendChild(tabContainer);
+
+  const tabsDiv = document.createElement('div');
+  tabsDiv.style.overflow = 'auto hidden';
+  tabsDiv.style.width = 'calc(100% - 50px)';
+  tabContainer.appendChild(tabsDiv);
+
+  // Code editor tab buttons.
+  const tabButtons = document.createElement('div');
+  tabButtons.style.position = 'absolute';
+  tabButtons.style.height = '30px';
+  tabButtons.style.width = '50px';
+  tabButtons.style.top = '0';
+  tabButtons.style.right = '0';
+  tabButtons.style.display = 'flex';
+  tabButtons.style.justifyContent = 'center';
+  tabButtons.style.alignItems = 'center';
+  tabButtons.style.background = '#252526';
+  tabContainer.appendChild(tabButtons);
+
+  // Code editor.
+  const editorContainer = document.createElement('div');
+  editorContainer.style.height = 'calc(100% - 30px)';
+  codeWrapper.appendChild(editorContainer);
+
+  return {
+    blocklyDiv,
+    minimizeButton,
+    monacoDiv: editorContainer,
+    guiContainer,
+    playgroundDiv,
+    tabsDiv,
+    tabButtons,
+  };
+}
+
+/**
+ * Render a code tab.
+ * @param {string} name Name of the tab.
+ * @return {HTMLElement} The tab <span> element.
+ */
+export function renderCodeTab(name) {
+  const tab = document.createElement('span');
+  tab.style.background = '#2D2D2D';
+  tab.style.color = '#969696';
+  tab.style.padding = '10px 20px';
+  tab.style.lineHeight = '30px';
+  tab.style.cursor = 'pointer';
+  tab.textContent = name;
+  return tab;
+}
+
+/**
+ * Render a checkbox.
+ * @param {string} id Id to use for the checkbox element.
+ * @param {string} label The label string to use.
+ * @return {Array<HTMLElement>} A tuple of the checkbox input element, and the
+ * checkbox label element.
+ */
+export function renderCheckbox(id, label) {
+  const checkbox = document.createElement('input');
+  checkbox.setAttribute('type', 'checkbox');
+  checkbox.setAttribute('id', id);
+  const checkboxLabel = document.createElement('label');
+  checkboxLabel.textContent = label;
+  checkboxLabel.setAttribute('for', id);
+  return [checkbox, checkboxLabel];
+}

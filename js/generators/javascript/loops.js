@@ -3,4 +3,182 @@
  * Copyright 2012 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.JavaScript.loops"),goog.require("Blockly.JavaScript"),Blockly.JavaScript.controls_repeat_ext=function(a){if(a.getField("TIMES"))var l=String(Number(a.getFieldValue("TIMES")));else l=Blockly.JavaScript.valueToCode(a,"TIMES",Blockly.JavaScript.ORDER_ASSIGNMENT)||"0";var c=Blockly.JavaScript.statementToCode(a,"DO");c=Blockly.JavaScript.addLoopTrap(c,a);var t="",o=Blockly.JavaScript.nameDB_.getDistinctName("count",Blockly.VARIABLE_CATEGORY_NAME),r=l;return l.match(/^\w+$/)||Blockly.isNumber(l)||(t+="var "+(r=Blockly.JavaScript.nameDB_.getDistinctName("repeat_end",Blockly.VARIABLE_CATEGORY_NAME))+" = "+l+";\n"),t+="for (var "+o+" = 0; "+o+" < "+r+"; "+o+"++) {\n"+c+"}\n"},Blockly.JavaScript.controls_repeat=Blockly.JavaScript.controls_repeat_ext,Blockly.JavaScript.controls_whileUntil=function(a){var l="UNTIL"==a.getFieldValue("MODE"),c=Blockly.JavaScript.valueToCode(a,"BOOL",l?Blockly.JavaScript.ORDER_LOGICAL_NOT:Blockly.JavaScript.ORDER_NONE)||"false",t=Blockly.JavaScript.statementToCode(a,"DO");return l&&(c="!"+c),"while ("+c+") {\n"+(t=Blockly.JavaScript.addLoopTrap(t,a))+"}\n"},Blockly.JavaScript.controls_for=function(a){var l,c=Blockly.JavaScript.nameDB_.getName(a.getFieldValue("VAR"),Blockly.VARIABLE_CATEGORY_NAME),t=Blockly.JavaScript.valueToCode(a,"FROM",Blockly.JavaScript.ORDER_ASSIGNMENT)||"0",o=Blockly.JavaScript.valueToCode(a,"TO",Blockly.JavaScript.ORDER_ASSIGNMENT)||"0",r=Blockly.JavaScript.valueToCode(a,"BY",Blockly.JavaScript.ORDER_ASSIGNMENT)||"1",e=Blockly.JavaScript.statementToCode(a,"DO");if(e=Blockly.JavaScript.addLoopTrap(e,a),Blockly.isNumber(t)&&Blockly.isNumber(o)&&Blockly.isNumber(r)){var i=parseFloat(t)<=parseFloat(o);l="for ("+c+" = "+t+"; "+c+(i?" <= ":" >= ")+o+"; "+c;var B=Math.abs(parseFloat(r));l+=1==B?i?"++":"--":(i?" += ":" -= ")+B,l+=") {\n"+e+"}\n"}else{l="";var n=t;t.match(/^\w+$/)||Blockly.isNumber(t)||(l+="var "+(n=Blockly.JavaScript.nameDB_.getDistinctName(c+"_start",Blockly.VARIABLE_CATEGORY_NAME))+" = "+t+";\n");var v=o;o.match(/^\w+$/)||Blockly.isNumber(o)||(l+="var "+(v=Blockly.JavaScript.nameDB_.getDistinctName(c+"_end",Blockly.VARIABLE_CATEGORY_NAME))+" = "+o+";\n");var S=Blockly.JavaScript.nameDB_.getDistinctName(c+"_inc",Blockly.VARIABLE_CATEGORY_NAME);l+="var "+S+" = ",Blockly.isNumber(r)?l+=Math.abs(r)+";\n":l+="Math.abs("+r+");\n",l+="if ("+n+" > "+v+") {\n",l+=Blockly.JavaScript.INDENT+S+" = -"+S+";\n",l+="}\n",l+="for ("+c+" = "+n+"; "+S+" >= 0 ? "+c+" <= "+v+" : "+c+" >= "+v+"; "+c+" += "+S+") {\n"+e+"}\n"}return l},Blockly.JavaScript.controls_forEach=function(a){var l=Blockly.JavaScript.nameDB_.getName(a.getFieldValue("VAR"),Blockly.VARIABLE_CATEGORY_NAME),c=Blockly.JavaScript.valueToCode(a,"LIST",Blockly.JavaScript.ORDER_ASSIGNMENT)||"[]",t=Blockly.JavaScript.statementToCode(a,"DO");t=Blockly.JavaScript.addLoopTrap(t,a);var o="",r=c;c.match(/^\w+$/)||(o+="var "+(r=Blockly.JavaScript.nameDB_.getDistinctName(l+"_list",Blockly.VARIABLE_CATEGORY_NAME))+" = "+c+";\n");var e=Blockly.JavaScript.nameDB_.getDistinctName(l+"_index",Blockly.VARIABLE_CATEGORY_NAME);return o+="for (var "+e+" in "+r+") {\n"+(t=Blockly.JavaScript.INDENT+l+" = "+r+"["+e+"];\n"+t)+"}\n"},Blockly.JavaScript.controls_flow_statements=function(a){var l="";if(Blockly.JavaScript.STATEMENT_PREFIX&&(l+=Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_PREFIX,a)),Blockly.JavaScript.STATEMENT_SUFFIX&&(l+=Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_SUFFIX,a)),Blockly.JavaScript.STATEMENT_PREFIX){var c=Blockly.Constants.Loops.CONTROL_FLOW_IN_LOOP_CHECK_MIXIN.getSurroundLoop(a);c&&!c.suppressPrefixSuffix&&(l+=Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_PREFIX,c))}switch(a.getFieldValue("FLOW")){case"BREAK":return l+"break;\n";case"CONTINUE":return l+"continue;\n"}throw Error("Unknown flow statement.")};
+
+/**
+ * @fileoverview Generating JavaScript for loop blocks.
+ * @author fraser@google.com (Neil Fraser)
+ */
+'use strict';
+
+goog.provide('Blockly.JavaScript.loops');
+
+goog.require('Blockly.JavaScript');
+
+
+Blockly.JavaScript['controls_repeat_ext'] = function(block) {
+  // Repeat n times.
+  if (block.getField('TIMES')) {
+    // Internal number.
+    var repeats = String(Number(block.getFieldValue('TIMES')));
+  } else {
+    // External number.
+    var repeats = Blockly.JavaScript.valueToCode(block, 'TIMES',
+        Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  }
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block);
+  var code = '';
+  var loopVar = Blockly.JavaScript.nameDB_.getDistinctName(
+      'count', Blockly.VARIABLE_CATEGORY_NAME);
+  var endVar = repeats;
+  if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
+    endVar = Blockly.JavaScript.nameDB_.getDistinctName(
+        'repeat_end', Blockly.VARIABLE_CATEGORY_NAME);
+    code += 'var ' + endVar + ' = ' + repeats + ';\n';
+  }
+  code += 'for (var ' + loopVar + ' = 0; ' +
+      loopVar + ' < ' + endVar + '; ' +
+      loopVar + '++) {\n' +
+      branch + '}\n';
+  return code;
+};
+
+Blockly.JavaScript['controls_repeat'] =
+    Blockly.JavaScript['controls_repeat_ext'];
+
+Blockly.JavaScript['controls_whileUntil'] = function(block) {
+  // Do while/until loop.
+  var until = block.getFieldValue('MODE') == 'UNTIL';
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'BOOL',
+      until ? Blockly.JavaScript.ORDER_LOGICAL_NOT :
+      Blockly.JavaScript.ORDER_NONE) || 'false';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block);
+  if (until) {
+    argument0 = '!' + argument0;
+  }
+  return 'while (' + argument0 + ') {\n' + branch + '}\n';
+};
+
+Blockly.JavaScript['controls_for'] = function(block) {
+  // For loop.
+  var variable0 = Blockly.JavaScript.nameDB_.getName(
+      block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'FROM',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var argument1 = Blockly.JavaScript.valueToCode(block, 'TO',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+  var increment = Blockly.JavaScript.valueToCode(block, 'BY',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '1';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block);
+  var code;
+  if (Blockly.isNumber(argument0) && Blockly.isNumber(argument1) &&
+      Blockly.isNumber(increment)) {
+    // All arguments are simple numbers.
+    var up = parseFloat(argument0) <= parseFloat(argument1);
+    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+        variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
+        variable0;
+    var step = Math.abs(parseFloat(increment));
+    if (step == 1) {
+      code += up ? '++' : '--';
+    } else {
+      code += (up ? ' += ' : ' -= ') + step;
+    }
+    code += ') {\n' + branch + '}\n';
+  } else {
+    code = '';
+    // Cache non-trivial values to variables to prevent repeated look-ups.
+    var startVar = argument0;
+    if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
+      startVar = Blockly.JavaScript.nameDB_.getDistinctName(
+          variable0 + '_start', Blockly.VARIABLE_CATEGORY_NAME);
+      code += 'var ' + startVar + ' = ' + argument0 + ';\n';
+    }
+    var endVar = argument1;
+    if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
+      endVar = Blockly.JavaScript.nameDB_.getDistinctName(
+          variable0 + '_end', Blockly.VARIABLE_CATEGORY_NAME);
+      code += 'var ' + endVar + ' = ' + argument1 + ';\n';
+    }
+    // Determine loop direction at start, in case one of the bounds
+    // changes during loop execution.
+    var incVar = Blockly.JavaScript.nameDB_.getDistinctName(
+        variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
+    code += 'var ' + incVar + ' = ';
+    if (Blockly.isNumber(increment)) {
+      code += Math.abs(increment) + ';\n';
+    } else {
+      code += 'Math.abs(' + increment + ');\n';
+    }
+    code += 'if (' + startVar + ' > ' + endVar + ') {\n';
+    code += Blockly.JavaScript.INDENT + incVar + ' = -' + incVar + ';\n';
+    code += '}\n';
+    code += 'for (' + variable0 + ' = ' + startVar + '; ' +
+        incVar + ' >= 0 ? ' +
+        variable0 + ' <= ' + endVar + ' : ' +
+        variable0 + ' >= ' + endVar + '; ' +
+        variable0 + ' += ' + incVar + ') {\n' +
+        branch + '}\n';
+  }
+  return code;
+};
+
+Blockly.JavaScript['controls_forEach'] = function(block) {
+  // For each loop.
+  var variable0 = Blockly.JavaScript.nameDB_.getName(
+      block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'LIST',
+      Blockly.JavaScript.ORDER_ASSIGNMENT) || '[]';
+  var branch = Blockly.JavaScript.statementToCode(block, 'DO');
+  branch = Blockly.JavaScript.addLoopTrap(branch, block);
+  var code = '';
+  // Cache non-trivial values to variables to prevent repeated look-ups.
+  var listVar = argument0;
+  if (!argument0.match(/^\w+$/)) {
+    listVar = Blockly.JavaScript.nameDB_.getDistinctName(
+        variable0 + '_list', Blockly.VARIABLE_CATEGORY_NAME);
+    code += 'var ' + listVar + ' = ' + argument0 + ';\n';
+  }
+  var indexVar = Blockly.JavaScript.nameDB_.getDistinctName(
+      variable0 + '_index', Blockly.VARIABLE_CATEGORY_NAME);
+  branch = Blockly.JavaScript.INDENT + variable0 + ' = ' +
+      listVar + '[' + indexVar + '];\n' + branch;
+  code += 'for (var ' + indexVar + ' in ' + listVar + ') {\n' + branch + '}\n';
+  return code;
+};
+
+Blockly.JavaScript['controls_flow_statements'] = function(block) {
+  // Flow statements: continue, break.
+  var xfix = '';
+  if (Blockly.JavaScript.STATEMENT_PREFIX) {
+    // Automatic prefix insertion is switched off for this block.  Add manually.
+    xfix += Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_PREFIX,
+        block);
+  }
+  if (Blockly.JavaScript.STATEMENT_SUFFIX) {
+    // Inject any statement suffix here since the regular one at the end
+    // will not get executed if the break/continue is triggered.
+    xfix += Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_SUFFIX,
+        block);
+  }
+  if (Blockly.JavaScript.STATEMENT_PREFIX) {
+    var loop = Blockly.Constants.Loops
+        .CONTROL_FLOW_IN_LOOP_CHECK_MIXIN.getSurroundLoop(block);
+    if (loop && !loop.suppressPrefixSuffix) {
+      // Inject loop's statement prefix here since the regular one at the end
+      // of the loop will not get executed if 'continue' is triggered.
+      // In the case of 'break', a prefix is needed due to the loop's suffix.
+      xfix += Blockly.JavaScript.injectId(Blockly.JavaScript.STATEMENT_PREFIX,
+          loop);
+    }
+  }
+  switch (block.getFieldValue('FLOW')) {
+    case 'BREAK':
+      return xfix + 'break;\n';
+    case 'CONTINUE':
+      return xfix + 'continue;\n';
+  }
+  throw Error('Unknown flow statement.');
+};

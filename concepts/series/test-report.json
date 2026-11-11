@@ -1,0 +1,187 @@
+{
+  "profile": "Shared persistent Playwright browser",
+  "results": [
+    {
+      "level": 1,
+      "title": "Find the entrance",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 2,
+      "title": "A longer lane",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 3,
+      "title": "Around the herb bed",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 4,
+      "title": "Follow the boundary",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 5,
+      "title": "Open the farm walk",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 6,
+      "title": "One ripe plant",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 7,
+      "title": "Two stops",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 8,
+      "title": "A mixed basket",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 9,
+      "title": "Between the beds",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 10,
+      "title": "The first market order",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 11,
+      "title": "Three equal steps",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 12,
+      "title": "Corners repeat too",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 13,
+      "title": "Three identical beds",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 14,
+      "title": "One routine, four sides",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 15,
+      "title": "Two long beds",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 16,
+      "title": "A stone in the lane",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 17,
+      "title": "A line of rubble",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 18,
+      "title": "Rescue the corn",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 19,
+      "title": "Two blocked corners",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 20,
+      "title": "Storm recovery round",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 21,
+      "title": "A thirsty seedling",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 22,
+      "title": "Old crop, new crop",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 23,
+      "title": "Tend the nursery row",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 24,
+      "title": "Reach the dry beds",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 25,
+      "title": "Bring back the courtyard",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 26,
+      "title": "Meet the pump",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 27,
+      "title": "One fill, two beds",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 28,
+      "title": "Two drops, three beds",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 29,
+      "title": "The interrupted supply run",
+      "run": true,
+      "reset": true
+    },
+    {
+      "level": 30,
+      "title": "Meadow Farm reopens",
+      "run": true,
+      "reset": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

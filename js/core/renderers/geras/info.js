@@ -3,4 +3,477 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.geras"),goog.provide("Blockly.geras.RenderInfo"),goog.require("Blockly.blockRendering.ExternalValueInput"),goog.require("Blockly.blockRendering.InputRow"),goog.require("Blockly.blockRendering.InRowSpacer"),goog.require("Blockly.blockRendering.RenderInfo"),goog.require("Blockly.blockRendering.Types"),goog.require("Blockly.constants"),goog.require("Blockly.geras.InlineInput"),goog.require("Blockly.geras.StatementInput"),goog.require("Blockly.inputTypes"),goog.require("Blockly.utils.object"),goog.requireType("Blockly.blockRendering.Field"),goog.requireType("Blockly.BlockSvg"),goog.requireType("Blockly.geras.Renderer"),Blockly.geras.RenderInfo=function(e,t){Blockly.geras.RenderInfo.superClass_.constructor.call(this,e,t)},Blockly.utils.object.inherits(Blockly.geras.RenderInfo,Blockly.blockRendering.RenderInfo),Blockly.geras.RenderInfo.prototype.getRenderer=function(){return this.renderer_},Blockly.geras.RenderInfo.prototype.populateBottomRow_=function(){Blockly.geras.RenderInfo.superClass_.populateBottomRow_.call(this),this.block_.inputList.length&&this.block_.inputList[this.block_.inputList.length-1].type==Blockly.inputTypes.STATEMENT||(this.bottomRow.minHeight=this.constants_.MEDIUM_PADDING-this.constants_.DARK_PATH_OFFSET)},Blockly.geras.RenderInfo.prototype.addInput_=function(e,t){this.isInline&&e.type==Blockly.inputTypes.VALUE?(t.elements.push(new Blockly.geras.InlineInput(this.constants_,e)),t.hasInlineInput=!0):e.type==Blockly.inputTypes.STATEMENT?(t.elements.push(new Blockly.geras.StatementInput(this.constants_,e)),t.hasStatement=!0):e.type==Blockly.inputTypes.VALUE?(t.elements.push(new Blockly.blockRendering.ExternalValueInput(this.constants_,e)),t.hasExternalInput=!0):e.type==Blockly.inputTypes.DUMMY&&(t.minHeight=Math.max(t.minHeight,this.constants_.DUMMY_INPUT_MIN_HEIGHT),t.hasDummyInput=!0),this.isInline||null!=t.align||(t.align=e.align)},Blockly.geras.RenderInfo.prototype.addElemSpacing_=function(){for(var e=!1,t=0;n=this.rows[t];t++)n.hasExternalInput&&(e=!0);var n;for(t=0;n=this.rows[t];t++){var s=n.elements;if(n.elements=[],n.startsWithElemSpacer()&&n.elements.push(new Blockly.blockRendering.InRowSpacer(this.constants_,this.getInRowSpacing_(null,s[0]))),s.length){for(var o=0;o<s.length-1;o++){n.elements.push(s[o]);var i=this.getInRowSpacing_(s[o],s[o+1]);n.elements.push(new Blockly.blockRendering.InRowSpacer(this.constants_,i))}if(n.elements.push(s[s.length-1]),n.endsWithElemSpacer()){i=this.getInRowSpacing_(s[s.length-1],null);e&&n.hasDummyInput&&(i+=this.constants_.TAB_WIDTH),n.elements.push(new Blockly.blockRendering.InRowSpacer(this.constants_,i))}}}},Blockly.geras.RenderInfo.prototype.getInRowSpacing_=function(e,t){if(!e)return t&&Blockly.blockRendering.Types.isField(t)&&t.isEditable?this.constants_.MEDIUM_PADDING:t&&Blockly.blockRendering.Types.isInlineInput(t)?this.constants_.MEDIUM_LARGE_PADDING:t&&Blockly.blockRendering.Types.isStatementInput(t)?this.constants_.STATEMENT_INPUT_PADDING_LEFT:this.constants_.LARGE_PADDING;if(!Blockly.blockRendering.Types.isInput(e)&&(!t||Blockly.blockRendering.Types.isStatementInput(t)))return Blockly.blockRendering.Types.isField(e)&&e.isEditable?this.constants_.MEDIUM_PADDING:Blockly.blockRendering.Types.isIcon(e)?2*this.constants_.LARGE_PADDING+1:Blockly.blockRendering.Types.isHat(e)?this.constants_.NO_PADDING:Blockly.blockRendering.Types.isPreviousOrNextConnection(e)?this.constants_.LARGE_PADDING:Blockly.blockRendering.Types.isLeftRoundedCorner(e)?this.constants_.MIN_BLOCK_WIDTH:Blockly.blockRendering.Types.isJaggedEdge(e)?this.constants_.NO_PADDING:this.constants_.LARGE_PADDING;if(Blockly.blockRendering.Types.isInput(e)&&!t){if(Blockly.blockRendering.Types.isExternalInput(e))return this.constants_.NO_PADDING;if(Blockly.blockRendering.Types.isInlineInput(e))return this.constants_.LARGE_PADDING;if(Blockly.blockRendering.Types.isStatementInput(e))return this.constants_.NO_PADDING}if(!Blockly.blockRendering.Types.isInput(e)&&t&&Blockly.blockRendering.Types.isInput(t)){if(Blockly.blockRendering.Types.isField(e)&&e.isEditable){if(Blockly.blockRendering.Types.isInlineInput(t))return this.constants_.SMALL_PADDING;if(Blockly.blockRendering.Types.isExternalInput(t))return this.constants_.SMALL_PADDING}else{if(Blockly.blockRendering.Types.isInlineInput(t))return this.constants_.MEDIUM_LARGE_PADDING;if(Blockly.blockRendering.Types.isExternalInput(t))return this.constants_.MEDIUM_LARGE_PADDING;if(Blockly.blockRendering.Types.isStatementInput(t))return this.constants_.LARGE_PADDING}return this.constants_.LARGE_PADDING-1}if(Blockly.blockRendering.Types.isIcon(e)&&t&&!Blockly.blockRendering.Types.isInput(t))return this.constants_.LARGE_PADDING;if(Blockly.blockRendering.Types.isInlineInput(e)&&t&&Blockly.blockRendering.Types.isField(t))return t.isEditable?this.constants_.MEDIUM_PADDING:this.constants_.LARGE_PADDING;if(Blockly.blockRendering.Types.isLeftSquareCorner(e)&&t){if(Blockly.blockRendering.Types.isHat(t))return this.constants_.NO_PADDING;if(Blockly.blockRendering.Types.isPreviousConnection(t))return t.notchOffset;if(Blockly.blockRendering.Types.isNextConnection(t)){var n=(this.RTL?1:-1)*this.constants_.DARK_PATH_OFFSET/2;return t.notchOffset+n}}if(Blockly.blockRendering.Types.isLeftRoundedCorner(e)&&t){if(Blockly.blockRendering.Types.isPreviousConnection(t))return t.notchOffset-this.constants_.CORNER_RADIUS;if(Blockly.blockRendering.Types.isNextConnection(t)){n=(this.RTL?1:-1)*this.constants_.DARK_PATH_OFFSET/2;return t.notchOffset-this.constants_.CORNER_RADIUS+n}}return Blockly.blockRendering.Types.isField(e)&&t&&Blockly.blockRendering.Types.isField(t)&&e.isEditable==t.isEditable||t&&Blockly.blockRendering.Types.isJaggedEdge(t)?this.constants_.LARGE_PADDING:this.constants_.MEDIUM_PADDING},Blockly.geras.RenderInfo.prototype.getSpacerRowHeight_=function(e,t){return Blockly.blockRendering.Types.isTopRow(e)&&Blockly.blockRendering.Types.isBottomRow(t)?this.constants_.EMPTY_BLOCK_SPACER_HEIGHT:Blockly.blockRendering.Types.isTopRow(e)||Blockly.blockRendering.Types.isBottomRow(t)?this.constants_.NO_PADDING:e.hasExternalInput&&t.hasExternalInput?this.constants_.LARGE_PADDING:!e.hasStatement&&t.hasStatement?this.constants_.BETWEEN_STATEMENT_PADDING_Y:e.hasStatement&&t.hasStatement||!e.hasStatement&&t.hasDummyInput||e.hasDummyInput?this.constants_.LARGE_PADDING:this.constants_.MEDIUM_PADDING},Blockly.geras.RenderInfo.prototype.getElemCenterline_=function(e,t){if(Blockly.blockRendering.Types.isSpacer(t))return e.yPos+t.height/2;if(Blockly.blockRendering.Types.isBottomRow(e)){var n=e.yPos+e.height-e.descenderHeight;return Blockly.blockRendering.Types.isNextConnection(t)?n+t.height/2:n-t.height/2}if(Blockly.blockRendering.Types.isTopRow(e))return Blockly.blockRendering.Types.isHat(t)?e.capline-t.height/2:e.capline+t.height/2;var s=e.yPos;return Blockly.blockRendering.Types.isField(t)||Blockly.blockRendering.Types.isIcon(t)?(s+=t.height/2,(e.hasInlineInput||e.hasStatement)&&t.height+this.constants_.TALL_INPUT_FIELD_OFFSET_Y<=e.height&&(s+=this.constants_.TALL_INPUT_FIELD_OFFSET_Y)):Blockly.blockRendering.Types.isInlineInput(t)?s+=t.height/2:s+=e.height/2,s},Blockly.geras.RenderInfo.prototype.alignRowElements_=function(){if(this.isInline){for(var e=0,t=null,n=this.rows.length-1;s=this.rows[n];n--)s.nextRightEdge=e,Blockly.blockRendering.Types.isInputRow(s)&&(s.hasStatement&&this.alignStatementRow_(s),t&&t.hasStatement&&s.width<t.width?s.nextRightEdge=t.width:e=s.width,t=s);var s,o=0;for(n=0;s=this.rows[n];n++)if(s.hasStatement)o=this.getDesiredRowWidth_(s);else if(Blockly.blockRendering.Types.isSpacer(s))s.width=Math.max(o,s.nextRightEdge);else{var i=s.width,l=Math.max(o,s.nextRightEdge)-i;l>0&&this.addAlignmentPadding_(s,l),o=s.width}}else Blockly.geras.RenderInfo.superClass_.alignRowElements_.call(this)},Blockly.geras.RenderInfo.prototype.getDesiredRowWidth_=function(e){return this.isInline&&e.hasStatement?this.statementEdge+this.constants_.MAX_BOTTOM_WIDTH+this.startX:Blockly.geras.RenderInfo.superClass_.getDesiredRowWidth_.call(this,e)},Blockly.geras.RenderInfo.prototype.finalize_=function(){for(var e,t=0,n=0,s=0;e=this.rows[s];s++){e.yPos=n,e.xPos=this.startX,n+=e.height,t=Math.max(t,e.widthWithConnectedBlocks);var o=n-this.topRow.ascenderHeight;if(e==this.bottomRow&&o<this.constants_.MIN_BLOCK_HEIGHT){var i=this.constants_.MIN_BLOCK_HEIGHT-o;this.bottomRow.height+=i,n+=i}this.recordElemPositions_(e)}this.outputConnection&&this.block_.nextConnection&&this.block_.nextConnection.isConnected()&&(t=Math.max(t,this.block_.nextConnection.targetBlock().getHeightWidth().width-this.constants_.DARK_PATH_OFFSET)),this.bottomRow.baseline=n-this.bottomRow.descenderHeight,this.widthWithChildren=t+this.startX+this.constants_.DARK_PATH_OFFSET,this.width+=this.constants_.DARK_PATH_OFFSET,this.height=n+this.constants_.DARK_PATH_OFFSET,this.startY=this.topRow.capline};
+
+/**
+ * @fileoverview Old (compatibility) renderer.
+ * Geras: spirit of old age.
+ * @author fenichel@google.com (Rachel Fenichel)
+ */
+'use strict';
+
+goog.provide('Blockly.geras');
+goog.provide('Blockly.geras.RenderInfo');
+
+goog.require('Blockly.blockRendering.ExternalValueInput');
+goog.require('Blockly.blockRendering.InputRow');
+goog.require('Blockly.blockRendering.InRowSpacer');
+goog.require('Blockly.blockRendering.RenderInfo');
+goog.require('Blockly.blockRendering.Types');
+/** @suppress {extraRequire} */
+goog.require('Blockly.constants');
+goog.require('Blockly.geras.InlineInput');
+goog.require('Blockly.geras.StatementInput');
+goog.require('Blockly.inputTypes');
+goog.require('Blockly.utils.object');
+
+goog.requireType('Blockly.blockRendering.Field');
+goog.requireType('Blockly.BlockSvg');
+goog.requireType('Blockly.geras.Renderer');
+
+
+/**
+ * An object containing all sizing information needed to draw this block.
+ *
+ * This measure pass does not propagate changes to the block (although fields
+ * may choose to rerender when getSize() is called).  However, calling it
+ * repeatedly may be expensive.
+ *
+ * @param {!Blockly.geras.Renderer} renderer The renderer in use.
+ * @param {!Blockly.BlockSvg} block The block to measure.
+ * @constructor
+ * @package
+ * @extends {Blockly.blockRendering.RenderInfo}
+ */
+Blockly.geras.RenderInfo = function(renderer, block) {
+  Blockly.geras.RenderInfo.superClass_.constructor.call(this, renderer, block);
+};
+Blockly.utils.object.inherits(Blockly.geras.RenderInfo,
+    Blockly.blockRendering.RenderInfo);
+
+/**
+ * Get the block renderer in use.
+ * @return {!Blockly.geras.Renderer} The block renderer in use.
+ * @package
+ */
+Blockly.geras.RenderInfo.prototype.getRenderer = function() {
+  return /** @type {!Blockly.geras.Renderer} */ (this.renderer_);
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.populateBottomRow_ = function() {
+  Blockly.geras.RenderInfo.superClass_.populateBottomRow_.call(this);
+
+  var followsStatement = this.block_.inputList.length &&
+      this.block_.inputList[this.block_.inputList.length - 1].type ==
+          Blockly.inputTypes.STATEMENT;
+
+  // The minimum height of the bottom row is smaller in Geras than in other
+  // renderers, because the dark path adds a pixel.
+  // If one of the row's elements has a greater height this will be overwritten
+  // in the compute pass.
+  if (!followsStatement) {
+    this.bottomRow.minHeight =
+        this.constants_.MEDIUM_PADDING - this.constants_.DARK_PATH_OFFSET;
+  }
+
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.addInput_ = function(input, activeRow) {
+  // Non-dummy inputs have visual representations onscreen.
+  if (this.isInline && input.type == Blockly.inputTypes.VALUE) {
+    activeRow.elements.push(
+        new Blockly.geras.InlineInput(this.constants_, input));
+    activeRow.hasInlineInput = true;
+  } else if (input.type == Blockly.inputTypes.STATEMENT) {
+    activeRow.elements.push(
+        new Blockly.geras.StatementInput(this.constants_, input));
+    activeRow.hasStatement = true;
+  } else if (input.type == Blockly.inputTypes.VALUE) {
+    activeRow.elements.push(
+        new Blockly.blockRendering.ExternalValueInput(this.constants_, input));
+    activeRow.hasExternalInput = true;
+  } else if (input.type == Blockly.inputTypes.DUMMY) {
+    // Dummy inputs have no visual representation, but the information is still
+    // important.
+    activeRow.minHeight = Math.max(activeRow.minHeight,
+        this.constants_.DUMMY_INPUT_MIN_HEIGHT);
+    activeRow.hasDummyInput = true;
+  }
+  // Ignore row alignment if inline.
+  if (!this.isInline && activeRow.align == null) {
+    activeRow.align = input.align;
+  }
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.addElemSpacing_ = function() {
+  var hasExternalInputs = false;
+  for (var i = 0, row; (row = this.rows[i]); i++) {
+    if (row.hasExternalInput) {
+      hasExternalInputs = true;
+    }
+  }
+  for (var i = 0, row; (row = this.rows[i]); i++) {
+    var oldElems = row.elements;
+    row.elements = [];
+    // No spacing needed before the corner on the top row or the bottom row.
+    if (row.startsWithElemSpacer()) {
+      // There's a spacer before the first element in the row.
+      row.elements.push(new Blockly.blockRendering.InRowSpacer(
+          this.constants_, this.getInRowSpacing_(null, oldElems[0])));
+    }
+    if (!oldElems.length) {
+      continue;
+    }
+    for (var e = 0; e < oldElems.length - 1; e++) {
+      row.elements.push(oldElems[e]);
+      var spacing = this.getInRowSpacing_(oldElems[e], oldElems[e + 1]);
+      row.elements.push(
+          new Blockly.blockRendering.InRowSpacer(this.constants_, spacing));
+    }
+    row.elements.push(oldElems[oldElems.length - 1]);
+    if (row.endsWithElemSpacer()) {
+      var spacing = this.getInRowSpacing_(oldElems[oldElems.length - 1], null);
+      if (hasExternalInputs && row.hasDummyInput) {
+        spacing += this.constants_.TAB_WIDTH;
+      }
+      // There's a spacer after the last element in the row.
+      row.elements.push(new Blockly.blockRendering.InRowSpacer(
+          this.constants_, spacing));
+    }
+  }
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.getInRowSpacing_ = function(prev, next) {
+  if (!prev) {
+    // Between an editable field and the beginning of the row.
+    if (next && Blockly.blockRendering.Types.isField(next) &&
+        (/** @type Blockly.blockRendering.Field */ (next)).isEditable) {
+      return this.constants_.MEDIUM_PADDING;
+    }
+    // Inline input at the beginning of the row.
+    if (next && Blockly.blockRendering.Types.isInlineInput(next)) {
+      return this.constants_.MEDIUM_LARGE_PADDING;
+    }
+    if (next && Blockly.blockRendering.Types.isStatementInput(next)) {
+      return this.constants_.STATEMENT_INPUT_PADDING_LEFT;
+    }
+    // Anything else at the beginning of the row.
+    return this.constants_.LARGE_PADDING;
+  }
+
+  // Spacing between a non-input and the end of the row or a statement input.
+  if (!Blockly.blockRendering.Types.isInput(prev) && (!next ||
+      Blockly.blockRendering.Types.isStatementInput(next))) {
+    // Between an editable field and the end of the row.
+    if (Blockly.blockRendering.Types.isField(prev) &&
+        (/** @type Blockly.blockRendering.Field */ (prev)).isEditable) {
+      return this.constants_.MEDIUM_PADDING;
+    }
+    // Padding at the end of an icon-only row to make the block shape clearer.
+    if (Blockly.blockRendering.Types.isIcon(prev)) {
+      return (this.constants_.LARGE_PADDING * 2) + 1;
+    }
+    if (Blockly.blockRendering.Types.isHat(prev)) {
+      return this.constants_.NO_PADDING;
+    }
+    // Establish a minimum width for a block with a previous or next connection.
+    if (Blockly.blockRendering.Types.isPreviousOrNextConnection(prev)) {
+      return this.constants_.LARGE_PADDING;
+    }
+    // Between rounded corner and the end of the row.
+    if (Blockly.blockRendering.Types.isLeftRoundedCorner(prev)) {
+      return this.constants_.MIN_BLOCK_WIDTH;
+    }
+    // Between a jagged edge and the end of the row.
+    if (Blockly.blockRendering.Types.isJaggedEdge(prev)) {
+      return this.constants_.NO_PADDING;
+    }
+    // Between noneditable fields and icons and the end of the row.
+    return this.constants_.LARGE_PADDING;
+  }
+
+  // Between inputs and the end of the row.
+  if (Blockly.blockRendering.Types.isInput(prev) && !next) {
+    if (Blockly.blockRendering.Types.isExternalInput(prev)) {
+      return this.constants_.NO_PADDING;
+    } else if (Blockly.blockRendering.Types.isInlineInput(prev)) {
+      return this.constants_.LARGE_PADDING;
+    } else if (Blockly.blockRendering.Types.isStatementInput(prev)) {
+      return this.constants_.NO_PADDING;
+    }
+  }
+
+  // Spacing between a non-input and an input.
+  if (!Blockly.blockRendering.Types.isInput(prev) &&
+      next && Blockly.blockRendering.Types.isInput(next)) {
+    // Between an editable field and an input.
+    if (Blockly.blockRendering.Types.isField(prev) &&
+        (/** @type Blockly.blockRendering.Field */ (prev)).isEditable) {
+      if (Blockly.blockRendering.Types.isInlineInput(next)) {
+        return this.constants_.SMALL_PADDING;
+      } else if (Blockly.blockRendering.Types.isExternalInput(next)) {
+        return this.constants_.SMALL_PADDING;
+      }
+    } else {
+      if (Blockly.blockRendering.Types.isInlineInput(next)) {
+        return this.constants_.MEDIUM_LARGE_PADDING;
+      } else if (Blockly.blockRendering.Types.isExternalInput(next)) {
+        return this.constants_.MEDIUM_LARGE_PADDING;
+      } else if (Blockly.blockRendering.Types.isStatementInput(next)) {
+        return this.constants_.LARGE_PADDING;
+      }
+    }
+    return this.constants_.LARGE_PADDING - 1;
+  }
+
+  // Spacing between an icon and an icon or field.
+  if (Blockly.blockRendering.Types.isIcon(prev) &&
+      next && !Blockly.blockRendering.Types.isInput(next)) {
+    return this.constants_.LARGE_PADDING;
+  }
+
+  // Spacing between an inline input and a field.
+  if (Blockly.blockRendering.Types.isInlineInput(prev) &&
+      next && Blockly.blockRendering.Types.isField(next)) {
+    // Editable field after inline input.
+    if ((/** @type Blockly.blockRendering.Field */ (next)).isEditable) {
+      return this.constants_.MEDIUM_PADDING;
+    } else {
+      // Noneditable field after inline input.
+      return this.constants_.LARGE_PADDING;
+    }
+  }
+
+  if (Blockly.blockRendering.Types.isLeftSquareCorner(prev) && next) {
+    // Spacing between a hat and a corner
+    if (Blockly.blockRendering.Types.isHat(next)) {
+      return this.constants_.NO_PADDING;
+    }
+    // Spacing between a square corner and a previous or next connection
+    if (Blockly.blockRendering.Types.isPreviousConnection(next)) {
+      return next.notchOffset;
+    } else if (Blockly.blockRendering.Types.isNextConnection(next)) {
+      // Next connections are shifted slightly to the left (in both LTR and RTL)
+      // to make the dark path under the previous connection show through.
+      var offset = (this.RTL ? 1 : -1) *
+          this.constants_.DARK_PATH_OFFSET / 2;
+      return next.notchOffset + offset;
+    }
+  }
+
+  // Spacing between a rounded corner and a previous or next connection.
+  if (Blockly.blockRendering.Types.isLeftRoundedCorner(prev) && next) {
+    if (Blockly.blockRendering.Types.isPreviousConnection(next)) {
+      return next.notchOffset - this.constants_.CORNER_RADIUS;
+    } else if (Blockly.blockRendering.Types.isNextConnection(next)) {
+      // Next connections are shifted slightly to the left (in both LTR and RTL)
+      // to make the dark path under the previous connection show through.
+      var offset = (this.RTL ? 1 : -1) *
+          this.constants_.DARK_PATH_OFFSET / 2;
+      return next.notchOffset - this.constants_.CORNER_RADIUS + offset;
+    }
+  }
+
+  // Spacing between two fields of the same editability.
+  if (Blockly.blockRendering.Types.isField(prev) &&
+      next && Blockly.blockRendering.Types.isField(next) &&
+      ((/** @type Blockly.blockRendering.Field */ (prev)).isEditable ==
+          (/** @type Blockly.blockRendering.Field */ (next)).isEditable)) {
+    return this.constants_.LARGE_PADDING;
+  }
+
+  // Spacing between anything and a jagged edge.
+  if (next && Blockly.blockRendering.Types.isJaggedEdge(next)) {
+    return this.constants_.LARGE_PADDING;
+  }
+
+  return this.constants_.MEDIUM_PADDING;
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.getSpacerRowHeight_ = function(prev, next) {
+  // If we have an empty block add a spacer to increase the height.
+  if (Blockly.blockRendering.Types.isTopRow(prev) &&
+      Blockly.blockRendering.Types.isBottomRow(next)) {
+    return this.constants_.EMPTY_BLOCK_SPACER_HEIGHT;
+  }
+  // Top and bottom rows act as a spacer so we don't need any extra padding.
+  if (Blockly.blockRendering.Types.isTopRow(prev) ||
+      Blockly.blockRendering.Types.isBottomRow(next)) {
+    return this.constants_.NO_PADDING;
+  }
+  if (prev.hasExternalInput && next.hasExternalInput) {
+    return this.constants_.LARGE_PADDING;
+  }
+  if (!prev.hasStatement && next.hasStatement) {
+    return this.constants_.BETWEEN_STATEMENT_PADDING_Y;
+  }
+  if (prev.hasStatement && next.hasStatement) {
+    return this.constants_.LARGE_PADDING;
+  }
+  if (!prev.hasStatement && next.hasDummyInput) {
+    return this.constants_.LARGE_PADDING;
+  }
+  if (prev.hasDummyInput) {
+    return this.constants_.LARGE_PADDING;
+  }
+  return this.constants_.MEDIUM_PADDING;
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.getElemCenterline_ = function(row, elem) {
+  if (Blockly.blockRendering.Types.isSpacer(elem)) {
+    return row.yPos + elem.height / 2;
+  }
+  if (Blockly.blockRendering.Types.isBottomRow(row)) {
+    var baseline = row.yPos + row.height - row.descenderHeight;
+    if (Blockly.blockRendering.Types.isNextConnection(elem)) {
+      return baseline + elem.height / 2;
+    }
+    return baseline - elem.height / 2;
+  }
+  if (Blockly.blockRendering.Types.isTopRow(row)) {
+    if (Blockly.blockRendering.Types.isHat(elem)) {
+      return row.capline - elem.height / 2;
+    }
+    return row.capline + elem.height / 2;
+  }
+
+  var result = row.yPos;
+  if (Blockly.blockRendering.Types.isField(elem) ||
+      Blockly.blockRendering.Types.isIcon(elem)) {
+    result += (elem.height / 2);
+    if ((row.hasInlineInput || row.hasStatement) &&
+        elem.height + this.constants_.TALL_INPUT_FIELD_OFFSET_Y <= row.height) {
+      result += this.constants_.TALL_INPUT_FIELD_OFFSET_Y;
+    }
+  } else if (Blockly.blockRendering.Types.isInlineInput(elem)) {
+    result += elem.height / 2;
+  } else {
+    result += (row.height / 2);
+  }
+  return result;
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.alignRowElements_ = function() {
+  if (!this.isInline) {
+    Blockly.geras.RenderInfo.superClass_.alignRowElements_.call(this);
+    return;
+  }
+
+  // Walk backgrounds through rows on the block, keeping track of the right
+  // input edge.
+  var nextRightEdge = 0;
+  var prevInput = null;
+  for (var i = this.rows.length - 1, row; (row = this.rows[i]); i--) {
+    row.nextRightEdge = nextRightEdge;
+    if (Blockly.blockRendering.Types.isInputRow(row)) {
+      if (row.hasStatement) {
+        this.alignStatementRow_(
+            /** @type {!Blockly.blockRendering.InputRow} */ (row));
+      }
+      if (prevInput && prevInput.hasStatement && row.width < prevInput.width) {
+        row.nextRightEdge = prevInput.width;
+      } else {
+        nextRightEdge = row.width;
+      }
+      prevInput = row;
+    }
+  }
+  // Walk down each row from the top, comparing the prev and next right input
+  // edges and setting the desired width to the max of the two.
+  var prevRightEdge = 0;
+  for (var i = 0, row; (row = this.rows[i]); i++) {
+    if (row.hasStatement) {
+      prevRightEdge = this.getDesiredRowWidth_(row);
+    } else if (Blockly.blockRendering.Types.isSpacer(row)) {
+      // Set the spacer row to the max of the prev or next input width.
+      row.width = Math.max(prevRightEdge, row.nextRightEdge);
+    } else {
+      var currentWidth = row.width;
+      var desiredWidth = Math.max(prevRightEdge, row.nextRightEdge);
+      var missingSpace = desiredWidth - currentWidth;
+      if (missingSpace > 0) {
+        this.addAlignmentPadding_(row, missingSpace);
+      }
+      prevRightEdge = row.width;
+    }
+  }
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.getDesiredRowWidth_ = function(
+    row) {
+  // Limit the width of a statement row when a block is inline.
+  if (this.isInline && row.hasStatement) {
+    return this.statementEdge + this.constants_.MAX_BOTTOM_WIDTH + this.startX;
+  }
+  return Blockly.geras.RenderInfo.superClass_.getDesiredRowWidth_.call(this,
+      row);
+};
+
+/**
+ * @override
+ */
+Blockly.geras.RenderInfo.prototype.finalize_ = function() {
+  // Performance note: this could be combined with the draw pass, if the time
+  // that this takes is excessive.  But it shouldn't be, because it only
+  // accesses and sets properties that already exist on the objects.
+  var widestRowWithConnectedBlocks = 0;
+  var yCursor = 0;
+  for (var i = 0, row; (row = this.rows[i]); i++) {
+    row.yPos = yCursor;
+    row.xPos = this.startX;
+    yCursor += row.height;
+
+    widestRowWithConnectedBlocks =
+        Math.max(widestRowWithConnectedBlocks, row.widthWithConnectedBlocks);
+    // Add padding to the bottom row if block height is less than minimum
+    var heightWithoutHat = yCursor - this.topRow.ascenderHeight;
+    if (row == this.bottomRow &&
+        heightWithoutHat < this.constants_.MIN_BLOCK_HEIGHT) {
+      // But the hat height shouldn't be part of this.
+      var diff = this.constants_.MIN_BLOCK_HEIGHT - heightWithoutHat;
+      this.bottomRow.height += diff;
+      yCursor += diff;
+    }
+    this.recordElemPositions_(row);
+  }
+  if (this.outputConnection && this.block_.nextConnection &&
+      this.block_.nextConnection.isConnected()) {
+    // Include width of connected block in value to stack width measurement.
+    widestRowWithConnectedBlocks =
+        Math.max(widestRowWithConnectedBlocks,
+            this.block_.nextConnection.targetBlock().getHeightWidth().width -
+            this.constants_.DARK_PATH_OFFSET);
+  }
+
+  this.bottomRow.baseline = yCursor - this.bottomRow.descenderHeight;
+
+  // The dark (lowlight) adds to the size of the block in both x and y.
+  this.widthWithChildren = widestRowWithConnectedBlocks +
+      this.startX + this.constants_.DARK_PATH_OFFSET;
+  this.width += this.constants_.DARK_PATH_OFFSET;
+  this.height = yCursor + this.constants_.DARK_PATH_OFFSET;
+  this.startY = this.topRow.capline;
+};

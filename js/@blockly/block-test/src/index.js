@@ -3,4 +3,63 @@
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";import*as Blockly from"blockly/core";import{category as alignCategory,onInit as initAlign}from"./align";import{category as basicCategory,onInit as initBasic}from"./basic";import{category as connectionsCategory,onInit as initConnections}from"./connections";import{category as dragCategory,onInit as initDrag}from"./drag";import{category as fieldsCategory,onInit as initFields}from"./fields";import{category as mutatorsCategory,onInit as initMutators}from"./mutators";import{category as styleCategory,onInit as initStyle}from"./style";export const toolboxTestBlocks={contents:[alignCategory,basicCategory,connectionsCategory,dragCategory,fieldsCategory,mutatorsCategory,styleCategory]};export function toolboxTestBlocksInit(o){initAlign(o),initBasic(o),initConnections(o),initDrag(o),initFields(o),initMutators(o),initStyle(o);o.registerButtonCallback("addAllBlocksToWorkspace",function(o){const t=o.getTargetWorkspace(),i=o.workspace_.getTopBlocks();for(let o,a=0;o=i[a];a++){const i=Blockly.utils.xml.createElement("xml");i.appendChild(Blockly.Xml.blockToDom(o)),Blockly.Xml.appendDomToWorkspace(i,t)}})}
+'use strict';
+
+/**
+ * @fileoverview Import all the test blocks.
+ * @author samelh@google.com (Sam El-Husseini)
+ */
+
+import * as Blockly from 'blockly/core';
+
+import {category as alignCategory, onInit as initAlign} from './align';
+import {category as basicCategory, onInit as initBasic} from './basic';
+import {
+  category as connectionsCategory, onInit as initConnections,
+} from './connections';
+import {category as dragCategory, onInit as initDrag} from './drag';
+import {category as fieldsCategory, onInit as initFields} from './fields';
+import {category as mutatorsCategory, onInit as initMutators} from './mutators';
+import {category as styleCategory, onInit as initStyle} from './style';
+
+
+/**
+ * The Test blocks toolbox.
+ */
+export const toolboxTestBlocks = {
+  'contents': [
+    alignCategory,
+    basicCategory,
+    connectionsCategory,
+    dragCategory,
+    fieldsCategory,
+    mutatorsCategory,
+    styleCategory,
+  ],
+};
+
+/**
+ * Initialize this toolbox.
+ * @param {!Blockly.WorkspaceSvg} workspace The Blockly workspace.
+ */
+export function toolboxTestBlocksInit(workspace) {
+  initAlign(workspace);
+  initBasic(workspace);
+  initConnections(workspace);
+  initDrag(workspace);
+  initFields(workspace);
+  initMutators(workspace);
+  initStyle(workspace);
+
+  const addAllBlocksToWorkspace = function(button) {
+    const workspace = button.getTargetWorkspace();
+    const blocks = button.workspace_.getTopBlocks();
+    for (let i = 0, block; block = blocks[i]; i++) {
+      const xml = Blockly.utils.xml.createElement('xml');
+      xml.appendChild(Blockly.Xml.blockToDom(block));
+      Blockly.Xml.appendDomToWorkspace(xml, workspace);
+    }
+  };
+  workspace.registerButtonCallback(
+      'addAllBlocksToWorkspace', addAllBlocksToWorkspace);
+}

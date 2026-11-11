@@ -17,4 +17,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-"use strict";goog.provide("Blockly.Colours"),Blockly.Colours={text:"#575E75",workspace:"#F9F9F9",toolboxHover:"#4C97FF",toolboxSelected:"#e9eef2",toolboxText:"#575E75",toolbox:"#FFFFFF",flyout:"#444",scrollbar:"#CECDCE",scrollbarHover:"#CECDCE",textField:"#FFFFFF",insertionMarker:"#000000",insertionMarkerOpacity:.2,dragShadowOpacity:.4,stackGlow:"#FFF200",stackGlowSize:4,stackGlowOpacity:1,replacementGlow:"#FFF200",replacementGlowSize:2,replacementGlowOpacity:1,highlightGlow:"#FFF200",highlightGlowSize:1.1,highlightGlowOpacity:1,selectedGlow:"#FFF200",selectedGlowSize:.4,warningGlow:"#E53D00",warningGlowSize:1.1,warningGlowOpacity:1,colourPickerStroke:"#FFFFFF",fieldShadow:"rgba(255, 255, 255, 0.2)",dropDownShadow:"rgba(0, 0, 0, .3)",numPadBackground:"#547AB2",numPadBorder:"#435F91",numPadActiveBackground:"#435F91",numPadText:"#FFFFFF",valueReportBackground:"#FFFFFF",valueReportBorder:"#AAAAAA",canvasTransitionLength:500};
+
+'use strict';
+
+goog.provide('Blockly.Colours');
+
+Blockly.Colours = {
+  // SVG colours: these must be specificed in #RRGGBB style
+  // To add an opacity, this must be specified as a separate property (for SVG fill-opacity)
+  "text": "#575E75",
+  "workspace": "#F9F9F9",
+  "toolboxHover": "#4C97FF",
+  "toolboxSelected": "#e9eef2",
+  "toolboxText": "#575E75",
+  "toolbox": "#FFFFFF",
+  "flyout": "#444",
+  "scrollbar": "#CECDCE",
+  "scrollbarHover": '#CECDCE',
+  "textField": "#FFFFFF",
+  "insertionMarker": "#000000",
+  "insertionMarkerOpacity": 0.2,
+  "dragShadowOpacity": 0.4,
+  "stackGlow": "#FFF200",
+  "stackGlowSize": 4,
+  "stackGlowOpacity": 1,
+  "replacementGlow": "#FFF200",
+  "replacementGlowSize": 2,
+  "replacementGlowOpacity": 1,
+  "highlightGlow": "#FFF200",
+  "highlightGlowSize": 1.1,
+  "highlightGlowOpacity": 1,
+  "selectedGlow": "#FFF200",
+  "selectedGlowSize": 0.4,
+  "warningGlow": "#E53D00",
+  "warningGlowSize": 1.1,
+  "warningGlowOpacity": 1,
+  "colourPickerStroke": "#FFFFFF",
+  // CSS colours: support RGBA
+  "fieldShadow": "rgba(255, 255, 255, 0.2)",
+  "dropDownShadow": "rgba(0, 0, 0, .3)",
+  "numPadBackground": "#547AB2",
+  "numPadBorder": "#435F91",
+  "numPadActiveBackground": "#435F91",
+  "numPadText": "#FFFFFF",
+  "valueReportBackground": "#FFFFFF",
+  "valueReportBorder": "#AAAAAA",
+  // Center on block transition
+  "canvasTransitionLength": 500
+};

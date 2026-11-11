@@ -3,4 +3,30 @@
  * Copyright 2014 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.Dart.variables"),goog.require("Blockly.Dart"),Blockly.Dart.variables_get=function(l){return[Blockly.Dart.nameDB_.getName(l.getFieldValue("VAR"),Blockly.VARIABLE_CATEGORY_NAME),Blockly.Dart.ORDER_ATOMIC]},Blockly.Dart.variables_set=function(l){var e=Blockly.Dart.valueToCode(l,"VALUE",Blockly.Dart.ORDER_ASSIGNMENT)||"0";return Blockly.Dart.nameDB_.getName(l.getFieldValue("VAR"),Blockly.VARIABLE_CATEGORY_NAME)+" = "+e+";\n"};
+
+/**
+ * @fileoverview Generating Dart for variable blocks.
+ * @author fraser@google.com (Neil Fraser)
+ */
+'use strict';
+
+goog.provide('Blockly.Dart.variables');
+
+goog.require('Blockly.Dart');
+
+
+Blockly.Dart['variables_get'] = function(block) {
+  // Variable getter.
+  var code = Blockly.Dart.nameDB_.getName(block.getFieldValue('VAR'),
+      Blockly.VARIABLE_CATEGORY_NAME);
+  return [code, Blockly.Dart.ORDER_ATOMIC];
+};
+
+Blockly.Dart['variables_set'] = function(block) {
+  // Variable setter.
+  var argument0 = Blockly.Dart.valueToCode(block, 'VALUE',
+      Blockly.Dart.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.Dart.nameDB_.getName(block.getFieldValue('VAR'),
+      Blockly.VARIABLE_CATEGORY_NAME);
+  return varName + ' = ' + argument0 + ';\n';
+};

@@ -17,4 +17,72 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-"use strict";goog.provide("Blockly.FieldNumberDropdown"),goog.require("Blockly.FieldTextDropdown"),goog.require("Blockly.fieldRegistry"),goog.require("Blockly.utils.object"),goog.require("Blockly.utils.userAgent"),Blockly.FieldNumberDropdown=function(o,e,l,r,t,i){this.setConstraints=Blockly.FieldNumber.prototype.setConstraints,this.setMinInternal_=Blockly.FieldNumber.prototype.setMinInternal_,this.setMaxInternal_=Blockly.FieldNumber.prototype.setMaxInternal_,this.setPrecisionInternal_=Blockly.FieldNumber.prototype.setPrecisionInternal_;var n=Blockly.FieldNumber.prototype.getNumRestrictor.call(this,l,r,t);Blockly.FieldNumberDropdown.superClass_.constructor.call(this,o,e,i,n),this.addArgType("numberdropdown")},Blockly.utils.object.inherits(Blockly.FieldNumberDropdown,Blockly.FieldTextDropdown),Blockly.FieldNumberDropdown.fromJson=function(o){return new Blockly.FieldNumberDropdown(o.value,o.options,o.min,o.max,o.precision)},Blockly.FieldNumberDropdown.prototype.classValidator=Blockly.FieldNumber.prototype.classValidator,Blockly.fieldRegistry.register("field_numberdropdown",Blockly.FieldNumberDropdown);
+
+/**
+ * @fileoverview Combination number + drop-down field
+ * @author tmickel@mit.edu (Tim Mickel)
+ */
+'use strict';
+
+goog.provide('Blockly.FieldNumberDropdown');
+
+goog.require('Blockly.FieldTextDropdown');
+goog.require('Blockly.fieldRegistry');
+goog.require('Blockly.utils.object');
+goog.require('Blockly.utils.userAgent');
+
+
+/**
+ * Class for a combination number + drop-down field.
+ * @param {number|string} value The initial content of the field.
+ * @param {(!Array.<!Array.<string>>|!Function)} menuGenerator An array of
+ *     options for a dropdown list, or a function which generates these options.
+ * @param {number|string|undefined} opt_min Minimum value.
+ * @param {number|string|undefined} opt_max Maximum value.
+ * @param {number|string|undefined} opt_precision Precision for value.
+ * @param {Function=} opt_validator An optional function that is called
+ *     to validate any constraints on what the user entered.  Takes the new
+ *     text as an argument and returns the accepted text or null to abort
+ *     the change.
+ * @extends {Blockly.FieldTextInput}
+ * @constructor
+ */
+Blockly.FieldNumberDropdown = function(value, menuGenerator, opt_min, opt_max,
+    opt_precision, opt_validator) {
+  this.setConstraints = Blockly.FieldNumber.prototype.setConstraints;
+  this.setMinInternal_ = Blockly.FieldNumber.prototype.setMinInternal_;
+  this.setMaxInternal_ = Blockly.FieldNumber.prototype.setMaxInternal_;
+  this.setPrecisionInternal_ = Blockly.FieldNumber.prototype.setPrecisionInternal_;
+
+  var numRestrictor = Blockly.FieldNumber.prototype.getNumRestrictor.call(
+      this, opt_min, opt_max, opt_precision
+  );
+  Blockly.FieldNumberDropdown.superClass_.constructor.call(
+      this, value, menuGenerator, opt_validator, numRestrictor
+  );
+  this.addArgType('numberdropdown');
+};
+Blockly.utils.object.inherits(Blockly.FieldNumberDropdown, Blockly.FieldTextDropdown);
+
+/**
+ * Construct a FieldNumberDropdown from a JSON arg object.
+ * @param {!Object} options A JSON object with options (options).
+ * @returns {!Blockly.FieldNumberDropdown} The new field instance.
+ * @package
+ * @nocollapse
+ */
+Blockly.FieldNumberDropdown.fromJson = function(options) {
+  return new Blockly.FieldNumberDropdown(
+      options['value'], options['options'],
+      options['min'], options['max'], options['precision']
+  );
+};
+
+/**
+ * Ensure that only a number in the correct range may be entered.
+ * @param {string} text The user's text.
+ * @return {?string} A string representing a valid number, or null if invalid.
+ */
+Blockly.FieldNumberDropdown.prototype.classValidator = Blockly.FieldNumber.prototype.classValidator;
+
+Blockly.fieldRegistry.register('field_numberdropdown', Blockly.FieldNumberDropdown);

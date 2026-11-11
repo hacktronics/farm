@@ -3,4 +3,30 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.minimalist.Drawer"),goog.require("Blockly.blockRendering.Drawer"),goog.require("Blockly.minimalist.RenderInfo"),goog.require("Blockly.utils.object"),Blockly.minimalist.Drawer=function(l,i){Blockly.minimalist.Drawer.superClass_.constructor.call(this,l,i)},Blockly.utils.object.inherits(Blockly.minimalist.Drawer,Blockly.blockRendering.Drawer);
+
+/**
+ * @fileoverview Minimalist rendering drawer.
+ */
+'use strict';
+
+goog.provide('Blockly.minimalist.Drawer');
+
+goog.require('Blockly.blockRendering.Drawer');
+goog.require('Blockly.minimalist.RenderInfo');
+goog.require('Blockly.utils.object');
+
+
+/**
+ * An object that draws a block based on the given rendering information.
+ * @param {!Blockly.BlockSvg} block The block to render.
+ * @param {!Blockly.minimalist.RenderInfo} info An object containing all
+ *   information needed to render this block.
+ * @package
+ * @constructor
+ * @extends {Blockly.blockRendering.Drawer}
+ */
+Blockly.minimalist.Drawer = function(block, info) {
+  Blockly.minimalist.Drawer.superClass_.constructor.call(this, block, info);
+};
+Blockly.utils.object.inherits(Blockly.minimalist.Drawer,
+    Blockly.blockRendering.Drawer);

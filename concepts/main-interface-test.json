@@ -1,0 +1,64 @@
+{
+  "errors": [],
+  "layout": {
+    "editorBackground": "rgba(0, 0, 0, 0)",
+    "toolbarBackground": "rgba(248, 247, 227, 0.42)",
+    "toolbarFilter": "blur(9px)",
+    "overlayMissionCount": 0,
+    "logo": "/images/codeskool-logo-green.png",
+    "canvasWidth": 1110.3125,
+    "levelAssets": 14,
+    "toolboxCategories": [
+      "Motion",
+      "Harvest"
+    ]
+  },
+  "mission": "Walk forward 1 tile, then collect 1 tomato. Stay on the empty path beside the plant.",
+  "firstPuzzle": {
+    "beforeWalking": false,
+    "moved": true,
+    "harvested": true,
+    "completed": true,
+    "standing": {
+      "row": 3,
+      "col": 5,
+      "dir": "south"
+    },
+    "tooFar": false,
+    "stopped": {
+      "row": 3,
+      "col": 5,
+      "dir": "south"
+    }
+  },
+  "walkFrames": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "harvestPhases": [
+    "reaching",
+    "picking",
+    "bagging",
+    "none"
+  ],
+  "harvestFrames": [
+    "0",
+    "1",
+    "2",
+    "-1"
+  ],
+  "sceneryCycles": [
+    10350,
+    12800,
+    16300,
+    17600
+  ],
+  "henPoseChangesInEightSeconds": 5,
+  "sceneryAnimated": true,
+  "reducedMotion": true,
+  "passed": true
+}

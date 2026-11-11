@@ -1,0 +1,136 @@
+<!doctype html><meta charset="utf-8" /><meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+/><title>Meadow Farm · new art library</title
+><style>
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 35px auto;
+    max-width: 1200px;
+    padding: 0 24px;
+    font: 15px system-ui;
+    background: #f4f2e8;
+    color: #304b35;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  h1 {
+    font-size: 29px;
+    margin: 8px 0;
+  }
+  p {
+    color: #78856b;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  a {
+    color: #527744;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin: 25px 0;
+  }
+  .card {
+    padding: 14px;
+    background: #fffef6;
+    border: 1px solid #dce3cf;
+    border-radius: 12px;
+  }
+  .card canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #e8eddf;
+    border-radius: 8px;
+  }
+  .card h2 {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .card p {
+    font-size: 11px;
+    margin-top: 0;
+  }
+  .tag {
+    font-size: 10px;
+    color: #7f936d;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    header {
+      display: block;
+    }
+  }
+</style>
+<header>
+  <div>
+    <div class="tag">NEW ART / MODULAR GAME ASSETS</div>
+    <h1>A farm built from separate pieces.</h1>
+    <p>
+      Three terrain surfaces, four farmer directions, five objects and plant states.<br />Ground
+      tiles join edge to edge. Sprites have no attached ground.
+    </p>
+  </div>
+  <a href="series.html">Explore the 30-level story →</a>
+</header>
+<div class="grid"></div>
+<p>
+  New raster assets generated with the built-in image tool. Original tomato, corn and stone artwork
+  is retained where the story carries familiar objects forward. These farmer poses are static
+  direction frames; a full walk-cycle sprite sheet is not included.
+</p>
+<script src="series/assets.js"></script>
+<script>
+  (async () => {
+    const assets = [
+      ['north', 'Farmer · back-right', 'rotation-v1/north.png', 'Direction sprite'],
+      ['east', 'Farmer · front-right', 'rotation-v1/east.png', 'Direction sprite'],
+      ['south', 'Farmer · front-left', 'rotation-v1/south.png', 'Direction sprite'],
+      ['west', 'Farmer · back-left', 'rotation-v1/west.png', 'Direction sprite'],
+      ['ground', 'Walking path', 'rotation-v1/ground.png', 'Terrain tile'],
+      ['grass', 'Meadow grass', 'series-v1/grass.png', 'Terrain tile'],
+      ['wet', 'Wet planting soil', 'series-v1/wet-soil.png', 'Terrain tile'],
+      ['pump', 'Hand pump', 'rotation-v1/pump.png', 'Interactive object'],
+      ['dryplant', 'Wilted carrot', 'series-v1/dry-plot.png', 'Plant state'],
+      ['carrot', 'Ready carrot', 'series-v1/carrot.png', 'Plant state'],
+      ['crate', 'Harvest crate', 'series-v1/crate.png', 'Farm prop'],
+      ['gate', 'Entrance gate', 'series-v1/gate.png', 'Farm prop'],
+    ];
+    await Promise.all(
+      assets.map(async ([k, title, file, type]) => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        const canvas = document.createElement('canvas');
+        canvas.width = 260;
+        canvas.height = 190;
+        const h = document.createElement('h2');
+        h.textContent = title;
+        const p = document.createElement('p');
+        p.textContent = type;
+        card.append(canvas, h, p);
+        document.querySelector('.grid').append(card);
+        const image = new Image();
+        image.src = '../images/concepts/' + file;
+        await image.decode();
+        const b = window.SERIES_BOUNDS[k],
+          scale = Math.min(205 / b[2], 155 / b[3]),
+          w = b[2] * scale,
+          hh = b[3] * scale;
+        canvas.getContext('2d').drawImage(image, ...b, 130 - w / 2, 95 - hh / 2, w, hh);
+      })
+    );
+    window.assetLibraryReady = true;
+  })().catch(console.error);
+</script>

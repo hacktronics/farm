@@ -3,4 +3,280 @@
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.blockRendering.PathObject"),goog.require("Blockly.blockRendering.ConstantProvider"),goog.require("Blockly.blockRendering.IPathObject"),goog.require("Blockly.Theme"),goog.require("Blockly.utils.dom"),goog.require("Blockly.utils.Svg"),goog.requireType("Blockly.Block"),goog.requireType("Blockly.Connection"),Blockly.blockRendering.PathObject=function(t,e,o){this.constants=o,this.svgRoot=t,this.svgPath=Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.PATH,{class:"blocklyPath"},this.svgRoot),this.style=e,this.cursorSvg=null,this.markerSvg=null},Blockly.blockRendering.PathObject.prototype.setPath=function(t){this.svgPath.setAttribute("d",t)},Blockly.blockRendering.PathObject.prototype.flipRTL=function(){this.svgPath.setAttribute("transform","scale(-1 1)")},Blockly.blockRendering.PathObject.prototype.setCursorSvg=function(t){t?(this.svgRoot.appendChild(t),this.cursorSvg=t):this.cursorSvg=null},Blockly.blockRendering.PathObject.prototype.setMarkerSvg=function(t){t?(this.cursorSvg?this.svgRoot.insertBefore(t,this.cursorSvg):this.svgRoot.appendChild(t),this.markerSvg=t):this.markerSvg=null},Blockly.blockRendering.PathObject.prototype.applyColour=function(t){this.svgPath.setAttribute("stroke",this.style.colourTertiary),this.svgPath.setAttribute("fill",this.style.colourPrimary),this.updateShadow_(t.isShadow()),this.updateDisabled_(!t.isEnabled()||t.getInheritedDisabled())},Blockly.blockRendering.PathObject.prototype.setStyle=function(t){this.style=t},Blockly.blockRendering.PathObject.prototype.setClass_=function(t,e){e?Blockly.utils.dom.addClass(this.svgRoot,t):Blockly.utils.dom.removeClass(this.svgRoot,t)},Blockly.blockRendering.PathObject.prototype.updateHighlighted=function(t){t?this.svgPath.setAttribute("filter","url(#"+this.constants.embossFilterId+")"):this.svgPath.setAttribute("filter","none")},Blockly.blockRendering.PathObject.prototype.updateShadow_=function(t){t&&(this.svgPath.setAttribute("stroke","none"),this.svgPath.setAttribute("fill",this.style.colourSecondary))},Blockly.blockRendering.PathObject.prototype.updateDisabled_=function(t){this.setClass_("blocklyDisabled",t),t&&this.svgPath.setAttribute("fill","url(#"+this.constants.disabledPatternId+")")},Blockly.blockRendering.PathObject.prototype.updateSelected=function(t){this.setClass_("blocklySelected",t)},Blockly.blockRendering.PathObject.prototype.updateDraggingDelete=function(t){this.setClass_("blocklyDraggingDelete",t)},Blockly.blockRendering.PathObject.prototype.updateInsertionMarker=function(t){this.setClass_("blocklyInsertionMarker",t)},Blockly.blockRendering.PathObject.prototype.updateMovable=function(t){this.setClass_("blocklyDraggable",t)},Blockly.blockRendering.PathObject.prototype.updateReplacementFade=function(t){this.setClass_("blocklyReplaceable",t)},Blockly.blockRendering.PathObject.prototype.updateShapeForInputHighlight=function(t,e){};
+
+/**
+ * @fileoverview An object that owns a block's rendering SVG elements.
+ * @author fenichel@google.com (Rachel Fenichel)
+ */
+
+'use strict';
+
+goog.provide('Blockly.blockRendering.PathObject');
+
+goog.require('Blockly.blockRendering.ConstantProvider');
+goog.require('Blockly.blockRendering.IPathObject');
+goog.require('Blockly.Theme');
+goog.require('Blockly.utils.dom');
+goog.require('Blockly.utils.Svg');
+
+goog.requireType('Blockly.Block');
+goog.requireType('Blockly.Connection');
+
+
+/**
+ * An object that handles creating and setting each of the SVG elements
+ * used by the renderer.
+ * @param {!SVGElement} root The root SVG element.
+ * @param {!Blockly.Theme.BlockStyle} style The style object to use for
+ *     colouring.
+ * @param {!Blockly.blockRendering.ConstantProvider} constants The renderer's
+ *     constants.
+ * @constructor
+ * @implements {Blockly.blockRendering.IPathObject}
+ * @package
+ */
+Blockly.blockRendering.PathObject = function(root, style, constants) {
+  /**
+   * The renderer's constant provider.
+   * @type {!Blockly.blockRendering.ConstantProvider}
+   * @package
+   */
+  this.constants = constants;
+
+  this.svgRoot = root;
+
+  /**
+   * The primary path of the block.
+   * @type {!SVGElement}
+   * @package
+   */
+  this.svgPath = Blockly.utils.dom.createSvgElement(
+      Blockly.utils.Svg.PATH,
+      {'class': 'blocklyPath'}, this.svgRoot);
+
+  /**
+   * The style object to use when colouring block paths.
+   * @type {!Blockly.Theme.BlockStyle}
+   * @package
+   */
+  this.style = style;
+
+  /**
+   * Holds the cursors svg element when the cursor is attached to the block.
+   * This is null if there is no cursor on the block.
+   * @type {SVGElement}
+   * @package
+   */
+  this.cursorSvg = null;
+
+  /**
+   * Holds the markers svg element when the marker is attached to the block.
+   * This is null if there is no marker on the block.
+   * @type {SVGElement}
+   * @package
+   */
+  this.markerSvg = null;
+};
+
+/**
+ * Set the path generated by the renderer onto the respective SVG element.
+ * @param {string} pathString The path.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.setPath = function(pathString) {
+  this.svgPath.setAttribute('d', pathString);
+};
+
+/**
+ * Flip the SVG paths in RTL.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.flipRTL = function() {
+  // Mirror the block's path.
+  this.svgPath.setAttribute('transform', 'scale(-1 1)');
+};
+
+/**
+ * Add the cursor SVG to this block's SVG group.
+ * @param {SVGElement} cursorSvg The SVG root of the cursor to be added to the
+ *     block SVG group.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.setCursorSvg = function(cursorSvg) {
+  if (!cursorSvg) {
+    this.cursorSvg = null;
+    return;
+  }
+
+  this.svgRoot.appendChild(cursorSvg);
+  this.cursorSvg = cursorSvg;
+};
+
+/**
+ * Add the marker SVG to this block's SVG group.
+ * @param {SVGElement} markerSvg The SVG root of the marker to be added to the
+ *     block SVG group.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.setMarkerSvg = function(markerSvg) {
+  if (!markerSvg) {
+    this.markerSvg = null;
+    return;
+  }
+
+  if (this.cursorSvg) {
+    this.svgRoot.insertBefore(markerSvg, this.cursorSvg);
+  } else {
+    this.svgRoot.appendChild(markerSvg);
+  }
+  this.markerSvg = markerSvg;
+};
+
+/**
+ * Apply the stored colours to the block's path, taking into account whether
+ * the paths belong to a shadow block.
+ * @param {!Blockly.Block} block The source block.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.applyColour = function(block) {
+  this.svgPath.setAttribute('stroke', this.style.colourTertiary);
+  this.svgPath.setAttribute('fill', this.style.colourPrimary);
+
+  this.updateShadow_(block.isShadow());
+  this.updateDisabled_(!block.isEnabled() || block.getInheritedDisabled());
+};
+
+/**
+ * Set the style.
+ * @param {!Blockly.Theme.BlockStyle} blockStyle The block style to use.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.setStyle = function(blockStyle) {
+  this.style = blockStyle;
+};
+
+/**
+ * Add or remove the given CSS class on the path object's root SVG element.
+ * @param {string} className The name of the class to add or remove
+ * @param {boolean} add True if the class should be added.  False if it should
+ *     be removed.
+ * @protected
+ */
+Blockly.blockRendering.PathObject.prototype.setClass_ = function(
+    className, add) {
+  if (add) {
+    Blockly.utils.dom.addClass(/** @type {!Element} */ (this.svgRoot),
+        className);
+  } else {
+    Blockly.utils.dom.removeClass(/** @type {!Element} */ (this.svgRoot),
+        className);
+  }
+};
+
+/**
+ * Set whether the block shows a highlight or not.  Block highlighting is
+ * often used to visually mark blocks currently being executed.
+ * @param {boolean} enable True if highlighted.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateHighlighted = function(
+    enable) {
+  if (enable) {
+    this.svgPath.setAttribute('filter',
+        'url(#' + this.constants.embossFilterId + ')');
+  } else {
+    this.svgPath.setAttribute('filter', 'none');
+  }
+};
+
+/**
+ * Updates the look of the block to reflect a shadow state.
+ * @param {boolean} shadow True if the block is a shadow block.
+ * @protected
+ */
+Blockly.blockRendering.PathObject.prototype.updateShadow_ = function(shadow) {
+  if (shadow) {
+    this.svgPath.setAttribute('stroke', 'none');
+    this.svgPath.setAttribute('fill', this.style.colourSecondary);
+  }
+};
+
+/**
+ * Updates the look of the block to reflect a disabled state.
+ * @param {boolean} disabled True if disabled.
+ * @protected
+ */
+Blockly.blockRendering.PathObject.prototype.updateDisabled_ = function(
+    disabled) {
+  this.setClass_('blocklyDisabled', disabled);
+  if (disabled) {
+    this.svgPath.setAttribute('fill',
+        'url(#' + this.constants.disabledPatternId + ')');
+  }
+};
+
+/**
+ * Add or remove styling showing that a block is selected.
+ * @param {boolean} enable True if selection is enabled, false otherwise.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateSelected = function(enable) {
+  this.setClass_('blocklySelected', enable);
+};
+
+/**
+ * Add or remove styling showing that a block is dragged over a delete area.
+ * @param {boolean} enable True if the block is being dragged over a delete
+ *     area, false otherwise.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateDraggingDelete = function(
+    enable) {
+  this.setClass_('blocklyDraggingDelete', enable);
+};
+
+/**
+ * Add or remove styling showing that a block is an insertion marker.
+ * @param {boolean} enable True if the block is an insertion marker, false
+ *     otherwise.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateInsertionMarker = function(
+    enable) {
+  this.setClass_('blocklyInsertionMarker', enable);
+};
+
+/**
+ * Add or remove styling showing that a block is movable.
+ * @param {boolean} enable True if the block is movable, false otherwise.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateMovable = function(enable) {
+  this.setClass_('blocklyDraggable', enable);
+};
+
+/**
+ * Add or remove styling that shows that if the dragging block is dropped, this
+ * block will be replaced.  If a shadow block, it will disappear.  Otherwise it
+ * will bump.
+ * @param {boolean} enable True if styling should be added.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateReplacementFade =
+    function(enable) {
+    /* eslint-disable indent */
+  this.setClass_('blocklyReplaceable', enable);
+}; /* eslint-enable indent */
+
+/**
+ * Add or remove styling that shows that if the dragging block is dropped, this
+ * block will be connected to the input.
+ * @param {Blockly.Connection} _conn The connection on the input to highlight.
+ * @param {boolean} _enable True if styling should be added.
+ * @package
+ */
+Blockly.blockRendering.PathObject.prototype.updateShapeForInputHighlight =
+    function(_conn, _enable) {
+    /* eslint-disable indent */
+  // NOP
+}; /* eslint-enable indent */

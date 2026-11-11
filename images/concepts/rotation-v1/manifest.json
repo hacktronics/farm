@@ -1,0 +1,31 @@
+{
+  "generator": "Built-in image_gen",
+  "assetDirectory": "public/images/concepts/rotation-v1",
+  "assets": [
+    {
+      "file": "north.png",
+      "prompt": "Reference farmer identity; new empty-handed elevated-isometric back three-quarter view, facing upper-right, transparent background, no ground."
+    },
+    {
+      "file": "east.png",
+      "prompt": "Reference farmer identity; new empty-handed elevated-isometric front three-quarter view, facing lower-right, transparent background, no ground."
+    },
+    {
+      "file": "south.png",
+      "prompt": "Reference farmer identity; new empty-handed elevated-isometric front three-quarter view, facing lower-left, transparent background, no ground."
+    },
+    {
+      "file": "west.png",
+      "prompt": "Reference farmer identity; new empty-handed elevated-isometric back three-quarter view, facing upper-left, transparent background, no ground."
+    },
+    {
+      "file": "ground.png",
+      "prompt": "Reference tile footprint; one smooth sandy-beige isometric walking tile, shallow soil side walls, no furrows, objects, plants or text; transparent background."
+    },
+    {
+      "file": "pump.png",
+      "prompt": "One blue-green cast iron hand water pump, elevated orthographic isometric view, separate object with no soil tile or scene; transparent background."
+    }
+  ],
+  "note": "Prompt summaries; full generation prompts are recorded in the conversation. Runtime alpha bounds normalize rendering size and foot placement. Static direction poses, not a walk-cycle animation."
+}

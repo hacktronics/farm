@@ -26,4 +26,68 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-"use strict";goog.provide("Blockly.Events.EndBlockDrag"),goog.require("Blockly.Events"),goog.require("Blockly.Events.BlockBase"),goog.require("Blockly.utils.object"),Blockly.Events.EndBlockDrag=function(l){l&&(Blockly.Events.EndBlockDrag.superClass_.constructor.call(this,l),this.recordUndo=!1,this.blockId=l.id,this.allNestedIds=l.getDescendants().map(function(l){return l.id}))},Blockly.utils.object.inherits(Blockly.Events.EndBlockDrag,Blockly.Events.BlockBase),Blockly.Events.EndBlockDrag.prototype.type=Blockly.Events.END_DRAG,Blockly.Events.EndBlockDrag.prototype.toJson=function(){var l=Blockly.Events.EndBlockDrag.superClass_.toJson.call(this);return this.blockId&&(l.blockId=this.blockId),this.allNestedIds&&(l.allNestedIds=this.allNestedIds),l},Blockly.Events.EndBlockDrag.prototype.fromJson=function(l){Blockly.Events.EndBlockDrag.superClass_.fromJson.call(this,l),this.blockId=l.blockId,this.allNestedIds=l.allNestedIds},Blockly.registry.register(Blockly.registry.Type.EVENT,Blockly.Events.END_DRAG,Blockly.Events.EndBlockDrag);
+
+/**
+ * @fileoverview Events fired as a result of UI actions in a pxt-blockly editor that are not fired
+ * in Blockly.
+ */
+'use strict';
+
+goog.provide('Blockly.Events.EndBlockDrag');
+
+goog.require('Blockly.Events');
+goog.require('Blockly.Events.BlockBase');
+goog.require('Blockly.utils.object');
+
+/**
+ * Class for a block end drag event.
+ * @param {Blockly.Block} block The moved block.  Null for a blank event.
+ * @param {boolean} isOutside True if the moved block is outside of the
+ *     blocks workspace.
+ * @extends {Blockly.Events.BlockBase}
+ * @constructor
+ */
+Blockly.Events.EndBlockDrag = function(block) {
+  if (!block) {
+    return;  // Blank event to be populated by fromJson.
+  }
+  Blockly.Events.EndBlockDrag.superClass_.constructor.call(this, block);
+  this.recordUndo = false;
+  this.blockId = block.id;
+  this.allNestedIds = block.getDescendants().map(function(b) { return b.id; });
+};
+Blockly.utils.object.inherits(Blockly.Events.EndBlockDrag, Blockly.Events.BlockBase);
+
+/**
+ * Type of this event.
+ * @type {string}
+ */
+Blockly.Events.EndBlockDrag.prototype.type = Blockly.Events.END_DRAG;
+
+/**
+ * Encode the event as JSON.
+ * @return {!Object} JSON representation.
+ */
+Blockly.Events.EndBlockDrag.prototype.toJson = function() {
+  var json = Blockly.Events.EndBlockDrag.superClass_.toJson.call(this);
+  if (this.blockId) {
+    json['blockId'] = this.blockId;
+  }
+  if (this.allNestedIds) {
+    json['allNestedIds'] = this.allNestedIds;
+  }
+  return json;
+};
+
+/**
+ * Decode the JSON event.
+ * @param {!Object} json JSON representation.
+ */
+Blockly.Events.EndBlockDrag.prototype.fromJson = function(json) {
+  Blockly.Events.EndBlockDrag.superClass_.fromJson.call(this, json);
+  this.blockId = json['blockId'];
+  this.allNestedIds = json['allNestedIds'];
+};
+
+Blockly.registry.register(Blockly.registry.Type.EVENT,
+  Blockly.Events.END_DRAG, Blockly.Events.EndBlockDrag);

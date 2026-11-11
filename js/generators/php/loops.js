@@ -3,4 +3,168 @@
  * Copyright 2015 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.PHP.loops"),goog.require("Blockly.PHP"),Blockly.PHP.controls_repeat_ext=function(l){if(l.getField("TIMES"))var o=String(Number(l.getFieldValue("TIMES")));else o=Blockly.PHP.valueToCode(l,"TIMES",Blockly.PHP.ORDER_ASSIGNMENT)||"0";var e=Blockly.PHP.statementToCode(l,"DO");e=Blockly.PHP.addLoopTrap(e,l);var P="",c=Blockly.PHP.nameDB_.getDistinctName("count",Blockly.VARIABLE_CATEGORY_NAME),t=o;return o.match(/^\w+$/)||Blockly.isNumber(o)||(P+=(t=Blockly.PHP.nameDB_.getDistinctName("repeat_end",Blockly.VARIABLE_CATEGORY_NAME))+" = "+o+";\n"),P+="for ("+c+" = 0; "+c+" < "+t+"; "+c+"++) {\n"+e+"}\n"},Blockly.PHP.controls_repeat=Blockly.PHP.controls_repeat_ext,Blockly.PHP.controls_whileUntil=function(l){var o="UNTIL"==l.getFieldValue("MODE"),e=Blockly.PHP.valueToCode(l,"BOOL",o?Blockly.PHP.ORDER_LOGICAL_NOT:Blockly.PHP.ORDER_NONE)||"false",P=Blockly.PHP.statementToCode(l,"DO");return o&&(e="!"+e),"while ("+e+") {\n"+(P=Blockly.PHP.addLoopTrap(P,l))+"}\n"},Blockly.PHP.controls_for=function(l){var o,e=Blockly.PHP.nameDB_.getName(l.getFieldValue("VAR"),Blockly.VARIABLE_CATEGORY_NAME),P=Blockly.PHP.valueToCode(l,"FROM",Blockly.PHP.ORDER_ASSIGNMENT)||"0",c=Blockly.PHP.valueToCode(l,"TO",Blockly.PHP.ORDER_ASSIGNMENT)||"0",t=Blockly.PHP.valueToCode(l,"BY",Blockly.PHP.ORDER_ASSIGNMENT)||"1",a=Blockly.PHP.statementToCode(l,"DO");if(a=Blockly.PHP.addLoopTrap(a,l),Blockly.isNumber(P)&&Blockly.isNumber(c)&&Blockly.isNumber(t)){var B=parseFloat(P)<=parseFloat(c);o="for ("+e+" = "+P+"; "+e+(B?" <= ":" >= ")+c+"; "+e;var n=Math.abs(parseFloat(t));o+=1==n?B?"++":"--":(B?" += ":" -= ")+n,o+=") {\n"+a+"}\n"}else{o="";var r=P;P.match(/^\w+$/)||Blockly.isNumber(P)||(o+=(r=Blockly.PHP.nameDB_.getDistinctName(e+"_start",Blockly.VARIABLE_CATEGORY_NAME))+" = "+P+";\n");var k=c;c.match(/^\w+$/)||Blockly.isNumber(c)||(o+=(k=Blockly.PHP.nameDB_.getDistinctName(e+"_end",Blockly.VARIABLE_CATEGORY_NAME))+" = "+c+";\n");var y=Blockly.PHP.nameDB_.getDistinctName(e+"_inc",Blockly.VARIABLE_CATEGORY_NAME);o+=y+" = ",Blockly.isNumber(t)?o+=Math.abs(t)+";\n":o+="abs("+t+");\n",o+="if ("+r+" > "+k+") {\n",o+=Blockly.PHP.INDENT+y+" = -"+y+";\n",o+="}\n",o+="for ("+e+" = "+r+"; "+y+" >= 0 ? "+e+" <= "+k+" : "+e+" >= "+k+"; "+e+" += "+y+") {\n"+a+"}\n"}return o},Blockly.PHP.controls_forEach=function(l){var o=Blockly.PHP.nameDB_.getName(l.getFieldValue("VAR"),Blockly.VARIABLE_CATEGORY_NAME),e=Blockly.PHP.valueToCode(l,"LIST",Blockly.PHP.ORDER_ASSIGNMENT)||"[]",P=Blockly.PHP.statementToCode(l,"DO"),c="";return c+="foreach ("+e+" as "+o+") {\n"+(P=Blockly.PHP.addLoopTrap(P,l))+"}\n"},Blockly.PHP.controls_flow_statements=function(l){var o="";if(Blockly.PHP.STATEMENT_PREFIX&&(o+=Blockly.PHP.injectId(Blockly.PHP.STATEMENT_PREFIX,l)),Blockly.PHP.STATEMENT_SUFFIX&&(o+=Blockly.PHP.injectId(Blockly.PHP.STATEMENT_SUFFIX,l)),Blockly.PHP.STATEMENT_PREFIX){var e=Blockly.Constants.Loops.CONTROL_FLOW_IN_LOOP_CHECK_MIXIN.getSurroundLoop(l);e&&!e.suppressPrefixSuffix&&(o+=Blockly.PHP.injectId(Blockly.PHP.STATEMENT_PREFIX,e))}switch(l.getFieldValue("FLOW")){case"BREAK":return o+"break;\n";case"CONTINUE":return o+"continue;\n"}throw Error("Unknown flow statement.")};
+
+/**
+ * @fileoverview Generating PHP for loop blocks.
+ * @author daarond@gmail.com (Daaron Dwyer)
+ */
+'use strict';
+
+goog.provide('Blockly.PHP.loops');
+
+goog.require('Blockly.PHP');
+
+
+Blockly.PHP['controls_repeat_ext'] = function(block) {
+  // Repeat n times.
+  if (block.getField('TIMES')) {
+    // Internal number.
+    var repeats = String(Number(block.getFieldValue('TIMES')));
+  } else {
+    // External number.
+    var repeats = Blockly.PHP.valueToCode(block, 'TIMES',
+        Blockly.PHP.ORDER_ASSIGNMENT) || '0';
+  }
+  var branch = Blockly.PHP.statementToCode(block, 'DO');
+  branch = Blockly.PHP.addLoopTrap(branch, block);
+  var code = '';
+  var loopVar = Blockly.PHP.nameDB_.getDistinctName(
+      'count', Blockly.VARIABLE_CATEGORY_NAME);
+  var endVar = repeats;
+  if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
+    endVar = Blockly.PHP.nameDB_.getDistinctName(
+        'repeat_end', Blockly.VARIABLE_CATEGORY_NAME);
+    code += endVar + ' = ' + repeats + ';\n';
+  }
+  code += 'for (' + loopVar + ' = 0; ' +
+      loopVar + ' < ' + endVar + '; ' +
+      loopVar + '++) {\n' +
+      branch + '}\n';
+  return code;
+};
+
+Blockly.PHP['controls_repeat'] = Blockly.PHP['controls_repeat_ext'];
+
+Blockly.PHP['controls_whileUntil'] = function(block) {
+  // Do while/until loop.
+  var until = block.getFieldValue('MODE') == 'UNTIL';
+  var argument0 = Blockly.PHP.valueToCode(block, 'BOOL',
+      until ? Blockly.PHP.ORDER_LOGICAL_NOT :
+      Blockly.PHP.ORDER_NONE) || 'false';
+  var branch = Blockly.PHP.statementToCode(block, 'DO');
+  branch = Blockly.PHP.addLoopTrap(branch, block);
+  if (until) {
+    argument0 = '!' + argument0;
+  }
+  return 'while (' + argument0 + ') {\n' + branch + '}\n';
+};
+
+Blockly.PHP['controls_for'] = function(block) {
+  // For loop.
+  var variable0 = Blockly.PHP.nameDB_.getName(
+      block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+  var argument0 = Blockly.PHP.valueToCode(block, 'FROM',
+      Blockly.PHP.ORDER_ASSIGNMENT) || '0';
+  var argument1 = Blockly.PHP.valueToCode(block, 'TO',
+      Blockly.PHP.ORDER_ASSIGNMENT) || '0';
+  var increment = Blockly.PHP.valueToCode(block, 'BY',
+      Blockly.PHP.ORDER_ASSIGNMENT) || '1';
+  var branch = Blockly.PHP.statementToCode(block, 'DO');
+  branch = Blockly.PHP.addLoopTrap(branch, block);
+  var code;
+  if (Blockly.isNumber(argument0) && Blockly.isNumber(argument1) &&
+      Blockly.isNumber(increment)) {
+    // All arguments are simple numbers.
+    var up = parseFloat(argument0) <= parseFloat(argument1);
+    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+        variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
+        variable0;
+    var step = Math.abs(parseFloat(increment));
+    if (step == 1) {
+      code += up ? '++' : '--';
+    } else {
+      code += (up ? ' += ' : ' -= ') + step;
+    }
+    code += ') {\n' + branch + '}\n';
+  } else {
+    code = '';
+    // Cache non-trivial values to variables to prevent repeated look-ups.
+    var startVar = argument0;
+    if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
+      startVar = Blockly.PHP.nameDB_.getDistinctName(
+          variable0 + '_start', Blockly.VARIABLE_CATEGORY_NAME);
+      code += startVar + ' = ' + argument0 + ';\n';
+    }
+    var endVar = argument1;
+    if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
+      endVar = Blockly.PHP.nameDB_.getDistinctName(
+          variable0 + '_end', Blockly.VARIABLE_CATEGORY_NAME);
+      code += endVar + ' = ' + argument1 + ';\n';
+    }
+    // Determine loop direction at start, in case one of the bounds
+    // changes during loop execution.
+    var incVar = Blockly.PHP.nameDB_.getDistinctName(
+        variable0 + '_inc', Blockly.VARIABLE_CATEGORY_NAME);
+    code += incVar + ' = ';
+    if (Blockly.isNumber(increment)) {
+      code += Math.abs(increment) + ';\n';
+    } else {
+      code += 'abs(' + increment + ');\n';
+    }
+    code += 'if (' + startVar + ' > ' + endVar + ') {\n';
+    code += Blockly.PHP.INDENT + incVar + ' = -' + incVar + ';\n';
+    code += '}\n';
+    code += 'for (' + variable0 + ' = ' + startVar + '; ' +
+        incVar + ' >= 0 ? ' +
+        variable0 + ' <= ' + endVar + ' : ' +
+        variable0 + ' >= ' + endVar + '; ' +
+        variable0 + ' += ' + incVar + ') {\n' +
+        branch + '}\n';
+  }
+  return code;
+};
+
+Blockly.PHP['controls_forEach'] = function(block) {
+  // For each loop.
+  var variable0 = Blockly.PHP.nameDB_.getName(
+      block.getFieldValue('VAR'), Blockly.VARIABLE_CATEGORY_NAME);
+  var argument0 = Blockly.PHP.valueToCode(block, 'LIST',
+      Blockly.PHP.ORDER_ASSIGNMENT) || '[]';
+  var branch = Blockly.PHP.statementToCode(block, 'DO');
+  branch = Blockly.PHP.addLoopTrap(branch, block);
+  var code = '';
+  code += 'foreach (' + argument0 + ' as ' + variable0 +
+      ') {\n' + branch + '}\n';
+  return code;
+};
+
+Blockly.PHP['controls_flow_statements'] = function(block) {
+  // Flow statements: continue, break.
+  var xfix = '';
+  if (Blockly.PHP.STATEMENT_PREFIX) {
+    // Automatic prefix insertion is switched off for this block.  Add manually.
+    xfix += Blockly.PHP.injectId(Blockly.PHP.STATEMENT_PREFIX, block);
+  }
+  if (Blockly.PHP.STATEMENT_SUFFIX) {
+    // Inject any statement suffix here since the regular one at the end
+    // will not get executed if the break/continue is triggered.
+    xfix += Blockly.PHP.injectId(Blockly.PHP.STATEMENT_SUFFIX, block);
+  }
+  if (Blockly.PHP.STATEMENT_PREFIX) {
+    var loop = Blockly.Constants.Loops
+        .CONTROL_FLOW_IN_LOOP_CHECK_MIXIN.getSurroundLoop(block);
+    if (loop && !loop.suppressPrefixSuffix) {
+      // Inject loop's statement prefix here since the regular one at the end
+      // of the loop will not get executed if 'continue' is triggered.
+      // In the case of 'break', a prefix is needed due to the loop's suffix.
+      xfix += Blockly.PHP.injectId(Blockly.PHP.STATEMENT_PREFIX, loop);
+    }
+  }
+  switch (block.getFieldValue('FLOW')) {
+    case 'BREAK':
+      return xfix + 'break;\n';
+    case 'CONTINUE':
+      return xfix + 'continue;\n';
+  }
+  throw Error('Unknown flow statement.');
+};

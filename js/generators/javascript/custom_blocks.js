@@ -1,1 +1,90 @@
-window.Blockly.JavaScript.start=function(o){return"start();\n"},window.Blockly.JavaScript.walk_steps=function(o){return`walkSteps(${window.Blockly.JavaScript.valueToCode(o,"Steps",window.Blockly.JavaScript.ORDER_ATOMIC)});\n`},window.Blockly.JavaScript.turn=function(o){let n="";switch(o.getFieldValue("Direction")){case"left":n="turnLeft();\n";break;case"right":n="turnRight();\n";break;default:n="\n"}return n},window.Blockly.JavaScript.turn_back=function(o){return"turnBackward();\n"},window.Blockly.JavaScript.remove_stones=function(o){return"removeStones();\n"},window.Blockly.JavaScript.fill_holes=function(o){return"fillHoles();\n"},window.Blockly.JavaScript.collect_corn=function(o){return`collectCorn(${window.Blockly.JavaScript.valueToCode(o,"Corn",window.Blockly.JavaScript.ORDER_ATOMIC)});\n`},window.Blockly.JavaScript.collect_tomato=function(o){return`collectTomato(${window.Blockly.JavaScript.valueToCode(o,"Tomato",window.Blockly.JavaScript.ORDER_ATOMIC)});\n`},window.Blockly.JavaScript.water_plant=function(o){return"waterPlant();\n"},window.Blockly.JavaScript.function_define=function(o){let n=window.Blockly.JavaScript.statementToCode(o,"STACK");n=n||"";return`function performTask() {\n${n}}\n`},window.Blockly.JavaScript.function_call=function(o){return"performTask();\n"},window.Blockly.JavaScript.for_loop=function(o){let n="1";n=o.getField("Times")?String(parseInt(o.getFieldValue("Times"),10)):window.Blockly.JavaScript.valueToCode(o,"Times",window.Blockly.JavaScript.ORDER_ASSIGNMENT)||"1";let t=window.Blockly.JavaScript.statementToCode(o,"DO");t=window.Blockly.JavaScript.addLoopTrap(t,o);const l=window.Blockly.JavaScript.nameDB_.getDistinctName("count",window.Blockly.Variables.NAME_TYPE);let a=n,c="";return n.match(/^\w+$/)||window.Blockly.isNumber(n)||(a=window.Blockly.JavaScript.nameDB_.getDistinctName("repeat_end",window.Blockly.Variables.NAME_TYPE),c+=`const ${a} = ${n};`),c+=`for (var ${l} = 0; ${l} < ${a}; ${l}++) {\n${t}}\n`,c};
+window.Blockly.JavaScript["start"] = function (block) {
+  const code = "start();\n";
+  return code;
+};
+
+window.Blockly.JavaScript["walk_steps"] = function (block) {
+  const steps = window.Blockly.JavaScript.valueToCode(block, "Steps", window.Blockly.JavaScript.ORDER_ATOMIC);
+  const code = `walkSteps(${steps});\n`;
+  return code;
+};
+
+window.Blockly.JavaScript["turn"] = function (block) {
+  const direction = block.getFieldValue("Direction");
+  let code = "";
+	switch (direction) {
+		case "left":
+			code = "turnLeft();\n";
+			break;
+		case "right":
+			code = "turnRight();\n";
+			break;
+		default:
+			code = "\n";
+	}
+  return code;
+};
+
+window.Blockly.JavaScript["turn_back"] = function (block) {
+  const code = "turnBackward();\n";
+  return code;
+};
+
+window.Blockly.JavaScript["remove_stones"] = function (block) {
+  const code = "removeStones();\n";
+  return code;
+};
+
+window.Blockly.JavaScript["fill_holes"] = function (block) {
+  const code = "fillHoles();\n";
+  return code;
+};
+
+window.Blockly.JavaScript["collect_corn"] = function (block) {
+  const corn = window.Blockly.JavaScript.valueToCode(block, "Corn", window.Blockly.JavaScript.ORDER_ATOMIC);
+  const code = `collectCorn(${corn});\n`;
+  return code;
+};
+
+window.Blockly.JavaScript["collect_tomato"] = function (block) {
+  const tomato = window.Blockly.JavaScript.valueToCode(block, "Tomato", window.Blockly.JavaScript.ORDER_ATOMIC);
+  const code = `collectTomato(${tomato});\n`;
+  return code;
+};
+
+window.Blockly.JavaScript["water_plant"] = function (block) {
+  const code = "waterPlant();\n";
+  return code;
+};
+
+window.Blockly.JavaScript["function_define"] = function (block) {
+  let branch = window.Blockly.JavaScript.statementToCode(block, "STACK");
+  branch = branch || "";
+  const code = `function performTask() {\n${branch}}\n`;
+  return code;
+};
+
+window.Blockly.JavaScript["function_call"] = function (block) {
+  const code = "performTask();\n";
+  return code;
+};
+
+window.Blockly.JavaScript["for_loop"] = function (block) {
+	let repeats = "1";
+  if (block.getField("Times")) {
+    repeats = String(parseInt(block.getFieldValue("Times"), 10));
+  } else {
+    repeats = window.Blockly.JavaScript.valueToCode(block, "Times", window.Blockly.JavaScript.ORDER_ASSIGNMENT) || "1";
+  }
+  let branch = window.Blockly.JavaScript.statementToCode(block, "DO");
+  branch = window.Blockly.JavaScript.addLoopTrap(branch, block);
+  const loopVar = window.Blockly.JavaScript.nameDB_.getDistinctName("count", window.Blockly.Variables.NAME_TYPE);
+  let endVar = repeats;
+  let code = "";
+  if (!repeats.match(/^\w+$/) && !window.Blockly.isNumber(repeats)) {
+    endVar = window.Blockly.JavaScript.nameDB_.getDistinctName("repeat_end", window.Blockly.Variables.NAME_TYPE);
+    code += `const ${endVar} = ${repeats};`;
+  }
+  code += `for (var ${loopVar} = 0; ${loopVar} < ${endVar}; ${loopVar}++) {\n${branch}}\n`;
+  return code;
+};

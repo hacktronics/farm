@@ -1,0 +1,7 @@
+{
+  "generator": "Built-in image_gen",
+  "file": "harvest.png",
+  "reference": "../rotation-v1/east.png",
+  "prompt": "Match reference farmer identity and cartoon style. Transparent 3-column by 4-row full-body harvest animation sheet. Rows face lower-right, lower-left, upper-right, upper-left. Columns reach toward plant, hold picked tomato toward open sack, deposit tomato inside sack. Exactly two arms and two hands per figure. Free hand holds sack. Consistent scale and feet anchors. No plants, ground, scenery, text or grid lines.",
+  "rendering": "Replace the entire farmer during harvest. Never overlay arms or a second bag. Source bounds and boot anchors are measured from the unchanged PNG."
+}

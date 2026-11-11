@@ -1,0 +1,70 @@
+{
+  "generator": "built-in image_gen",
+  "date": "2026-11-11",
+  "assets": [
+    {
+      "path": "walk-v1/north.png",
+      "frames": 6,
+      "prompt": "Create a production WALK CYCLE sprite strip for the exact farmer character shown in the reference. Output a wide landscape transparent PNG sprite sheet with EXACTLY SIX equally sized columns in ONE row, six full-body farmer poses total. Every column contains ONE frame, fully inside that column, with equal scale, a common foot baseline, common body centre, consistent camera and identity. Straw hat red band, red shirt, blue overalls, brown boots, empty hands. All six frames face upper-right / northeast, back three-quarter view; preserve that same facing for every frame. Actual anatomically coherent 6-frame walking cycle: frame1 left foot leading planted, right foot trailing; frame2 weight transfer left leg and right heel lifts; frame3 right leg passes bent beneath body, left arm forward; frame4 right foot leading planted, left foot trailing; frame5 weight transfer right leg and left heel lifts; frame6 left leg passes bent beneath body, right arm forward. Opposite arm swings with each leg. Clearly different foot positions per frame, subtle body rise/fall and hat bob. Frame6 loops smoothly into frame1. Elevated isometric view about30degreesdown matching reference. Clean outlined friendly cartoon style. Full body hat through boots, do not crop any part. No standing duplicates, no identical poses, no extra characters, no tile, no ground, no pedestal, no shadow behind sprite, no text, no labels, no column dividers, no glow. Genuine transparent background. Think of six equal rectangular cells in a 3072 by1024 sheet; each character fits in its cell."
+    },
+    {
+      "path": "walk-v1/east.png",
+      "frames": 6,
+      "prompt": "Create a production WALK CYCLE sprite strip for the exact farmer character shown in the reference. Output a wide landscape transparent PNG sprite sheet with EXACTLY SIX equally sized columns in ONE row, six full-body farmer poses total. Every column contains ONE frame, fully inside that column, with equal scale, a common foot baseline, common body centre, consistent camera and identity. Straw hat red band, red shirt, blue overalls, brown boots, empty hands. All six frames face lower-right / southeast, front three-quarter view; preserve that same facing for every frame. Actual anatomically coherent 6-frame walking cycle: frame1 left foot leading planted, right foot trailing; frame2 weight transfer left leg and right heel lifts; frame3 right leg passes bent beneath body, left arm forward; frame4 right foot leading planted, left foot trailing; frame5 weight transfer right leg and left heel lifts; frame6 left leg passes bent beneath body, right arm forward. Opposite arm swings with each leg. Clearly different foot positions per frame, subtle body rise/fall and hat bob. Frame6 loops smoothly into frame1. Elevated isometric view about30degreesdown matching reference. Clean outlined friendly cartoon style. Full body hat through boots, do not crop any part. No standing duplicates, no identical poses, no extra characters, no tile, no ground, no pedestal, no shadow behind sprite, no text, no labels, no column dividers, no glow. Genuine transparent background. Think of six equal rectangular cells in a 3072 by1024 sheet; each character fits in its cell."
+    },
+    {
+      "path": "walk-v1/south.png",
+      "frames": 6,
+      "prompt": "Create a production WALK CYCLE sprite strip for the exact farmer character shown in the reference. Output a wide landscape transparent PNG sprite sheet with EXACTLY SIX equally sized columns in ONE row, six full-body farmer poses total. Every column contains ONE frame, fully inside that column, with equal scale, a common foot baseline, common body centre, consistent camera and identity. Straw hat red band, red shirt, blue overalls, brown boots, empty hands. All six frames face lower-left / southwest, front three-quarter view; preserve that same facing for every frame. Actual anatomically coherent 6-frame walking cycle: frame1 left foot leading planted, right foot trailing; frame2 weight transfer left leg and right heel lifts; frame3 right leg passes bent beneath body, left arm forward; frame4 right foot leading planted, left foot trailing; frame5 weight transfer right leg and left heel lifts; frame6 left leg passes bent beneath body, right arm forward. Opposite arm swings with each leg. Clearly different foot positions per frame, subtle body rise/fall and hat bob. Frame6 loops smoothly into frame1. Elevated isometric view about30degreesdown matching reference. Clean outlined friendly cartoon style. Full body hat through boots, do not crop any part. No standing duplicates, no identical poses, no extra characters, no tile, no ground, no pedestal, no shadow behind sprite, no text, no labels, no column dividers, no glow. Genuine transparent background. Think of six equal rectangular cells in a 3072 by1024 sheet; each character fits in its cell."
+    },
+    {
+      "path": "walk-v1/west.png",
+      "frames": 6,
+      "prompt": "Create a production WALK CYCLE sprite strip for the exact farmer character shown in the reference. Output a wide landscape transparent PNG sprite sheet with EXACTLY SIX equally sized columns in ONE row, six full-body farmer poses total. Every column contains ONE frame, fully inside that column, with equal scale, a common foot baseline, common body centre, consistent camera and identity. Straw hat red band, red shirt, blue overalls, brown boots, empty hands. All six frames face upper-left / northwest, back three-quarter view; preserve that same facing for every frame. Actual anatomically coherent 6-frame walking cycle: frame1 left foot leading planted, right foot trailing; frame2 weight transfer left leg and right heel lifts; frame3 right leg passes bent beneath body, left arm forward; frame4 right foot leading planted, left foot trailing; frame5 weight transfer right leg and left heel lifts; frame6 left leg passes bent beneath body, right arm forward. Opposite arm swings with each leg. Clearly different foot positions per frame, subtle body rise/fall and hat bob. Frame6 loops smoothly into frame1. Elevated isometric view about30degreesdown matching reference. Clean outlined friendly cartoon style. Full body hat through boots, do not crop any part. No standing duplicates, no identical poses, no extra characters, no tile, no ground, no pedestal, no shadow behind sprite, no text, no labels, no column dividers, no glow. Genuine transparent background. Think of six equal rectangular cells in a 3072 by1024 sheet; each character fits in its cell."
+    },
+    {
+      "path": "ambient-v1/hen.png",
+      "frames": 4,
+      "prompt": "Create a transparent animation sprite strip for a farm game. Reference image supplies the identity and style of the animal or prop, not the background. A single small warm brown farm hen with red comb and yellow legs, facing screen right, matching the illustrated brown hen beside the well in the reference. Four frames: upright alert, neck bends halfway down, beak touching ground pecking a seed, head halfway raised. Feet stay anchored. Same hen identity, scale and foot baseline in all four cells. EXACTLY FOUR equal rectangular columns in ONE horizontal row, one full subject per cell, with equal padding and no clipping. Clean simple cartoon illustration matching reference. Genuine transparent background around each subject. No soil patch, no ground, no shadows behind subject, no scenery, no text, no labels, no dividers, no glow. Clearly different poses but smoothly loopable animation."
+    },
+    {
+      "path": "ambient-v1/cow.png",
+      "frames": 4,
+      "prompt": "Create a transparent animation sprite strip for a farm game. Reference image supplies the identity and style of the animal or prop, not the background. A single black-and-white dairy cow matching the larger cow near the barn in the reference, facing screen right in three-quarter front view. Four frames: head upright, head slightly lowered and tail flicked, head grazing low, head halfway lifted with tail relaxed. Hooves stay anchored. Same cow identity, scale and hoof baseline in every frame. EXACTLY FOUR equal rectangular columns in ONE horizontal row, one full subject per cell, with equal padding and no clipping. Clean simple cartoon illustration matching reference. Genuine transparent background around each subject. No soil patch, no ground, no shadows behind subject, no scenery, no text, no labels, no dividers, no glow. Clearly different poses but smoothly loopable animation."
+    },
+    {
+      "path": "ambient-v1/scarecrow.png",
+      "frames": 4,
+      "prompt": "Create a transparent animation sprite strip for a farm game. Reference image supplies the identity and style of the animal or prop, not the background. A single smiling rustic scarecrow matching the reference: yellow straw hat with red band, straw head, red patched shirt, arms spread, straw hanging beneath shirt, one wooden pole beneath. Four frames of gentle breeze: neutral, sleeves and straw lean left, neutral with a slight hat tilt, sleeves and straw lean right. Keep the pole fixed in the same position and same scale in every cell. EXACTLY FOUR equal rectangular columns in ONE horizontal row, one full subject per cell, with equal padding and no clipping. Clean simple cartoon illustration matching reference. Genuine transparent background around each subject. No soil patch, no ground, no shadows behind subject, no scenery, no text, no labels, no dividers, no glow. Clearly different poses but smoothly loopable animation."
+    },
+    {
+      "path": "ambient-v1/flowers.png",
+      "frames": 1,
+      "prompt": "Extract/recreate ONLY the sunflower clump immediately left of the stone well in the reference farm illustration as a standalone transparent game scenery sprite. Five cheerful golden yellow sunflowers of different heights with brown centres, thin green stems and a few broad green leaves, same simple illustrated style and colours. The whole clump is fully visible with stems sharing one baseline. No well, no grass, no soil patch, no background, no animal, no text, no glow or shadow. Genuine transparent background. One clump only, crisp silhouette. This will sway subtly from its bottom stem anchor."
+    },
+    {
+      "path": "ambient-v1/clean-background.png",
+      "prompt": "Precise background cleanup for a layered animation scene. Preserve this farm background's camera, aspect ratio, composition, colours, shapes and positions EXACTLY. Remove ONLY these foreground subjects: the TWO black-and-white cows near the barn at upper right; the smiling scarecrow directly below those cows; the single brown hen immediately right of the stone well near the bottom; and the cluster of yellow sunflowers immediately left of that well. Fill their former silhouettes naturally with the surrounding plain olive meadow grass, preserving the well, barn, road, hay, tractor, distant trees, mountains and every other object untouched. Do not remove the chicken pen at bottom right. No new objects or text. Keep exact original 3439:1973 aspect ratio and full uncropped frame. This is an animation background plate; replacement animated sprites will be overlaid at those original positions."
+    },
+    {
+      "path": "series-v1/farmer-success.png",
+      "prompt": "Create ONE new transparent game character pose matching the farmer in the reference: same yellow straw hat with red band, brown hair and moustache, red shirt, light blue overalls and brown boots. celebrating a completed harvest, warm proud smile, both empty hands lifted in a modest cheerful victory gesture, standing balanced. Elevated isometric front three-quarter view facing slightly screen lower-right. Full body including boots, clean friendly cartoon illustration, clear silhouette, consistent proportions, no harvest bag or tools, no ground tile or pedestal, no text, no scene, no confetti, no glow or halo, genuine transparent background."
+    },
+    {
+      "path": "series-v1/farmer-retry.png",
+      "prompt": "Create ONE new transparent game character pose matching the farmer in the reference: same yellow straw hat with red band, brown hair and moustache, red shirt, light blue overalls and brown boots. thinking through a puzzle with a hopeful gentle smile, one empty hand lightly touching chin, other hand relaxed on hip, standing balanced, encouraging and curious rather than sad. Elevated isometric front three-quarter view facing slightly screen lower-right. Full body including boots, clean friendly cartoon illustration, clear silhouette, consistent proportions, no harvest bag or tools, no ground tile or pedestal, no text, no scene, no confetti, no glow or halo, genuine transparent background."
+    },
+    {
+      "path": "../codeskool-logo-green.png",
+      "prompt": "Precise colour-only edit of this existing CodeSkool logo. Change ONLY the dark blue lettering and dark blue outer outline to a deep forest green (#315C32), with pale sage green replacing any pale blue stroke or fill. Preserve the exact existing letterforms, spelling, layout, dimensions, outline thickness, proportions and transparent background. Preserve the yellow-orange infinity symbol exactly. Do not redraw, retype, restyle, add shadow, add glow, add a background, or change any other feature. Transparent PNG, same artwork with blue replaced by harmonious forest green."
+    },
+    {
+      "path": "series-v1/workspace-grass.png",
+      "prompt": "Seamless overhead low-contrast olive and sage meadow grass texture, quiet backdrop for programming blocks; no isometric tile, objects, flowers, grid, border or text."
+    },
+    {
+      "path": "series-v1/butterfly.png",
+      "prompt": "One small crisp golden-yellow and orange butterfly cutout, four open wings, dark body, transparent background; no scene, labels or glow."
+    }
+  ]
+}

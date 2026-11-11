@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3439 1973" preserveAspectRatio="none">
+  <defs>
+    <filter id="soft-edge"><feGaussianBlur stdDeviation="6" /></filter>
+  </defs>
+  <g fill="white" filter="url(#soft-edge)">
+    <!-- Original cows, replaced by grazing sprite layers. -->
+    <rect x="2580" y="350" width="165" height="140" />
+    <rect x="2730" y="350" width="120" height="140" />
+    <!-- Scarecrow, hen and flowers. The rest of the original image stays sharp. -->
+    <rect x="2610" y="455" width="225" height="240" />
+    <rect x="1640" y="1630" width="155" height="160" />
+    <path d="M1180 1400 L1300 1400 L1350 1450 L1380 1510 L1440 1610 L1430 1765 L1210 1765 L1170 1610 Z" />
+  </g>
+</svg>

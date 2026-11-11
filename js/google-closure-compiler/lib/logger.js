@@ -1,1 +1,89 @@
-"use strict";const ESC="",COLOR_END="[0m",COLOR_RED="[91m",COLOR_GREEN="[92m",COLOR_YELLOW="[93m",fs=require("fs");function caretPrefix(r,n){return r.substr(0,n).replace(/[^\t]/g," ")}module.exports=function(r,n=[],e=console.warn){function t(r,t){!t.file&&t.lineNo<0?e(t.type):e(`${t.file}:${t.lineNo} (${t.type})`),e(t.description);const i=function(r){if(!r)return null;const e=n.find(n=>n.path===r);if(e)return e;try{return{path:r,src:fs.readFileSync(r,"utf8")}}catch(r){}return null}(t.file);if(i){const n=i.src.split("\n")[t.lineNo-1]||"";e(r+n+"[0m"),e("[92m"+caretPrefix(n,t.charNo)+"^[0m")}e("")}return r.warnings.forEach(t.bind(null,"[93m")),r.errors.forEach(t.bind(null,"[91m")),r.errors.length>0};
+/*
+ * Copyright 2016 The Closure Compiler Authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * @fileoverview Logger for Closure Compiler JS output.
+ */
+
+'use strict';
+
+const ESC = '\u001B';
+const COLOR_END = ESC + '[0m';
+const COLOR_RED = ESC + '[91m';
+const COLOR_GREEN = ESC + '[92m';
+const COLOR_YELLOW = ESC + '[93m';
+const fs = require('fs');
+
+/**
+ * @param {string} line to generate prefix for
+ * @param {number} charNo to generate prefix at
+ * @return {string} prefix for showing a caret
+ */
+function caretPrefix(line, charNo) {
+  return line.substr(0, charNo).replace(/[^\t]/g, ' ');
+}
+
+
+/**
+ * @param {!Object} output
+ * @param {!Array<{src:string, path:string}>} inputFiles
+ * @param {function(string)} logger
+ * @return {boolean} Whether this output should fail a compilation.
+ */
+module.exports = function(output, inputFiles = [], logger = console.warn) {
+  // TODO(samthor): If this file has a sourceMap, then follow it back out of the rabbit hole.
+  function fileFor(file) {
+    if (!file) {
+      return null;
+    }
+
+    const originalFile = inputFiles.find(inputFile => inputFile.path === file);
+    if (originalFile) {
+      return originalFile;
+    }
+
+    try {
+      return {
+        path: file,
+        src: fs.readFileSync(file, 'utf8')
+      }
+    } catch (e) { }
+    return null;
+  }
+
+  function writemsg(color, msg) {
+    if (!msg.file && msg.lineNo < 0) {
+      logger(msg.type);
+    } else {
+      logger(`${msg.file}:${msg.lineNo} (${msg.type})`)
+    }
+    logger(msg.description);
+
+    const file = fileFor(msg.file);
+    if (file) {
+      const lines = file.src.split('\n');  // TODO(samthor): cache this for logger?
+      const line = lines[msg.lineNo - 1] || '';
+      logger(color + line + COLOR_END);
+      logger(COLOR_GREEN + caretPrefix(line, msg.charNo) + '^' + COLOR_END);
+    }
+    logger('');
+  }
+
+  output.warnings.forEach(writemsg.bind(null, COLOR_YELLOW));
+  output.errors.forEach(writemsg.bind(null, COLOR_RED));
+
+  return output.errors.length > 0;
+};

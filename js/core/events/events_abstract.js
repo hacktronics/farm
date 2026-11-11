@@ -3,4 +3,112 @@
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-"use strict";goog.provide("Blockly.Events.Abstract"),goog.require("Blockly.Events"),goog.requireType("Blockly.Workspace"),Blockly.Events.Abstract=function(){this.isBlank=null,this.workspaceId=void 0,this.group=Blockly.Events.getGroup(),this.recordUndo=Blockly.Events.recordUndo},Blockly.Events.Abstract.prototype.isUiEvent=!1,Blockly.Events.Abstract.prototype.toJson=function(){var t={type:this.type};return this.group&&(t.group=this.group),t},Blockly.Events.Abstract.prototype.fromJson=function(t){this.isBlank=!1,this.group=t.group},Blockly.Events.Abstract.prototype.isNull=function(){return!1},Blockly.Events.Abstract.prototype.run=function(t){},Blockly.Events.Abstract.prototype.getEventWorkspace_=function(){if(this.workspaceId)var t=Blockly.Workspace.getById(this.workspaceId);if(!t)throw Error("Workspace is null. Event must have been generated from real Blockly events.");return t};
+
+/**
+ * @fileoverview Abstract class for events fired as a result of actions in
+ *     Blockly's editor.
+ * @author fraser@google.com (Neil Fraser)
+ */
+'use strict';
+
+goog.provide('Blockly.Events.Abstract');
+
+goog.require('Blockly.Events');
+
+goog.requireType('Blockly.Workspace');
+
+
+/**
+ * Abstract class for an event.
+ * @constructor
+ */
+Blockly.Events.Abstract = function() {
+
+  /**
+   * Whether or not the event is blank (to be populated by fromJson).
+   * @type {?boolean}
+   */
+  this.isBlank = null;
+
+  /**
+   * The workspace identifier for this event.
+   * @type {string|undefined}
+   */
+  this.workspaceId = undefined;
+
+  /**
+   * The event group id for the group this event belongs to. Groups define
+   * events that should be treated as an single action from the user's
+   * perspective, and should be undone together.
+   * @type {string}
+   */
+  this.group = Blockly.Events.getGroup();
+
+  /**
+   * Sets whether the event should be added to the undo stack.
+   * @type {boolean}
+   */
+  this.recordUndo = Blockly.Events.recordUndo;
+};
+
+/**
+ * Whether or not the event is a UI event.
+ * @type {boolean}
+ */
+Blockly.Events.Abstract.prototype.isUiEvent = false;
+
+/**
+ * Encode the event as JSON.
+ * @return {!Object} JSON representation.
+ */
+Blockly.Events.Abstract.prototype.toJson = function() {
+  var json = {
+    'type': this.type
+  };
+  if (this.group) {
+    json['group'] = this.group;
+  }
+  return json;
+};
+
+/**
+ * Decode the JSON event.
+ * @param {!Object} json JSON representation.
+ */
+Blockly.Events.Abstract.prototype.fromJson = function(json) {
+  this.isBlank = false;
+  this.group = json['group'];
+};
+
+/**
+ * Does this event record any change of state?
+ * @return {boolean} True if null, false if something changed.
+ */
+Blockly.Events.Abstract.prototype.isNull = function() {
+  return false;
+};
+
+/**
+ * Run an event.
+ * @param {boolean} _forward True if run forward, false if run backward (undo).
+ */
+Blockly.Events.Abstract.prototype.run = function(_forward) {
+  // Defined by subclasses.
+};
+
+/**
+ * Get workspace the event belongs to.
+ * @return {!Blockly.Workspace} The workspace the event belongs to.
+ * @throws {Error} if workspace is null.
+ * @protected
+ */
+Blockly.Events.Abstract.prototype.getEventWorkspace_ = function() {
+  if (this.workspaceId) {
+    var workspace = Blockly.Workspace.getById(this.workspaceId);
+  }
+  if (!workspace) {
+    throw Error('Workspace is null. Event must have been generated from real' +
+        ' Blockly events.');
+  }
+  return workspace;
+};
