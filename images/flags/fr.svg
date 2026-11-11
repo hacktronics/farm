@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fr" viewBox="0 0 640 480">
+<svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fr" viewBox="0 0 640 480"><metadata id="codeskool-copyright">
+<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<rdf:Description rdf:about="" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xmpRights="http://ns.adobe.com/xap/1.0/rights/">
+<dc:rights><rdf:Alt><rdf:li xml:lang="x-default">Copyright © CodeSkool. All rights reserved.</rdf:li></rdf:Alt></dc:rights>
+<dc:publisher><rdf:Bag><rdf:li>CodeSkool</rdf:li></rdf:Bag></dc:publisher><xmpRights:Marked>True</xmpRights:Marked>
+</rdf:Description></rdf:RDF></x:xmpmeta></metadata>
   <g fill-rule="evenodd" stroke-width="1pt">
     <path fill="#fff" d="M0 0h640v480H0z"/>
     <path fill="#002654" d="M0 0h213.3v480H0z"/>
