@@ -317,7 +317,10 @@ Blockly.utils.dom.getFastTextWidth = function(textElement,
 Blockly.utils.dom.getFastTextWidthWithSizeString = function(textElement,
     fontSize, fontWeight, fontFamily) {
   var text = textElement.textContent;
-  var key = text + '\n' + textElement.className.baseVal;
+  // Multiple renderers can measure identical labels in the same render pass.
+  // Their font metrics must not share a cached width.
+  var key = text + '\n' + textElement.className.baseVal + '\n' +
+      fontSize + '\n' + fontWeight + '\n' + fontFamily;
   var width;
 
   // Return the cached width if it exists.

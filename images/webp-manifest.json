@@ -778,5 +778,45 @@
     "width": 1254,
     "height": 1254,
     "frames": 1
+  },
+  "story-v1/apiary.png": {
+    "sha256": "c011a64a60afb5c4b469967320301e52b6f0c4424c50f84dac4bcc213fabc4c5",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1270154,
+    "webpBytes": 591282,
+    "width": 1655,
+    "height": 950,
+    "frames": 1
+  },
+  "story-v1/delivery.png": {
+    "sha256": "903ac165646209a283a9f6347364c834f93d4f1a4d46fd61347adbfa03e88451",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1882820,
+    "webpBytes": 906276,
+    "width": 1774,
+    "height": 887,
+    "frames": 1
+  },
+  "story-v1/feeding.png": {
+    "sha256": "ef8e1e2ffb89c0d073a711b4c1caf6fd3ff2b1ef2c601a74931b95df1ff839c7",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1591365,
+    "webpBytes": 800976,
+    "width": 1774,
+    "height": 887,
+    "frames": 1
+  },
+  "story-v1/lamb.png": {
+    "sha256": "edc35f77c1537cebe6560a49af16c8941b4bf1a8cf89871a2229a70c857b7d6f",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1193220,
+    "webpBytes": 583984,
+    "width": 1312,
+    "height": 1199,
+    "frames": 1
   }
 }
