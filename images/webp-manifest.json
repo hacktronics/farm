@@ -279,6 +279,56 @@
     "height": 1254,
     "frames": 1
   },
+  "concepts/tasks-v1/digging.png": {
+    "sha256": "ddfc703106dff9876d3a703c14299644e71fce2840cf11eddf83ffb3d497ef39",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 2309382,
+    "webpBytes": 1212754,
+    "width": 1261,
+    "height": 1247,
+    "frames": 1
+  },
+  "concepts/tasks-v1/filling.png": {
+    "sha256": "580288b03e66301e105f569ad2c9475c7bd11b89468a6255be35bd1455ff764c",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1367660,
+    "webpBytes": 1013622,
+    "width": 1261,
+    "height": 1247,
+    "frames": 1
+  },
+  "concepts/tasks-v1/mowing.png": {
+    "sha256": "0a9879ac86712a215a9851fa68a49531b97cc4068f5dec10914bd27f1378a56d",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1447415,
+    "webpBytes": 1031850,
+    "width": 1199,
+    "height": 1312,
+    "frames": 1
+  },
+  "concepts/tasks-v1/planting.png": {
+    "sha256": "bcb72c2deaa5f2e9c8f0d99e63412501feb7611c6c4f31d5fa2c0083870df85c",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1441624,
+    "webpBytes": 984776,
+    "width": 1261,
+    "height": 1247,
+    "frames": 1
+  },
+  "concepts/tasks-v1/watering.png": {
+    "sha256": "a94b7f3c7e4889d575b2386a196e871da05df72c5e38490ba4d757c281d965ae",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 1211602,
+    "webpBytes": 902520,
+    "width": 1261,
+    "height": 1247,
+    "frames": 1
+  },
   "concepts/walk-v1/east.png": {
     "sha256": "910a9903f97026ab2bbd0b75492d7f2fbfdb24026c3148d587a30da233e7bf68",
     "maxSize": null,
@@ -687,6 +737,46 @@
     "webpBytes": 243368,
     "width": 1024,
     "height": 1024,
+    "frames": 1
+  },
+  "season-v1/carrot-ready.png": {
+    "sha256": "5b86abce529587e8e2cee5a531dc276e663c9c2b8ea72d57834fce2fd6d554b1",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 991045,
+    "webpBytes": 655862,
+    "width": 1254,
+    "height": 1254,
+    "frames": 1
+  },
+  "season-v1/cut-lawn.png": {
+    "sha256": "0ea2d5241f99d3699c3a46484fad027a1812f82c1b92a169bf94667742ab5348",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 715504,
+    "webpBytes": 421804,
+    "width": 1254,
+    "height": 1254,
+    "frames": 1
+  },
+  "season-v1/meadow.png": {
+    "sha256": "1ca67fcf54c54fef8e672bfa09761443921041503b42bf673fa391ed8e988b4d",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 626102,
+    "webpBytes": 330810,
+    "width": 1254,
+    "height": 1254,
+    "frames": 1
+  },
+  "season-v1/tall-grass.png": {
+    "sha256": "4e678e9fa22b1f059400471d9d03ad479c1e11461178c33e7feeed5d5adc2021",
+    "maxSize": null,
+    "copyright": "Copyright © CodeSkool. All rights reserved.",
+    "sourceBytes": 750459,
+    "webpBytes": 472266,
+    "width": 1254,
+    "height": 1254,
     "frames": 1
   }
 }

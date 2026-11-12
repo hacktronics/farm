@@ -103,16 +103,17 @@
       goog.require('Blockly.WorkspaceCommentSvg');
       goog.require('Blockly.WorkspaceCommentSvg.render');
     </script>
-    <script type="module" crossorigin src="/assets/index-D9kkp2U0.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-CQlpTBzr.js">
-    <link rel="modulepreload" crossorigin href="/assets/farm-scenery-B3mO9wf_.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-ui-CJ7VwMFB.js">
-    <link rel="modulepreload" crossorigin href="/assets/farm-engine-CQHKiFxt.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-i18n-Chf_Uy-V.js">
+    <script type="module" crossorigin src="/assets/index-C60smYW-.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-CLHtL-4S.js">
+    <link rel="modulepreload" crossorigin href="/assets/farm-scenery-XYq1DCvX.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-ui-Bms7Ao5U.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-parser-BeCRcXaz.js">
+    <link rel="modulepreload" crossorigin href="/assets/farm-engine-BeYf4fUT.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-i18n-D3F4xuVG.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-auth-D5xPhma_.js">
-    <link rel="stylesheet" crossorigin href="/assets/farm-scenery-C--0VuAz.css">
-    <link rel="stylesheet" crossorigin href="/assets/farm-engine-ClgEvWQw.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-CeiCdDbb.css">
+    <link rel="stylesheet" crossorigin href="/assets/farm-scenery-Cfl1l-x5.css">
+    <link rel="stylesheet" crossorigin href="/assets/farm-engine-97Z9-F0T.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-D4TfSU_k.css">
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -131,6 +132,10 @@
         <block type="turn_back"></block>
       </category>
       <category name="Tilling" iconclass="customIcon fa fa-seedling fa-2x">
+        <block type="mow_grass"></block>
+        <block type="sow_flowers"></block>
+        <block type="dig_bed"></block>
+        <block type="plant_seed"></block>
         <block type="remove_stones">
         </block>
         <block type="fill_holes">
@@ -138,6 +143,7 @@
         <block type="water_plant"></block>
       </category>
       <category name="Harvest" iconclass="customIcon fa fa-seedling fa-2x">
+        <block type="harvest_carrots"></block>
         <block type="collect_corn">
           <value name="Corn">
             <shadow type="math_number">
@@ -154,6 +160,7 @@
         </block>
       </category>
       <category name="Control" iconclass="customIcon fa fa-repeat fa-2x">
+        <block type="controls_if"></block>
         <block type="for_loop">
           <value name="Times">
             <shadow type="math_number">
@@ -165,6 +172,11 @@
       <category name="Function" iconclass="customIcon fa fa-puzzle-piece fa-2x">
         <block type="function_define"></block>
         <block type="function_call"></block>
+      </category>
+      <category name="Sensing" iconclass="customIcon fa fa-eye fa-2x">
+        <block type="needs_seed"></block>
+        <block type="grass_ahead"></block>
+        <block type="flower_needs_water"></block>
       </category>
     </xml>
   </body>

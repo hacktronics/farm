@@ -1,0 +1,41 @@
+{
+  "method": "Built-in image generation from the existing farmer reference; original generated PNGs preserved",
+  "reference": "public/images/concepts/rotation-v1/east.png",
+  "layout": {
+    "rows": [
+      "screen lower right",
+      "screen lower left",
+      "screen upper right",
+      "screen upper left"
+    ],
+    "columns": [
+      "prepare",
+      "work",
+      "impact",
+      "recover"
+    ]
+  },
+  "actions": {
+    "digging": {
+      "durationMs": 1100,
+      "poses": "position spade, drive blade, lever soil, lift scoop"
+    },
+    "filling": {
+      "durationMs": 1200,
+      "poses": "scoop, lift loaded shovel, tip soil, lower shovel"
+    },
+    "planting": {
+      "durationMs": 1100,
+      "poses": "hold packet, kneel, sprinkle seeds, pat soil"
+    },
+    "watering": {
+      "durationMs": 1000,
+      "poses": "hold can, raise can, pour, lower can"
+    },
+    "mowing": {
+      "durationMs": 1100,
+      "poses": "prepare scythe, low sweeping cut, follow-through with clippings, return to ready"
+    }
+  },
+  "measurement": "scripts/measure-task-atlases.cjs records cell rectangles and boot anchors without editing the images"
+}

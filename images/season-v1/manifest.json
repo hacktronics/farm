@@ -1,0 +1,23 @@
+{
+  "created": "2026-11-12",
+  "method": "Built-in image generation, with existing soil and tomato tiles as geometry/style references",
+  "assets": [
+    {
+      "file": "meadow.png",
+      "purpose": "Low grass terrain matching the original isometric soil footprint"
+    },
+    {
+      "file": "carrot-ready.png",
+      "purpose": "New mature carrot bed after planting and watering"
+    },
+    {
+      "file": "tall-grass.png",
+      "purpose": "Uncut lawn work state; generated from the existing meadow tile geometry"
+    },
+    {
+      "file": "cut-lawn.png",
+      "purpose": "Freshly mown striped lawn, preserving grass rather than exposing dirt"
+    }
+  ],
+  "preservation": "Generated PNGs are used unchanged. Runtime projection uses the original terrain-tile geometry."
+}
